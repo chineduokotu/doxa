@@ -88,7 +88,10 @@ export function Newsletter() {
               </p>
             </motion.div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex gap-0 max-w-md mx-auto">
+            <form
+              onSubmit={handleSubmit}
+              className="flex w-full max-w-md mx-auto overflow-hidden border border-stone-300 bg-white focus-within:border-gold-500"
+            >
               <input
                 type="email"
                 id="newsletter-email"
@@ -96,12 +99,12 @@ export function Newsletter() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Your email address"
                 required
-                className="flex-1 bg-white border border-stone-300 border-r-0 text-stone-900 text-sm font-sans px-4 py-3.5 placeholder:text-stone-400 focus:outline-none focus:border-gold-500 transition-colors"
+                className="min-w-0 flex-1 bg-white text-stone-900 text-sm font-sans px-4 py-3.5 placeholder:text-stone-400 focus:outline-none"
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-stone-900 hover:bg-stone-700 text-white px-5 py-3.5 flex items-center gap-2 text-[0.65rem] tracking-widest uppercase font-sans transition-colors duration-200 disabled:opacity-60"
+                className="min-h-12 shrink-0 bg-stone-900 hover:bg-stone-700 text-white px-5 py-3.5 inline-flex items-center justify-center gap-2 text-[0.65rem] font-semibold tracking-widest uppercase font-sans transition-colors duration-200 disabled:opacity-60"
               >
                 {loading ? (
                   <span className="w-4 h-4 border border-white/30 border-t-white rounded-full animate-spin" />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -24,6 +24,10 @@ const addressSchema = z.object({
 type AddressForm = z.infer<typeof addressSchema>;
 
 type Step = "address" | "delivery" | "payment";
+
+const subscribe = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
 
 const deliveryOptions = [
   {
@@ -110,11 +114,11 @@ export default function CheckoutPage() {
     }
   };
 
-  const [isHydrated, setIsHydrated] = useState(false);
-
-  useEffect(() => {
-    setIsHydrated(true);
-  }, []);
+  const isHydrated = useSyncExternalStore(
+    subscribe,
+    getClientSnapshot,
+    getServerSnapshot
+  );
 
   useEffect(() => {
     if (isHydrated && items.length === 0 && step !== "payment") {
@@ -219,31 +223,31 @@ export default function CheckoutPage() {
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                    <label className="form-label">
                       First Name
                     </label>
                     <input
                       {...register("firstName")}
-                      className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                      className="form-control"
                       placeholder="Chukwuemeka"
                     />
                     {errors.firstName && (
-                      <p className="text-red-500 text-xs mt-1.5 font-sans">
+                      <p className="field-error">
                         {errors.firstName.message}
                       </p>
                     )}
                   </div>
                   <div>
-                    <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                    <label className="form-label">
                       Last Name
                     </label>
                     <input
                       {...register("lastName")}
-                      className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                      className="form-control"
                       placeholder="Okafor"
                     />
                     {errors.lastName && (
-                      <p className="text-red-500 text-xs mt-1.5 font-sans">
+                      <p className="field-error">
                         {errors.lastName.message}
                       </p>
                     )}
@@ -252,33 +256,33 @@ export default function CheckoutPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                    <label className="form-label">
                       Email Address
                     </label>
                     <input
                       {...register("email")}
                       type="email"
-                      className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                      className="form-control"
                       placeholder="you@example.com"
                     />
                     {errors.email && (
-                      <p className="text-red-500 text-xs mt-1.5 font-sans">
+                      <p className="field-error">
                         {errors.email.message}
                       </p>
                     )}
                   </div>
                   <div>
-                    <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                    <label className="form-label">
                       Phone Number
                     </label>
                     <input
                       {...register("phone")}
                       type="tel"
-                      className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                      className="form-control"
                       placeholder="08012345678"
                     />
                     {errors.phone && (
-                      <p className="text-red-500 text-xs mt-1.5 font-sans">
+                      <p className="field-error">
                         {errors.phone.message}
                       </p>
                     )}
@@ -286,16 +290,16 @@ export default function CheckoutPage() {
                 </div>
 
                 <div>
-                  <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                  <label className="form-label">
                     Delivery Address
                   </label>
                   <input
                     {...register("address")}
-                    className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                    className="form-control"
                     placeholder="15 Uselu-Lagos Rd"
                   />
                   {errors.address && (
-                    <p className="text-red-500 text-xs mt-1.5 font-sans">
+                    <p className="field-error">
                       {errors.address.message}
                     </p>
                   )}
@@ -303,31 +307,31 @@ export default function CheckoutPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                    <label className="form-label">
                       City
                     </label>
                     <input
                       {...register("city")}
-                      className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                      className="form-control"
                       placeholder="Benin City"
                     />
                     {errors.city && (
-                      <p className="text-red-500 text-xs mt-1.5 font-sans">
+                      <p className="field-error">
                         {errors.city.message}
                       </p>
                     )}
                   </div>
                   <div>
-                    <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                    <label className="form-label">
                       State
                     </label>
                     <input
                       {...register("state")}
-                      className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                      className="form-control"
                       placeholder="Edo"
                     />
                     {errors.state && (
-                      <p className="text-red-500 text-xs mt-1.5 font-sans">
+                      <p className="field-error">
                         {errors.state.message}
                       </p>
                     )}
@@ -403,7 +407,7 @@ export default function CheckoutPage() {
                   })}
                 </div>
 
-                <div className="flex gap-4 pt-4 border-t border-stone-100">
+                <div className="flex flex-col gap-3 pt-4 border-t border-stone-100 sm:flex-row sm:gap-4">
                   <Button
                     onClick={() => setStep("address")}
                     variant="outline"
@@ -411,7 +415,7 @@ export default function CheckoutPage() {
                   >
                     Back
                   </Button>
-                  <Button onClick={onDeliveryNext} variant="solid" size="lg" className="px-8">
+                  <Button onClick={onDeliveryNext} variant="solid" size="lg" className="w-full px-8 sm:w-auto">
                     Continue to Payment <ChevronRight size={14} />
                   </Button>
                 </div>
@@ -440,7 +444,7 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
-                <div className="flex gap-4 pt-4">
+                <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:gap-4">
                   <Button
                     onClick={() => setStep("delivery")}
                     variant="outline"
@@ -453,7 +457,7 @@ export default function CheckoutPage() {
                     variant="gold"
                     size="lg"
                     disabled={paying}
-                    className="px-10 py-4"
+                    className="w-full px-10 py-4 sm:w-auto"
                   >
                     {paying ? (
                       <>

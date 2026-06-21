@@ -60,30 +60,27 @@ export function CartDrawer() {
             </div>
 
             {/* Items */}
-            <div className="flex-1 overflow-y-auto py-4">
+            <div className="flex-1 min-h-0 overflow-y-auto py-4">
               {items.length === 0 ? (
                 // Empty state
-                <div className="h-full flex flex-col items-center justify-center px-6 text-center">
+                <div className="min-h-full flex flex-col items-center justify-center px-6 py-12 text-center">
                   <div className="w-16 h-16 bg-stone-100 flex items-center justify-center mb-6">
                     <ShoppingBag size={24} className="text-stone-400" />
                   </div>
                   <p className="font-serif text-xl text-stone-900 font-light mb-2">
                     Your bag is empty
                   </p>
-                  <p className="text-stone-400 text-sm font-sans mb-8">
+                  <p className="text-stone-400 text-sm font-sans mb-8 max-w-xs leading-relaxed">
                     Discover our premium collection and fill it with beautiful
                     pieces.
                   </p>
-                  <Button
+                  <Link
+                    href="/shop"
                     onClick={closeCart}
-                    variant="solid"
-                    size="md"
-                    className="w-full"
+                    className="w-full max-w-xs inline-flex items-center justify-center gap-2 bg-stone-900 text-stone-50 hover:bg-stone-700 px-6 py-3 text-xs font-sans font-medium tracking-widest uppercase transition-colors"
                   >
-                    <Link href="/shop" className="flex items-center gap-2">
-                      Shop Now <ArrowRight size={13} />
-                    </Link>
-                  </Button>
+                    Shop Now <ArrowRight size={13} />
+                  </Link>
                 </div>
               ) : (
                 <ul className="divide-y divide-stone-50">

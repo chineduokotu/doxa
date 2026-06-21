@@ -37,7 +37,7 @@ export function CookieBanner() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed bottom-6 right-6 z-50 max-w-sm w-[calc(100vw-3rem)] bg-stone-900 text-stone-100 shadow-2xl"
+          className="fixed bottom-4 left-4 right-4 z-40 border border-white/10 bg-stone-900 text-stone-100 shadow-2xl sm:left-auto sm:bottom-6 sm:right-6 sm:w-[360px]"
           role="dialog"
           aria-label="Cookie consent"
         >
@@ -58,12 +58,12 @@ export function CookieBanner() {
               By continuing to browse Doxa Home, you consent to our use of
               cookies for analytics and personalisation.
             </p>
-            <div className="flex gap-3">
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3">
               <Button
                 onClick={handleAccept}
                 variant="gold"
                 size="sm"
-                className="flex-1"
+                fullWidth
               >
                 Accept
               </Button>
@@ -71,7 +71,8 @@ export function CookieBanner() {
                 onClick={handleDismiss}
                 variant="outline"
                 size="sm"
-                className="flex-1 border-stone-600 text-stone-300 hover:bg-stone-700 hover:text-white"
+                fullWidth
+                className="border-stone-600 text-stone-300 hover:bg-stone-700 hover:text-white"
               >
                 Decline
               </Button>

@@ -25,12 +25,12 @@ const paymentMethods = ["Paystack", "Bank Transfer", "Visa", "Mastercard"];
 
 export function Footer() {
   return (
-    <footer className="bg-stone-950 text-stone-300 pt-16 pb-8">
+    <footer className="bg-stone-950 text-stone-300 pt-16 pb-8 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         {/* Top row */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 pb-12 border-b border-stone-800">
           {/* Brand */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 min-w-0">
             <Link
               href="/"
               className="font-serif text-3xl text-white tracking-widest"
@@ -42,7 +42,7 @@ export function Footer() {
               Every piece is chosen for its craft, longevity and beauty.
             </p>
             {/* Contact info */}
-            <div className="mt-6 space-y-2">
+            <div className="mt-6 space-y-2 max-w-sm">
               <div className="flex items-start gap-2 text-stone-400 text-xs font-sans">
                 <MapPin size={13} className="mt-0.5 shrink-0 text-gold-500" />
                 <span>Airport Road, Benin City, Edo State, Nigeria</span>
@@ -91,7 +91,7 @@ export function Footer() {
 
           {/* Nav columns */}
           {Object.entries(footerLinks).map(([section, links]) => (
-            <div key={section}>
+            <div key={section} className="min-w-0">
               <p className="text-[0.65rem] tracking-widest uppercase font-sans text-gold-500 mb-5">
                 {section}
               </p>
@@ -113,7 +113,7 @@ export function Footer() {
 
         {/* Newsletter */}
         <div className="py-10 border-b border-stone-800">
-          <div className="max-w-md">
+          <div className="max-w-md min-w-0">
             <p className="font-serif text-xl text-white font-light mb-2">
               Join the Doxa Circle
             </p>
@@ -121,15 +121,15 @@ export function Footer() {
               New arrivals, exclusive previews and styling inspiration — direct
               to your inbox.
             </p>
-            <form className="flex gap-0">
+            <form className="flex w-full overflow-hidden border border-stone-700 bg-stone-900 focus-within:border-gold-500">
               <input
                 type="email"
                 placeholder="Your email address"
-                className="flex-1 bg-stone-900 border border-stone-700 border-r-0 text-stone-200 text-sm font-sans px-4 py-3 placeholder:text-stone-600 focus:outline-none focus:border-gold-500 transition-colors"
+                className="min-w-0 flex-1 bg-stone-900 text-stone-200 text-sm font-sans px-4 py-3 placeholder:text-stone-600 focus:outline-none"
               />
               <button
                 type="submit"
-                className="bg-gold-500 hover:bg-gold-600 text-white text-[0.65rem] tracking-widest uppercase font-sans px-5 py-3 transition-colors"
+                className="min-h-11 shrink-0 bg-gold-500 hover:bg-gold-600 text-white text-[0.65rem] font-semibold tracking-widest uppercase font-sans px-4 sm:px-5 py-3 transition-colors"
               >
                 Subscribe
               </button>
@@ -142,7 +142,7 @@ export function Footer() {
           <p className="text-stone-600 text-xs font-sans">
             © {new Date().getFullYear()} Doxa Home. All rights reserved.
           </p>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <span className="text-stone-600 text-[0.6rem] font-sans tracking-widest uppercase mr-2">
               We Accept
             </span>

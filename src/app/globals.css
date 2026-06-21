@@ -98,6 +98,74 @@ body {
   animation: kenBurns 8s ease-out forwards;
 }
 
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.animate-duration-500 {
+  animation-duration: 500ms;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #57534e;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.form-control {
+  width: 100%;
+  min-width: 0;
+  min-height: 3rem;
+  border: 1px solid #d6d3d1;
+  border-radius: 2px;
+  background: rgba(250, 248, 245, 0.72);
+  color: #1c1917;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding: 0.75rem 1rem;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.form-control::placeholder {
+  color: #a8a29e;
+}
+
+.form-control:hover {
+  border-color: #a8a29e;
+  background: #fff;
+}
+
+.form-control:focus {
+  border-color: #b8922a;
+  background: #fff;
+  box-shadow: 0 0 0 1px #b8922a;
+  outline: none;
+}
+
+textarea.form-control {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.field-error {
+  margin-top: 0.375rem;
+  color: #ef4444;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.25;
+}
+
 @keyframes kenBurns {
   0% { transform: scale(1.0); }
   100% { transform: scale(1.08); }

@@ -197,78 +197,78 @@ export default function ContactPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                    <label className="form-label">
                       Name
                     </label>
                     <input
                       {...register("name")}
-                      className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                      className="form-control"
                       placeholder="Your name"
                     />
                     {errors.name && (
-                      <p className="text-red-500 text-xs mt-1.5 font-sans">
+                      <p className="field-error">
                         {errors.name.message}
                       </p>
                     )}
                   </div>
                   <div>
-                    <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                    <label className="form-label">
                       Phone (optional)
                     </label>
                     <input
                       {...register("phone")}
                       type="tel"
-                      className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                      className="form-control"
                       placeholder="080..."
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                  <label className="form-label">
                     Email Address
                   </label>
                   <input
                     {...register("email")}
                     type="email"
-                    className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                    className="form-control"
                     placeholder="you@example.com"
                   />
                   {errors.email && (
-                    <p className="text-red-500 text-xs mt-1.5 font-sans">
+                    <p className="field-error">
                       {errors.email.message}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                  <label className="form-label">
                     Subject
                   </label>
                   <input
                     {...register("subject")}
-                    className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                    className="form-control"
                     placeholder="Product enquiry, custom order..."
                   />
                   {errors.subject && (
-                    <p className="text-red-500 text-xs mt-1.5 font-sans">
+                    <p className="field-error">
                       {errors.subject.message}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                  <label className="form-label">
                     Message
                   </label>
                   <textarea
                     {...register("message")}
                     rows={5}
-                    className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300 resize-none"
+                    className="form-control"
                     placeholder="Tell us what you're looking for..."
                   />
                   {errors.message && (
-                    <p className="text-red-500 text-xs mt-1.5 font-sans">
+                    <p className="field-error">
                       {errors.message.message}
                     </p>
                   )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useMemo, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Search } from "lucide-react";
@@ -10,11 +10,7 @@ import { ProductCard } from "@/components/product/ProductCard";
 function SearchResults() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
-  const [results, setResults] = useState(searchProducts(query));
-
-  useEffect(() => {
-    setResults(searchProducts(query));
-  }, [query]);
+  const results = useMemo(() => searchProducts(query), [query]);
 
   return (
     <div>
@@ -63,28 +59,32 @@ export default function SearchPage() {
   };
 
   return (
-    <div className="min-h-screen bg-ivory pt-28 lg:pt-36 pb-20">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="mb-12">
-          <p className="text-gold-500 text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-3">
+    <div className="min-h-screen bg-ivory pt-24 sm:pt-28 lg:pt-36 pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="mb-8 sm:mb-12">
+          <p className="text-gold-500 text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2 sm:mb-3">
             Search
           </p>
-          <h1 className="font-serif text-4xl lg:text-5xl text-stone-900 font-light mb-8">
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-stone-900 font-light leading-tight mb-5 sm:mb-8">
             Find Your Piece
           </h1>
 
           {/* Search bar */}
-          <form onSubmit={handleSearch} className="flex gap-0 max-w-lg">
+          <form
+            onSubmit={handleSearch}
+            className="flex w-full max-w-lg overflow-hidden border border-stone-300 bg-white focus-within:border-stone-900"
+          >
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search sofas, dining tables, marble..."
-              className="flex-1 border border-stone-300 border-r-0 px-5 py-4 text-sm font-sans text-stone-900 focus:outline-none focus:border-stone-900 bg-white transition-colors"
+              className="min-w-0 flex-1 px-4 py-3.5 text-sm font-sans text-stone-900 placeholder:text-stone-400 focus:outline-none"
             />
             <button
               type="submit"
-              className="bg-stone-900 hover:bg-stone-700 text-white px-5 flex items-center justify-center transition-colors"
+              className="min-h-12 shrink-0 bg-stone-900 hover:bg-stone-700 text-white px-5 flex items-center justify-center transition-colors"
+              aria-label="Search"
             >
               <Search size={18} />
             </button>
