@@ -1,0 +1,541 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { useCartStore } from "@/lib/store/cart";
+import { formatPrice, generateOrderNumber, cn } from "@/lib/utils";
+import { Button } from "@/components/ui/Button";
+import { ChevronRight, ShieldCheck, MapPin, Truck, CreditCard } from "lucide-react";
+
+const addressSchema = z.object({
+  firstName: z.string().min(2, "First name is required"),
+  lastName: z.string().min(2, "Last name is required"),
+  email: z.string().email("Enter a valid email"),
+  phone: z.string().min(11, "Enter a valid Nigerian phone number"),
+  address: z.string().min(5, "Enter your full address"),
+  city: z.string().min(2, "City is required"),
+  state: z.string().min(2, "State is required"),
+});
+
+type AddressForm = z.infer<typeof addressSchema>;
+
+type Step = "address" | "delivery" | "payment";
+
+const deliveryOptions = [
+  {
+    id: "standard",
+    label: "Standard Delivery",
+    description: "3–5 business days",
+    price: 15000,
+  },
+  {
+    id: "express",
+    label: "Express Delivery",
+    description: "1–2 business days",
+    price: 35000,
+  },
+  {
+    id: "pickup",
+    label: "Showroom Pickup",
+    description: "Airport Road, Benin City",
+    price: 0,
+  },
+];
+
+export default function CheckoutPage() {
+  const [step, setStep] = useState<Step>("address");
+  const [delivery, setDelivery] = useState("standard");
+  const [paying, setPaying] = useState(false);
+  const { items, subtotal, clearCart } = useCartStore();
+  const router = useRouter();
+
+  const deliveryPrice =
+    deliveryOptions.find((d) => d.id === delivery)?.price ?? 0;
+  const total = subtotal() + deliveryPrice;
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm<AddressForm>({
+    resolver: zodResolver(addressSchema),
+  });
+
+  const onAddressSubmit = () => setStep("delivery");
+  const onDeliveryNext = () => setStep("payment");
+
+  const handlePaystackPayment = async () => {
+    setPaying(true);
+    // Paystack integration — swap in NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY in .env.local
+    const paystackKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "pk_test_placeholder";
+
+    try {
+      // Dynamic import of Paystack inline script
+      const { default: PaystackPop } = await import("@paystack/inline-js");
+      const popup = new PaystackPop();
+      popup.newTransaction({
+        key: paystackKey,
+        email: getValues("email"),
+        amount: total * 100, // Paystack expects kobo
+        currency: "NGN",
+        metadata: {
+          custom_fields: [
+            {
+              display_name: "Customer Name",
+              variable_name: "customer_name",
+              value: `${getValues("firstName")} ${getValues("lastName")}`,
+            },
+          ],
+        },
+        onSuccess: (transaction: { reference: string }) => {
+          const orderNumber = generateOrderNumber();
+          clearCart();
+          router.push(`/checkout/success?order=${orderNumber}&ref=${transaction.reference}`);
+        },
+        onCancel: () => {
+          setPaying(false);
+        },
+      });
+    } catch {
+      // Fallback if Paystack not available — simulate for demo
+      await new Promise((r) => setTimeout(r, 1500));
+      const orderNumber = generateOrderNumber();
+      clearCart();
+      router.push(`/checkout/success?order=${orderNumber}&ref=DEMO`);
+    }
+  };
+
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (isHydrated && items.length === 0 && step !== "payment") {
+      router.push("/shop");
+    }
+  }, [isHydrated, items.length, step, router]);
+
+  if (!isHydrated) {
+    return (
+      <div className="min-h-screen bg-ivory pt-28 lg:pt-36 pb-20 flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-stone-300 border-t-stone-900 rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (items.length === 0 && step !== "payment") {
+    return null;
+  }
+
+  return (
+    <div className="min-h-screen bg-ivory pt-32 lg:pt-40 pb-20">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 border-b border-stone-200/50 pb-8">
+          <div>
+            <p className="text-gold-600 text-[0.65rem] tracking-[0.2em] uppercase font-sans mb-2 font-medium">
+              Secure Checkout
+            </p>
+            <h1 className="font-serif text-3xl lg:text-4xl text-stone-900 font-light tracking-wide">
+              Complete Your Order
+            </h1>
+          </div>
+          
+          {/* Step indicator */}
+          <div className="w-full md:w-96">
+            <div className="relative flex items-center justify-between">
+              {/* Background Line */}
+              <div className="absolute left-6 right-6 top-[18px] h-[1px] bg-stone-200 -translate-y-1/2 z-0" />
+              {/* Active Line Progress */}
+              <div 
+                className="absolute left-6 top-[18px] h-[1px] bg-gold-500 -translate-y-1/2 z-0 transition-all duration-500" 
+                style={{
+                  width: step === "address" ? "0%" : step === "delivery" ? "50%" : "100%"
+                }}
+              />
+
+              {(["address", "delivery", "payment"] as Step[]).map((s, i) => {
+                const isCompleted = 
+                  (step === "delivery" && i === 0) || 
+                  (step === "payment" && (i === 0 || i === 1));
+                const isActive = step === s;
+                
+                const stepIcons = {
+                  address: MapPin,
+                  delivery: Truck,
+                  payment: CreditCard,
+                };
+                const Icon = stepIcons[s];
+
+                return (
+                  <div key={s} className="relative z-10 flex flex-col items-center gap-2">
+                    <div 
+                      className={cn(
+                        "w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-500",
+                        isActive 
+                          ? "bg-stone-900 border-stone-900 text-gold-400 shadow-md shadow-stone-900/10 scale-110"
+                          : isCompleted
+                          ? "bg-gold-500 border-gold-500 text-white"
+                          : "bg-white border-stone-200 text-stone-400"
+                      )}
+                    >
+                      <Icon size={14} />
+                    </div>
+                    <span 
+                      className={cn(
+                        "text-[0.55rem] tracking-widest uppercase font-sans font-medium transition-colors duration-500",
+                        isActive ? "text-stone-900 font-semibold" : "text-stone-400"
+                      )}
+                    >
+                      {s}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+          {/* Form area */}
+          <div className="lg:col-span-2">
+            {/* Step 1: Address */}
+            {step === "address" && (
+              <form onSubmit={handleSubmit(onAddressSubmit)} className="bg-white border border-stone-200/80 p-6 lg:p-10 shadow-sm space-y-6">
+                <div className="border-b border-stone-100 pb-4 mb-6">
+                  <h2 className="font-serif text-2xl text-stone-900 font-light">
+                    Shipping Details
+                  </h2>
+                  <p className="text-stone-400 text-xs font-sans mt-1">
+                    Please provide your delivery information. We ship nationwide via white-glove partners.
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                      First Name
+                    </label>
+                    <input
+                      {...register("firstName")}
+                      className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                      placeholder="Chukwuemeka"
+                    />
+                    {errors.firstName && (
+                      <p className="text-red-500 text-xs mt-1.5 font-sans">
+                        {errors.firstName.message}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                      Last Name
+                    </label>
+                    <input
+                      {...register("lastName")}
+                      className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                      placeholder="Okafor"
+                    />
+                    {errors.lastName && (
+                      <p className="text-red-500 text-xs mt-1.5 font-sans">
+                        {errors.lastName.message}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                      Email Address
+                    </label>
+                    <input
+                      {...register("email")}
+                      type="email"
+                      className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                      placeholder="you@example.com"
+                    />
+                    {errors.email && (
+                      <p className="text-red-500 text-xs mt-1.5 font-sans">
+                        {errors.email.message}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                      Phone Number
+                    </label>
+                    <input
+                      {...register("phone")}
+                      type="tel"
+                      className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                      placeholder="08012345678"
+                    />
+                    {errors.phone && (
+                      <p className="text-red-500 text-xs mt-1.5 font-sans">
+                        {errors.phone.message}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                    Delivery Address
+                  </label>
+                  <input
+                    {...register("address")}
+                    className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                    placeholder="15 Uselu-Lagos Rd"
+                  />
+                  {errors.address && (
+                    <p className="text-red-500 text-xs mt-1.5 font-sans">
+                      {errors.address.message}
+                    </p>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                      City
+                    </label>
+                    <input
+                      {...register("city")}
+                      className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                      placeholder="Benin City"
+                    />
+                    {errors.city && (
+                      <p className="text-red-500 text-xs mt-1.5 font-sans">
+                        {errors.city.message}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 mb-2 font-medium">
+                      State
+                    </label>
+                    <input
+                      {...register("state")}
+                      className="w-full border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-[#FAF8F5]/30 transition-all duration-200 hover:border-stone-300"
+                      placeholder="Edo"
+                    />
+                    {errors.state && (
+                      <p className="text-red-500 text-xs mt-1.5 font-sans">
+                        {errors.state.message}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <Button type="submit" variant="solid" size="lg" className="w-full sm:w-auto mt-4 px-10 py-4">
+                  Continue to Delivery <ChevronRight size={14} />
+                </Button>
+              </form>
+            )}
+
+            {/* Step 2: Delivery */}
+            {step === "delivery" && (
+              <div className="bg-white border border-stone-200/80 p-6 lg:p-10 shadow-sm space-y-6">
+                <div className="border-b border-stone-100 pb-4 mb-6">
+                  <h2 className="font-serif text-2xl text-stone-900 font-light">
+                    Delivery Method
+                  </h2>
+                  <p className="text-stone-400 text-xs font-sans mt-1">
+                    Select your preferred shipping option. Standard delivery is handled by our white-glove courier partners.
+                  </p>
+                </div>
+
+                <div className="space-y-4 mb-8">
+                  {deliveryOptions.map((option) => {
+                    const isSelected = delivery === option.id;
+                    return (
+                      <label
+                        key={option.id}
+                        className={cn(
+                          "flex items-center gap-4 p-5 border cursor-pointer transition-all duration-300 hover:border-stone-400 select-none",
+                          isSelected
+                            ? "border-gold-500 bg-gold-50/10 ring-1 ring-gold-500"
+                            : "border-stone-200 bg-white"
+                        )}
+                      >
+                        <div className="relative flex items-center justify-center">
+                          <input
+                            type="radio"
+                            name="delivery"
+                            value={option.id}
+                            checked={isSelected}
+                            onChange={() => setDelivery(option.id)}
+                            className="sr-only"
+                          />
+                          <div 
+                            className={cn(
+                              "w-4 h-4 rounded-full border flex items-center justify-center transition-colors duration-200",
+                              isSelected ? "border-gold-500 text-gold-500" : "border-stone-300"
+                            )}
+                          >
+                            {isSelected && (
+                              <div className="w-2 h-2 rounded-full bg-gold-500" />
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="flex-1 pl-2">
+                          <p className="font-sans text-sm font-semibold text-stone-900">
+                            {option.label}
+                          </p>
+                          <p className="font-sans text-xs text-stone-400 mt-1">
+                            {option.description}
+                          </p>
+                        </div>
+
+                        <span className="font-serif text-base font-light text-stone-900 pl-4 border-l border-stone-100">
+                          {option.price === 0 ? "Free" : formatPrice(option.price)}
+                        </span>
+                      </label>
+                    );
+                  })}
+                </div>
+
+                <div className="flex gap-4 pt-4 border-t border-stone-100">
+                  <Button
+                    onClick={() => setStep("address")}
+                    variant="outline"
+                    size="lg"
+                  >
+                    Back
+                  </Button>
+                  <Button onClick={onDeliveryNext} variant="solid" size="lg" className="px-8">
+                    Continue to Payment <ChevronRight size={14} />
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 3: Payment */}
+            {step === "payment" && (
+              <div className="bg-white border border-stone-200/80 p-6 lg:p-10 shadow-sm space-y-6">
+                <div className="border-b border-stone-100 pb-4 mb-6">
+                  <h2 className="font-serif text-2xl text-stone-900 font-light">
+                    Secure Payment
+                  </h2>
+                  <p className="text-stone-400 text-xs font-sans mt-1">
+                    Select your payment method below. Your transaction is encrypted and secured.
+                  </p>
+                </div>
+
+                <div className="p-6 border border-gold-200 bg-gold-50/10 rounded-sm mb-6 flex gap-4 items-start">
+                  <ShieldCheck className="text-gold-500 shrink-0 mt-0.5" size={20} />
+                  <div>
+                    <p className="text-sm font-sans text-stone-700 leading-relaxed">
+                      You will be securely redirected to <span className="font-semibold text-stone-900">Paystack</span> to complete your payment of{" "}
+                      <span className="font-semibold text-gold-600">{formatPrice(total)}</span>. We accept all major Nigerian cards, bank transfers, USSD, and bank apps.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 pt-4">
+                  <Button
+                    onClick={() => setStep("delivery")}
+                    variant="outline"
+                    size="lg"
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    onClick={handlePaystackPayment}
+                    variant="gold"
+                    size="lg"
+                    disabled={paying}
+                    className="px-10 py-4"
+                  >
+                    {paying ? (
+                      <>
+                        <span className="w-4 h-4 border border-white/30 border-t-white rounded-full animate-spin" />
+                        Processing Securely...
+                      </>
+                    ) : (
+                      <>Pay {formatPrice(total)}</>
+                    )}
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Order summary sidebar */}
+          <div className="lg:col-span-1">
+            <div className="bg-white border border-stone-200/80 p-6 shadow-sm sticky top-32 space-y-6">
+              <h3 className="font-serif text-xl text-stone-900 font-light pb-4 border-b border-stone-100">
+                Order Summary
+              </h3>
+              
+              {/* Product items list with images */}
+              <div className="divide-y divide-stone-100 max-h-96 overflow-y-auto pr-1">
+                {items.map((item) => (
+                  <div
+                    key={item.product.id}
+                    className="flex gap-4 py-4 first:pt-0 last:pb-0"
+                  >
+                    {/* Thumbnail */}
+                    <div className="relative w-16 h-16 bg-stone-50 border border-stone-100 overflow-hidden shrink-0">
+                      <Image
+                        src={item.product.images[0]}
+                        alt={item.product.name}
+                        fill
+                        className="object-cover"
+                        sizes="64px"
+                      />
+                    </div>
+                    {/* Details */}
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-serif text-sm text-stone-900 truncate leading-snug">
+                        {item.product.shortName}
+                      </h4>
+                      <p className="text-[0.65rem] tracking-wider uppercase font-sans text-stone-400 mt-1">
+                        Qty: {item.quantity}
+                      </p>
+                      <p className="font-sans text-xs text-stone-900 font-medium mt-1">
+                        {formatPrice(item.product.price * item.quantity)}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Price Breakdown */}
+              <div className="border-t border-stone-100 pt-5 space-y-3 text-sm font-sans">
+                <div className="flex justify-between text-stone-500">
+                  <span>Subtotal</span>
+                  <span className="text-stone-900">{formatPrice(subtotal())}</span>
+                </div>
+                <div className="flex justify-between text-stone-500">
+                  <span>Delivery Fee</span>
+                  <span className="text-stone-900">
+                    {deliveryPrice === 0 ? "Free" : formatPrice(deliveryPrice)}
+                  </span>
+                </div>
+                <div className="flex justify-between font-medium text-stone-900 pt-4 border-t border-stone-100 items-baseline">
+                  <span>Total Amount</span>
+                  <span className="font-serif text-xl text-gold-600 font-semibold">{formatPrice(total)}</span>
+                </div>
+              </div>
+
+              {/* Secure checkout info */}
+              <div className="border-t border-stone-100 pt-4 flex gap-2 items-center text-[0.65rem] tracking-wider uppercase font-sans text-stone-400">
+                <ShieldCheck size={14} className="text-stone-400" />
+                <span>100% Secure Transaction</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

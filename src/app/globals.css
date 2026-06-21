@@ -1,0 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap");
+
+@import "tailwindcss";
+
+@source "../app/**/*.{ts,tsx,js,jsx}";
+@source "../components/**/*.{ts,tsx,js,jsx}";
+@source "../lib/**/*.{ts,tsx,js,jsx}";
+
+/* Tailwind v4 theme customisation via @theme */
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --color-gold-50: #fdf8ec;
+  --color-gold-100: #f9eed0;
+  --color-gold-200: #f3da9e;
+  --color-gold-300: #ecc265;
+  --color-gold-400: #e5a93a;
+  --color-gold-500: #b8922a;
+  --color-gold-600: #9b7520;
+  --color-gold-700: #7c5b1a;
+  --color-gold-800: #654918;
+  --color-gold-900: #543d18;
+
+  --color-ivory: #f9f6f0;
+  --color-sand: #e8dcc8;
+  --color-charcoal: #1a1a18;
+
+  --ease-luxury: cubic-bezier(0.25, 0.1, 0.25, 1.0);
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* CSS custom props used by Tailwind and inline styles */
+:root {
+  --font-cormorant: "Cormorant Garamond", Georgia, serif;
+  --font-inter: "Inter", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #f9f6f0;
+  color: #1a1a18;
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f5f5f4;
+}
+::-webkit-scrollbar-thumb {
+  background: #a8a29e;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #78716c;
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(184, 146, 42, 0.2);
+  color: #1a1a18;
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid #b8922a;
+  outline-offset: 2px;
+}
+
+/* Shimmer animation for skeleton */
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    #e7e5e4 25%,
+    #f5f5f4 50%,
+    #e7e5e4 75%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+/* Ken Burns for hero — applied as CSS class */
+.ken-burns-active {
+  animation: kenBurns 8s ease-out forwards;
+}
+
+@keyframes kenBurns {
+  0% { transform: scale(1.0); }
+  100% { transform: scale(1.08); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+/* Image hover zoom wrapper */
+.img-zoom-wrap {
+  overflow: hidden;
+}
+.img-zoom-wrap img {
+  transition: transform 500ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.img-zoom-wrap:hover img {
+  transform: scale(1.05);
+}
+
+/* Elegant underline nav links */
+.nav-link {
+  position: relative;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #b8922a;
+  transition: width 300ms ease;
+}
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Ease utilities — used via Tailwind class */
+.ease-luxury {
+  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
