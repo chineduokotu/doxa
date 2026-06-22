@@ -133,7 +133,7 @@ export function Header() {
                 solidBg ? "text-neutral-500 hover:text-[#0c0c0c]" : "text-white/50 hover:text-white"
               )}
             >
-              <Search size={17} strokeWidth={1.5} />
+              <Search size={22} strokeWidth={1.5} />
             </Link>
 
             <Link
@@ -144,9 +144,9 @@ export function Header() {
                 solidBg ? "text-neutral-500 hover:text-[#0c0c0c]" : "text-white/50 hover:text-white"
               )}
             >
-              <Heart size={17} strokeWidth={1.5} />
+              <Heart size={22} strokeWidth={1.5} />
               {mounted && wishlistCount > 0 && (
-                <span className="absolute top-2 right-2 w-[14px] h-[14px] rounded-full bg-[#ecb881] text-[#0c0c0c] text-[9px] flex items-center justify-center font-sans font-semibold leading-none">
+                <span className="absolute top-1.5 right-1.5 w-[14px] h-[14px] rounded-full bg-[#ecb881] text-[#0c0c0c] text-[9px] flex items-center justify-center font-sans font-semibold leading-none">
                   {wishlistCount}
                 </span>
               )}
@@ -160,9 +160,9 @@ export function Header() {
                 solidBg ? "text-neutral-500 hover:text-[#0c0c0c]" : "text-white/50 hover:text-white"
               )}
             >
-              <ShoppingBag size={17} strokeWidth={1.5} />
+              <ShoppingBag size={22} strokeWidth={1.5} />
               {mounted && itemCount > 0 && (
-                <span className="absolute top-2 right-2 w-[14px] h-[14px] rounded-full bg-[#dc320c] text-white text-[9px] flex items-center justify-center font-sans font-semibold leading-none">
+                <span className="absolute top-1.5 right-1.5 w-[14px] h-[14px] rounded-full bg-[#dc320c] text-white text-[9px] flex items-center justify-center font-sans font-semibold leading-none">
                   {itemCount > 9 ? "9+" : itemCount}
                 </span>
               )}
@@ -177,7 +177,7 @@ export function Header() {
                 solidBg ? "text-[#0c0c0c] hover:text-[#0c0c0c]" : "text-white/50 hover:text-white"
               )}
             >
-              <Menu size={20} strokeWidth={1.5} />
+              <Menu size={24} strokeWidth={1.5} />
             </button>
           </div>
         </div>

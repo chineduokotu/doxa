@@ -116,13 +116,13 @@ export function Hero() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.22, duration: 0.5 }}
-                className="font-sans text-[10px] text-[#ecb881] tracking-[0.28em] uppercase mb-6"
+                className="font-sans text-[10px] text-[#ecb881] tracking-[0.28em] uppercase mb-6 font-bold"
               >
                 Doxa Home — {slide.eyebrow}
               </motion.p>
 
               {/* Headline */}
-              <h1 className="display-xl text-white mb-6 whitespace-pre-line">
+              <h1 className="display-xl text-white mb-6 whitespace-pre-line font-bold">
                 {slide.headline}
               </h1>
 
@@ -131,7 +131,7 @@ export function Hero() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.38, duration: 0.5 }}
-                className="font-sans text-white/60 text-[0.9rem] font-light mb-10 max-w-[440px] leading-[1.8]"
+                className="font-sans text-white/80 text-[0.95rem] font-medium mb-10 max-w-[440px] leading-[1.8]"
               >
                 {slide.subline}
               </motion.p>
@@ -210,3 +210,4 @@ export function Hero() {
     </section>
   );
 }
+
