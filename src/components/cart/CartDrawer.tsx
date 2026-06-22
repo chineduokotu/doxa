@@ -9,43 +9,40 @@ import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 
 export function CartDrawer() {
-  const { isOpen, closeCart, items, removeItem, updateQuantity, subtotal } =
-    useCartStore();
+  const { isOpen, closeCart, items, removeItem, updateQuantity, subtotal } = useCartStore();
   const total = subtotal();
 
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* ── Backdrop ────────────────────────────────── */}
           <motion.div
             key="cart-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.28 }}
             onClick={closeCart}
-            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[3px]"
           />
 
-          {/* Drawer */}
+          {/* ── Drawer panel ────────────────────────────── */}
           <motion.div
             key="cart-drawer"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[420px] bg-white flex flex-col shadow-2xl"
+            className="fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[400px] bg-white flex flex-col shadow-2xl"
           >
-            {/* Header */}
-            <div className="flex items-center justify-between px-6 py-5 border-b border-stone-100">
-              <div className="flex items-center gap-2">
-                <ShoppingBag size={18} className="text-stone-700" />
-                <span className="font-serif text-lg text-stone-900 font-light">
-                  Your Bag
-                </span>
+            {/* ── Header ───────────────────────────────── */}
+            <div className="flex items-center justify-between px-6 py-5 border-b border-[#e5e5e5]">
+              <div className="flex items-center gap-2.5">
+                <ShoppingBag size={16} strokeWidth={1.5} className="text-[#555555]" />
+                <span className="font-serif text-[1.05rem] text-[#0c0c0c] font-light">Your Bag</span>
                 {items.length > 0 && (
-                  <span className="text-xs text-stone-400 font-sans ml-1">
+                  <span className="font-sans text-[11px] text-[#888888] ml-0.5">
                     ({items.length} {items.length === 1 ? "item" : "items"})
                   </span>
                 )}
@@ -53,108 +50,94 @@ export function CartDrawer() {
               <button
                 onClick={closeCart}
                 aria-label="Close cart"
-                className="text-stone-400 hover:text-stone-900 transition-colors p-1"
+                className="w-8 h-8 flex items-center justify-center text-[#888888] hover:text-[#0c0c0c] transition-colors"
               >
-                <X size={20} />
+                <X size={18} strokeWidth={1.5} />
               </button>
             </div>
 
-            {/* Items */}
-            <div className="flex-1 min-h-0 overflow-y-auto py-4">
+            {/* ── Items list ───────────────────────────── */}
+            <div className="flex-1 min-h-0 overflow-y-auto">
               {items.length === 0 ? (
-                // Empty state
-                <div className="min-h-full flex flex-col items-center justify-center px-6 py-12 text-center">
-                  <div className="w-16 h-16 bg-stone-100 flex items-center justify-center mb-6">
-                    <ShoppingBag size={24} className="text-stone-400" />
+                /* Empty state */
+                <div className="h-full flex flex-col items-center justify-center px-6 py-12 text-center">
+                  <div className="w-14 h-14 bg-[#f9f9f9] flex items-center justify-center mb-6">
+                    <ShoppingBag size={20} strokeWidth={1.5} className="text-[#888888]" />
                   </div>
-                  <p className="font-serif text-xl text-stone-900 font-light mb-2">
+                  <p className="font-serif text-[1.15rem] text-[#0c0c0c] font-light mb-2">
                     Your bag is empty
                   </p>
-                  <p className="text-stone-400 text-sm font-sans mb-8 max-w-xs leading-relaxed">
-                    Discover our premium collection and fill it with beautiful
-                    pieces.
+                  <p className="font-sans text-[13px] text-[#888888] mb-8 max-w-[240px] leading-relaxed">
+                    Discover our premium collection and fill it with beautiful pieces.
                   </p>
                   <Link
                     href="/shop"
                     onClick={closeCart}
-                    className="w-full max-w-xs inline-flex items-center justify-center gap-2 bg-stone-900 text-stone-50 hover:bg-stone-700 px-6 py-3 text-xs font-sans font-medium tracking-widest uppercase transition-colors"
+                    className="btn-primary"
                   >
-                    Shop Now <ArrowRight size={13} />
+                    Shop Now <ArrowRight size={12} strokeWidth={1.5} />
                   </Link>
                 </div>
               ) : (
-                <ul className="divide-y divide-stone-50">
+                <ul className="divide-y divide-[#f2f2f2]">
                   {items.map((item) => (
-                    <li
-                      key={item.product.id}
-                      className="flex gap-4 px-6 py-4 hover:bg-stone-50 transition-colors"
-                    >
+                    <li key={item.product.id} className="flex gap-4 px-6 py-5">
                       {/* Product image */}
-                      <div className="relative w-20 h-24 shrink-0 bg-stone-100 overflow-hidden">
+                      <div className="relative w-18 h-24 shrink-0 bg-ink-100 overflow-hidden" style={{ width: 72 }}>
                         <Image
                           src={item.product.images[0]}
                           alt={item.product.name}
                           fill
                           className="object-cover"
-                          sizes="80px"
+                          sizes="72px"
                         />
                       </div>
 
                       {/* Info */}
                       <div className="flex-1 min-w-0">
-                        <p className="text-[0.6rem] text-stone-400 tracking-widest uppercase font-sans mb-0.5">
+                        <p className="font-sans text-[9.5px] text-[#888888] tracking-[0.12em] uppercase mb-0.5">
                           {item.product.category.replace("-", " ")}
                         </p>
-                        <p className="font-serif text-sm text-stone-900 font-light leading-snug mb-2">
+                        <p className="font-serif text-[0.9rem] text-[#0c0c0c] font-light leading-snug mb-1.5">
                           {item.product.shortName}
                         </p>
-                        <p className="font-sans text-xs font-medium text-stone-700 mb-3">
+                        <p className="font-sans text-[0.8rem] font-medium text-[#0c0c0c] mb-3">
                           {formatPrice(item.product.price)}
                         </p>
 
                         {/* Qty stepper */}
                         <div className="flex items-center gap-3">
-                          <div className="flex items-center border border-stone-200">
+                          <div className="flex items-center border border-[#e5e5e5]">
                             <button
-                              onClick={() =>
-                                updateQuantity(
-                                  item.product.id,
-                                  item.quantity - 1
-                                )
-                              }
+                              onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
                               aria-label="Decrease quantity"
-                              className="w-7 h-7 flex items-center justify-center text-stone-500 hover:text-stone-900 transition-colors"
+                              className="w-7 h-7 flex items-center justify-center text-[#888888] hover:text-[#0c0c0c] transition-colors"
                             >
-                              <Minus size={12} />
+                              <Minus size={11} />
                             </button>
-                            <span className="w-7 text-center text-xs font-sans text-stone-900">
+                            <span className="w-7 text-center font-sans text-xs text-[#0c0c0c]">
                               {item.quantity}
                             </span>
                             <button
-                              onClick={() =>
-                                updateQuantity(
-                                  item.product.id,
-                                  item.quantity + 1
-                                )
-                              }
+                              onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
                               aria-label="Increase quantity"
-                              className="w-7 h-7 flex items-center justify-center text-stone-500 hover:text-stone-900 transition-colors"
+                              className="w-7 h-7 flex items-center justify-center text-[#888888] hover:text-[#0c0c0c] transition-colors"
                             >
-                              <Plus size={12} />
+                              <Plus size={11} />
                             </button>
                           </div>
                           <button
                             onClick={() => removeItem(item.product.id)}
                             aria-label="Remove item"
-                            className="text-stone-300 hover:text-red-400 transition-colors"
+                            className="text-[#cccccc] hover:text-[#dc320c] transition-colors"
                           >
-                            <Trash2 size={14} />
+                            <Trash2 size={13} strokeWidth={1.5} />
                           </button>
                         </div>
                       </div>
 
                       {/* Line total */}
-                      <p className="text-sm font-sans font-medium text-stone-900 shrink-0">
+                      <p className="font-sans text-[0.8rem] font-medium text-[#0c0c0c] shrink-0 tabular-nums">
                         {formatPrice(item.product.price * item.quantity)}
                       </p>
                     </li>
@@ -163,36 +146,31 @@ export function CartDrawer() {
               )}
             </div>
 
-            {/* Footer — checkout */}
+            {/* ── Footer / checkout ────────────────────── */}
             {items.length > 0 && (
-              <div className="border-t border-stone-100 px-6 py-6 space-y-4">
-                {/* Subtotal */}
+              <div className="border-t border-[#e5e5e5] px-6 py-6 space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-[0.65rem] tracking-widest uppercase font-sans text-stone-500">
+                  <span className="font-sans text-[9.5px] tracking-[0.16em] uppercase text-[#888888]">
                     Subtotal
                   </span>
-                  <span className="font-serif text-lg text-stone-900">
+                  <span className="font-serif text-lg text-[#0c0c0c]">
                     {formatPrice(total)}
                   </span>
                 </div>
-                <p className="text-stone-400 text-[0.65rem] font-sans">
+                <p className="font-sans text-[11px] text-[#888888]">
                   Delivery costs calculated at checkout
                 </p>
 
-                {/* Checkout CTA */}
-                <Link
-                  href="/checkout"
-                  onClick={closeCart}
-                  className="block"
-                >
+                <Link href="/checkout" onClick={closeCart} className="block">
                   <Button variant="gold" size="lg" fullWidth>
                     Proceed to Checkout
-                    <ArrowRight size={14} />
+                    <ArrowRight size={13} strokeWidth={1.5} />
                   </Button>
                 </Link>
+
                 <button
                   onClick={closeCart}
-                  className="w-full text-center text-[0.65rem] tracking-widest uppercase font-sans text-stone-400 hover:text-stone-700 transition-colors py-1"
+                  className="w-full text-center font-sans text-[9.5px] tracking-[0.14em] uppercase text-[#888888] hover:text-[#0c0c0c] transition-colors py-1"
                 >
                   Continue Shopping
                 </button>

@@ -15,7 +15,7 @@ function SearchResults() {
   return (
     <div>
       {query && (
-        <p className="text-stone-500 font-sans text-sm mb-10">
+        <p className="text-ink-600 font-sans text-sm mb-10">
           {results.length > 0
             ? `${results.length} result${results.length !== 1 ? "s" : ""} for "${query}"`
             : `No results found for "${query}"`}
@@ -31,10 +31,10 @@ function SearchResults() {
       ) : (
         query && (
           <div className="text-center py-20">
-            <p className="font-serif text-2xl text-stone-400 font-light mb-3">
+            <p className="font-serif text-2xl text-ink-400 font-light mb-3">
               Nothing found
             </p>
-            <p className="text-stone-400 font-sans text-sm mb-6">
+            <p className="text-ink-400 font-sans text-sm mb-6">
               Try searching for sofa, dining table, marble, gold, or sectional.
             </p>
             <Link
@@ -65,25 +65,25 @@ export default function SearchPage() {
           <p className="text-gold-500 text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2 sm:mb-3">
             Search
           </p>
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-stone-900 font-light leading-tight mb-5 sm:mb-8">
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-ink-950 font-light leading-tight mb-5 sm:mb-8">
             Find Your Piece
           </h1>
 
           {/* Search bar */}
           <form
             onSubmit={handleSearch}
-            className="flex w-full max-w-lg overflow-hidden border border-stone-300 bg-white focus-within:border-stone-900"
+            className="flex w-full max-w-lg overflow-hidden border border-ink-300 bg-white focus-within:border-ink-950"
           >
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search sofas, dining tables, marble..."
-              className="min-w-0 flex-1 px-4 py-3.5 text-sm font-sans text-stone-900 placeholder:text-stone-400 focus:outline-none"
+              className="min-w-0 flex-1 px-4 py-3.5 text-sm font-sans text-ink-950 placeholder:text-ink-400 focus:outline-none"
             />
             <button
               type="submit"
-              className="min-h-12 shrink-0 bg-stone-900 hover:bg-stone-700 text-white px-5 flex items-center justify-center transition-colors"
+              className="min-h-12 shrink-0 bg-ink-950 hover:bg-ink-700 text-white px-5 flex items-center justify-center transition-colors"
               aria-label="Search"
             >
               <Search size={18} />
@@ -93,7 +93,7 @@ export default function SearchPage() {
 
         <Suspense
           fallback={
-            <p className="text-stone-400 font-sans text-sm">Searching...</p>
+            <p className="text-ink-400 font-sans text-sm">Searching...</p>
           }
         >
           <SearchResults />

@@ -49,24 +49,24 @@ export default function ShopPage() {
           <p className="text-gold-500 text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2">
             Browse
           </p>
-          <h1 className="font-serif text-4xl lg:text-5xl text-stone-900 font-light">
+          <h1 className="font-serif text-4xl lg:text-5xl text-ink-950 font-light">
             All Collections
           </h1>
-          <p className="text-stone-500 font-sans text-sm mt-2">
+          <p className="text-ink-600 font-sans text-sm mt-2">
             {filtered.length} {filtered.length === 1 ? "piece" : "pieces"} found
           </p>
         </div>
 
         {/* Toolbar */}
-        <div className="flex items-center gap-4 mb-8 pb-6 border-b border-stone-200 flex-wrap">
+        <div className="flex items-center gap-4 mb-8 pb-6 border-b border-ink-200 flex-wrap">
           {/* Category pills */}
           <div className="flex items-center gap-2 flex-wrap flex-1">
             <button
               onClick={() => setSelectedCategory("all")}
               className={`text-[0.65rem] tracking-widest uppercase font-sans px-3 py-1.5 border transition-all duration-200 ${
                 selectedCategory === "all"
-                  ? "bg-stone-900 text-white border-stone-900"
-                  : "border-stone-300 text-stone-600 hover:border-stone-900 hover:text-stone-900"
+                  ? "bg-ink-950 text-white border-ink-950"
+                  : "border-ink-300 text-ink-600 hover:border-ink-950 hover:text-ink-950"
               }`}
             >
               All
@@ -77,8 +77,8 @@ export default function ShopPage() {
                 onClick={() => setSelectedCategory(cat.slug)}
                 className={`text-[0.65rem] tracking-widest uppercase font-sans px-3 py-1.5 border transition-all duration-200 ${
                   selectedCategory === cat.slug
-                    ? "bg-stone-900 text-white border-stone-900"
-                    : "border-stone-300 text-stone-600 hover:border-stone-900 hover:text-stone-900"
+                    ? "bg-ink-950 text-white border-ink-950"
+                    : "border-ink-300 text-ink-600 hover:border-ink-950 hover:text-ink-950"
                 }`}
               >
                 {cat.label}
@@ -90,7 +90,7 @@ export default function ShopPage() {
           <div className="flex items-center gap-3">
             <label
               htmlFor="sort-select"
-              className="text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 hidden sm:block"
+              className="text-[0.65rem] tracking-widest uppercase font-sans text-ink-600 hidden sm:block"
             >
               Sort:
             </label>
@@ -98,7 +98,7 @@ export default function ShopPage() {
               id="sort-select"
               value={sort}
               onChange={(e) => setSort(e.target.value as SortOption)}
-              className="text-xs font-sans border border-stone-300 text-stone-700 px-3 py-1.5 bg-white focus:outline-none focus:border-stone-900 cursor-pointer"
+              className="text-xs font-sans border border-ink-300 text-ink-750 px-3 py-1.5 bg-white focus:outline-none focus:border-ink-950 cursor-pointer"
             >
               <option value="default">Featured</option>
               <option value="newest">Newest</option>
@@ -109,7 +109,7 @@ export default function ShopPage() {
             {/* Price filter toggle */}
             <button
               onClick={() => setFilterOpen(!filterOpen)}
-              className="flex items-center gap-1.5 text-[0.65rem] tracking-widest uppercase font-sans text-stone-500 hover:text-stone-900 border border-stone-300 px-3 py-1.5 transition-colors"
+              className="flex items-center gap-1.5 text-[0.65rem] tracking-widest uppercase font-sans text-ink-600 hover:text-ink-950 border border-ink-300 px-3 py-1.5 transition-colors"
             >
               <SlidersHorizontal size={12} />
               Filter
@@ -123,15 +123,15 @@ export default function ShopPage() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="mb-8 p-5 border border-stone-200 bg-stone-50"
+            className="mb-8 p-5 border border-ink-200 bg-ink-50"
           >
             <div className="flex items-center justify-between mb-4">
-              <p className="text-[0.65rem] tracking-widest uppercase font-sans text-stone-500">
-                Max Price: <span className="text-stone-900">₦{(priceMax / 1000000).toFixed(1)}M</span>
+              <p className="text-[0.65rem] tracking-widest uppercase font-sans text-ink-600">
+                Max Price: <span className="text-ink-950">₦{(priceMax / 1000000).toFixed(1)}M</span>
               </p>
               <button
                 onClick={() => setFilterOpen(false)}
-                className="text-stone-400 hover:text-stone-700"
+                className="text-ink-400 hover:text-ink-700"
               >
                 <X size={14} />
               </button>
@@ -143,7 +143,7 @@ export default function ShopPage() {
               step={100000}
               value={priceMax}
               onChange={(e) => setPriceMax(Number(e.target.value))}
-              className="w-full max-w-xs accent-stone-900 cursor-pointer"
+              className="w-full max-w-xs accent-ink-950 cursor-pointer"
             />
           </motion.div>
         )}
@@ -151,10 +151,10 @@ export default function ShopPage() {
         {/* Product grid */}
         {filtered.length === 0 ? (
           <div className="py-24 text-center">
-            <p className="font-serif text-2xl text-stone-400 font-light mb-3">
+            <p className="font-serif text-2xl text-ink-400 font-light mb-3">
               No pieces found
             </p>
-            <p className="text-stone-400 text-sm font-sans">
+            <p className="text-ink-400 text-sm font-sans">
               Try adjusting your filters or browse all collections.
             </p>
             <button

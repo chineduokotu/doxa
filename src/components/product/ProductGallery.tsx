@@ -19,7 +19,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
   return (
     <div className="flex flex-col gap-4">
       {/* Main image */}
-      <div className="relative overflow-hidden bg-stone-100 aspect-square lg:aspect-[4/5]">
+      <div className="relative overflow-hidden bg-ink-100 aspect-square lg:aspect-[4/5]">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeIndex}
@@ -46,14 +46,14 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
             <button
               onClick={prev}
               aria-label="Previous image"
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/80 backdrop-blur-sm flex items-center justify-center text-stone-700 hover:bg-white hover:text-stone-900 transition-all opacity-0 group-hover:opacity-100 duration-200"
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/80 backdrop-blur-sm flex items-center justify-center text-ink-700 hover:bg-white hover:text-ink-950 transition-all opacity-0 group-hover:opacity-100 duration-200"
             >
               <ChevronLeft size={16} />
             </button>
             <button
               onClick={next}
               aria-label="Next image"
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/80 backdrop-blur-sm flex items-center justify-center text-stone-700 hover:bg-white hover:text-stone-900 transition-all opacity-0 group-hover:opacity-100 duration-200"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/80 backdrop-blur-sm flex items-center justify-center text-ink-700 hover:bg-white hover:text-ink-950 transition-all opacity-0 group-hover:opacity-100 duration-200"
             >
               <ChevronRight size={16} />
             </button>
@@ -71,7 +71,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
               aria-label={`View image ${i + 1}`}
               className={`relative w-16 h-16 overflow-hidden shrink-0 transition-all duration-200 ${
                 i === activeIndex
-                  ? "ring-2 ring-stone-900 ring-offset-2"
+                  ? "ring-2 ring-ink-950 ring-offset-2"
                   : "opacity-60 hover:opacity-100"
               }`}
             >

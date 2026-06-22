@@ -42,7 +42,7 @@ export default function ContactPage() {
           <p className="text-gold-500 text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-3">
             Get in Touch
           </p>
-          <h1 className="font-serif text-5xl lg:text-6xl text-stone-900 font-light">
+          <h1 className="font-serif text-5xl lg:text-6xl text-ink-950 font-light">
             Contact Us
           </h1>
         </div>
@@ -52,14 +52,14 @@ export default function ContactPage() {
           <div>
             <div className="space-y-8 mb-10">
               <div id="showroom" className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-stone-900 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 bg-ink-950 flex items-center justify-center shrink-0">
                   <MapPin size={16} className="text-gold-400" />
                 </div>
                 <div>
-                  <p className="font-serif text-lg text-stone-900 font-light mb-1">
+                  <p className="font-serif text-lg text-ink-950 font-light mb-1">
                     Showroom
                   </p>
-                  <p className="text-stone-500 font-sans text-sm leading-relaxed">
+                  <p className="text-ink-500 font-sans text-sm leading-relaxed">
                     Airport Road
                     <br />
                     Benin City, Edo State
@@ -70,16 +70,16 @@ export default function ContactPage() {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-stone-900 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 bg-ink-950 flex items-center justify-center shrink-0">
                   <Phone size={16} className="text-gold-400" />
                 </div>
                 <div>
-                  <p className="font-serif text-lg text-stone-900 font-light mb-1">
+                  <p className="font-serif text-lg text-ink-950 font-light mb-1">
                     Phone
                   </p>
                   <a
                     href="tel:+2340000000000"
-                    className="text-stone-500 font-sans text-sm hover:text-gold-500 transition-colors"
+                    className="text-ink-500 font-sans text-sm hover:text-gold-500 transition-colors"
                   >
                     +234 000 000 0000
                   </a>
@@ -87,16 +87,16 @@ export default function ContactPage() {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-stone-900 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 bg-ink-950 flex items-center justify-center shrink-0">
                   <Mail size={16} className="text-gold-400" />
                 </div>
                 <div>
-                  <p className="font-serif text-lg text-stone-900 font-light mb-1">
+                  <p className="font-serif text-lg text-ink-950 font-light mb-1">
                     Email
                   </p>
                   <a
                     href="mailto:hello@doxahome.ng"
-                    className="text-stone-500 font-sans text-sm hover:text-gold-500 transition-colors"
+                    className="text-ink-500 font-sans text-sm hover:text-gold-500 transition-colors"
                   >
                     hello@doxahome.ng
                   </a>
@@ -104,14 +104,14 @@ export default function ContactPage() {
               </div>
 
               <div id="delivery" className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-stone-900 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 bg-ink-950 flex items-center justify-center shrink-0">
                   <Clock size={16} className="text-gold-400" />
                 </div>
                 <div>
-                  <p className="font-serif text-lg text-stone-900 font-light mb-1">
+                  <p className="font-serif text-lg text-ink-950 font-light mb-1">
                     Showroom Hours
                   </p>
-                  <p className="text-stone-500 font-sans text-sm leading-relaxed">
+                  <p className="text-ink-500 font-sans text-sm leading-relaxed">
                     Monday – Saturday: 9am – 6pm
                     <br />
                     Sunday: 12pm – 5pm
@@ -121,15 +121,15 @@ export default function ContactPage() {
             </div>
 
             {/* Social */}
-            <div className="flex items-center gap-4 pt-6 border-t border-stone-200">
-              <p className="text-[0.65rem] tracking-widest uppercase font-sans text-stone-400">
+            <div className="flex items-center gap-4 pt-6 border-t border-ink-200">
+              <p className="text-[0.65rem] tracking-widest uppercase font-sans text-ink-400">
                 Follow Us
               </p>
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-stone-400 hover:text-gold-500 transition-colors"
+                className="text-ink-400 hover:text-gold-500 transition-colors"
               >
                 <Globe size={18} />
               </a>
@@ -137,14 +137,14 @@ export default function ContactPage() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-stone-400 hover:text-gold-500 transition-colors"
+                className="text-ink-400 hover:text-gold-500 transition-colors"
               >
                 <Share2 size={18} />
               </a>
             </div>
 
             {/* Map placeholder -> Google Maps embed */}
-            <div className="mt-8 bg-stone-100 border border-stone-200 h-64 overflow-hidden relative shadow-sm">
+            <div className="mt-8 bg-ink-50 border border-ink-200 h-64 overflow-hidden relative shadow-sm">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.340058296767!2d5.603387875888252!3d6.349694325492161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1040d3a5e8cb500b%3A0xc3f8e6587c69992f!2sAirport%20Rd%2C%20Benin%20City!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng"
                 width="100%"
@@ -161,8 +161,8 @@ export default function ContactPage() {
           {/* Contact form */}
           <div>
             {submitted ? (
-              <div className="bg-white border border-stone-200/80 p-8 shadow-sm text-center py-16">
-                <div className="w-16 h-16 bg-gold-50 border border-gold-200 flex items-center justify-center mx-auto mb-6">
+              <div className="bg-white border border-ink-200/80 p-8 shadow-sm text-center py-16">
+                <div className="w-16 h-16 bg-[#fcf8f2] border border-gold-500/20 flex items-center justify-center mx-auto mb-6">
                   <svg
                     className="w-7 h-7 text-gold-500"
                     viewBox="0 0 24 24"
@@ -177,20 +177,20 @@ export default function ContactPage() {
                     />
                   </svg>
                 </div>
-                <h2 className="font-serif text-2xl text-stone-900 font-light mb-3">
+                <h2 className="font-serif text-2xl text-ink-950 font-light mb-3">
                   Message received.
                 </h2>
-                <p className="text-stone-400 font-sans text-sm">
+                <p className="text-ink-400 font-sans text-sm">
                   We&apos;ll get back to you within 24 hours.
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit(onSubmit)} className="bg-white border border-stone-200/80 p-6 lg:p-10 shadow-sm space-y-6">
+              <form onSubmit={handleSubmit(onSubmit)} className="bg-white border border-ink-200/80 p-6 lg:p-10 shadow-sm space-y-6">
                 <div>
-                  <h2 className="font-serif text-2xl text-stone-900 font-light">
+                  <h2 className="font-serif text-2xl text-ink-950 font-light">
                     Send a Message
                   </h2>
-                  <p className="text-stone-400 text-xs font-sans mt-1">
+                  <p className="text-ink-400 text-xs font-sans mt-1">
                     Have questions about custom designs, dimensions, or shipping? Reach out to our design consultants.
                   </p>
                 </div>

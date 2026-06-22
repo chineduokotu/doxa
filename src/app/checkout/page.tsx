@@ -129,7 +129,7 @@ export default function CheckoutPage() {
   if (!isHydrated) {
     return (
       <div className="min-h-screen bg-ivory pt-28 lg:pt-36 pb-20 flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-stone-300 border-t-stone-900 rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-ink-300 border-t-ink-950 rounded-full animate-spin" />
       </div>
     );
   }
@@ -141,12 +141,12 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen bg-ivory pt-32 lg:pt-40 pb-20">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 border-b border-stone-200/50 pb-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 border-b border-ink-200/50 pb-8">
           <div>
-            <p className="text-gold-600 text-[0.65rem] tracking-[0.2em] uppercase font-sans mb-2 font-medium">
+            <p className="text-gold-500 text-[0.65rem] tracking-[0.2em] uppercase font-sans mb-2 font-medium">
               Secure Checkout
             </p>
-            <h1 className="font-serif text-3xl lg:text-4xl text-stone-900 font-light tracking-wide">
+            <h1 className="font-serif text-3xl lg:text-4xl text-ink-950 font-light tracking-wide">
               Complete Your Order
             </h1>
           </div>
@@ -155,7 +155,7 @@ export default function CheckoutPage() {
           <div className="w-full md:w-96">
             <div className="relative flex items-center justify-between">
               {/* Background Line */}
-              <div className="absolute left-6 right-6 top-[18px] h-[1px] bg-stone-200 -translate-y-1/2 z-0" />
+              <div className="absolute left-6 right-6 top-[18px] h-[1px] bg-ink-200 -translate-y-1/2 z-0" />
               {/* Active Line Progress */}
               <div 
                 className="absolute left-6 top-[18px] h-[1px] bg-gold-500 -translate-y-1/2 z-0 transition-all duration-500" 
@@ -183,10 +183,10 @@ export default function CheckoutPage() {
                       className={cn(
                         "w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-500",
                         isActive 
-                          ? "bg-stone-900 border-stone-900 text-gold-400 shadow-md shadow-stone-900/10 scale-110"
+                          ? "bg-ink-950 border-ink-950 text-gold-500 shadow-md shadow-ink-950/10 scale-110"
                           : isCompleted
                           ? "bg-gold-500 border-gold-500 text-white"
-                          : "bg-white border-stone-200 text-stone-400"
+                          : "bg-white border-ink-200 text-ink-400"
                       )}
                     >
                       <Icon size={14} />
@@ -194,7 +194,7 @@ export default function CheckoutPage() {
                     <span 
                       className={cn(
                         "text-[0.55rem] tracking-widest uppercase font-sans font-medium transition-colors duration-500",
-                        isActive ? "text-stone-900 font-semibold" : "text-stone-400"
+                        isActive ? "text-ink-950 font-semibold" : "text-ink-400"
                       )}
                     >
                       {s}
@@ -211,12 +211,12 @@ export default function CheckoutPage() {
           <div className="lg:col-span-2">
             {/* Step 1: Address */}
             {step === "address" && (
-              <form onSubmit={handleSubmit(onAddressSubmit)} className="bg-white border border-stone-200/80 p-6 lg:p-10 shadow-sm space-y-6">
-                <div className="border-b border-stone-100 pb-4 mb-6">
-                  <h2 className="font-serif text-2xl text-stone-900 font-light">
+              <form onSubmit={handleSubmit(onAddressSubmit)} className="bg-white border border-ink-200/80 p-6 lg:p-10 shadow-sm space-y-6">
+                <div className="border-b border-ink-100 pb-4 mb-6">
+                  <h2 className="font-serif text-2xl text-ink-950 font-light">
                     Shipping Details
                   </h2>
-                  <p className="text-stone-400 text-xs font-sans mt-1">
+                  <p className="text-ink-400 text-xs font-sans mt-1">
                     Please provide your delivery information. We ship nationwide via white-glove partners.
                   </p>
                 </div>
@@ -346,12 +346,12 @@ export default function CheckoutPage() {
 
             {/* Step 2: Delivery */}
             {step === "delivery" && (
-              <div className="bg-white border border-stone-200/80 p-6 lg:p-10 shadow-sm space-y-6">
-                <div className="border-b border-stone-100 pb-4 mb-6">
-                  <h2 className="font-serif text-2xl text-stone-900 font-light">
+              <div className="bg-white border border-ink-200/80 p-6 lg:p-10 shadow-sm space-y-6">
+                <div className="border-b border-ink-100 pb-4 mb-6">
+                  <h2 className="font-serif text-2xl text-ink-950 font-light">
                     Delivery Method
                   </h2>
-                  <p className="text-stone-400 text-xs font-sans mt-1">
+                  <p className="text-ink-400 text-xs font-sans mt-1">
                     Select your preferred shipping option. Standard delivery is handled by our white-glove courier partners.
                   </p>
                 </div>
@@ -363,10 +363,10 @@ export default function CheckoutPage() {
                       <label
                         key={option.id}
                         className={cn(
-                          "flex items-center gap-4 p-5 border cursor-pointer transition-all duration-300 hover:border-stone-400 select-none",
+                          "flex items-center gap-4 p-5 border cursor-pointer transition-all duration-300 hover:border-ink-400 select-none",
                           isSelected
-                            ? "border-gold-500 bg-gold-50/10 ring-1 ring-gold-500"
-                            : "border-stone-200 bg-white"
+                            ? "border-gold-500 bg-gold-500/5 ring-1 ring-gold-500"
+                            : "border-ink-200 bg-white"
                         )}
                       >
                         <div className="relative flex items-center justify-center">
@@ -381,7 +381,7 @@ export default function CheckoutPage() {
                           <div 
                             className={cn(
                               "w-4 h-4 rounded-full border flex items-center justify-center transition-colors duration-200",
-                              isSelected ? "border-gold-500 text-gold-500" : "border-stone-300"
+                              isSelected ? "border-gold-500 text-gold-500" : "border-ink-300"
                             )}
                           >
                             {isSelected && (
@@ -391,15 +391,15 @@ export default function CheckoutPage() {
                         </div>
 
                         <div className="flex-1 pl-2">
-                          <p className="font-sans text-sm font-semibold text-stone-900">
+                          <p className="font-sans text-sm font-semibold text-ink-950">
                             {option.label}
                           </p>
-                          <p className="font-sans text-xs text-stone-400 mt-1">
+                          <p className="font-sans text-xs text-ink-400 mt-1">
                             {option.description}
                           </p>
                         </div>
 
-                        <span className="font-serif text-base font-light text-stone-900 pl-4 border-l border-stone-100">
+                        <span className="font-serif text-base font-light text-ink-950 pl-4 border-l border-ink-100">
                           {option.price === 0 ? "Free" : formatPrice(option.price)}
                         </span>
                       </label>
@@ -407,7 +407,7 @@ export default function CheckoutPage() {
                   })}
                 </div>
 
-                <div className="flex flex-col gap-3 pt-4 border-t border-stone-100 sm:flex-row sm:gap-4">
+                <div className="flex flex-col gap-3 pt-4 border-t border-ink-100 sm:flex-row sm:gap-4">
                   <Button
                     onClick={() => setStep("address")}
                     variant="outline"
@@ -424,22 +424,22 @@ export default function CheckoutPage() {
 
             {/* Step 3: Payment */}
             {step === "payment" && (
-              <div className="bg-white border border-stone-200/80 p-6 lg:p-10 shadow-sm space-y-6">
-                <div className="border-b border-stone-100 pb-4 mb-6">
-                  <h2 className="font-serif text-2xl text-stone-900 font-light">
+              <div className="bg-white border border-ink-200/80 p-6 lg:p-10 shadow-sm space-y-6">
+                <div className="border-b border-ink-100 pb-4 mb-6">
+                  <h2 className="font-serif text-2xl text-ink-950 font-light">
                     Secure Payment
                   </h2>
-                  <p className="text-stone-400 text-xs font-sans mt-1">
+                  <p className="text-ink-400 text-xs font-sans mt-1">
                     Select your payment method below. Your transaction is encrypted and secured.
                   </p>
                 </div>
 
-                <div className="p-6 border border-gold-200 bg-gold-50/10 rounded-sm mb-6 flex gap-4 items-start">
+                <div className="p-6 border border-gold-500/20 bg-gold-500/5 rounded-sm mb-6 flex gap-4 items-start">
                   <ShieldCheck className="text-gold-500 shrink-0 mt-0.5" size={20} />
                   <div>
-                    <p className="text-sm font-sans text-stone-700 leading-relaxed">
-                      You will be securely redirected to <span className="font-semibold text-stone-900">Paystack</span> to complete your payment of{" "}
-                      <span className="font-semibold text-gold-600">{formatPrice(total)}</span>. We accept all major Nigerian cards, bank transfers, USSD, and bank apps.
+                    <p className="text-sm font-sans text-ink-700 leading-relaxed">
+                      You will be securely redirected to <span className="font-semibold text-ink-950">Paystack</span> to complete your payment of{" "}
+                      <span className="font-semibold text-gold-500">{formatPrice(total)}</span>. We accept all major Nigerian cards, bank transfers, USSD, and bank apps.
                     </p>
                   </div>
                 </div>
@@ -475,20 +475,20 @@ export default function CheckoutPage() {
 
           {/* Order summary sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white border border-stone-200/80 p-6 shadow-sm sticky top-32 space-y-6">
-              <h3 className="font-serif text-xl text-stone-900 font-light pb-4 border-b border-stone-100">
+            <div className="bg-white border border-ink-200/80 p-6 shadow-sm sticky top-32 space-y-6">
+              <h3 className="font-serif text-xl text-ink-950 font-light pb-4 border-b border-ink-100">
                 Order Summary
               </h3>
               
               {/* Product items list with images */}
-              <div className="divide-y divide-stone-100 max-h-96 overflow-y-auto pr-1">
+              <div className="divide-y divide-ink-100 max-h-96 overflow-y-auto pr-1">
                 {items.map((item) => (
                   <div
                     key={item.product.id}
                     className="flex gap-4 py-4 first:pt-0 last:pb-0"
                   >
                     {/* Thumbnail */}
-                    <div className="relative w-16 h-16 bg-stone-50 border border-stone-100 overflow-hidden shrink-0">
+                    <div className="relative w-16 h-16 bg-ink-50 border border-ink-100 overflow-hidden shrink-0">
                       <Image
                         src={item.product.images[0]}
                         alt={item.product.name}
@@ -499,13 +499,13 @@ export default function CheckoutPage() {
                     </div>
                     {/* Details */}
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-serif text-sm text-stone-900 truncate leading-snug">
+                      <h4 className="font-serif text-sm text-ink-950 truncate leading-snug">
                         {item.product.shortName}
                       </h4>
-                      <p className="text-[0.65rem] tracking-wider uppercase font-sans text-stone-400 mt-1">
+                      <p className="text-[0.65rem] tracking-wider uppercase font-sans text-ink-400 mt-1">
                         Qty: {item.quantity}
                       </p>
-                      <p className="font-sans text-xs text-stone-900 font-medium mt-1">
+                      <p className="font-sans text-xs text-ink-950 font-medium mt-1">
                         {formatPrice(item.product.price * item.quantity)}
                       </p>
                     </div>
@@ -514,26 +514,26 @@ export default function CheckoutPage() {
               </div>
 
               {/* Price Breakdown */}
-              <div className="border-t border-stone-100 pt-5 space-y-3 text-sm font-sans">
-                <div className="flex justify-between text-stone-500">
+              <div className="border-t border-ink-100 pt-5 space-y-3 text-sm font-sans">
+                <div className="flex justify-between text-ink-500">
                   <span>Subtotal</span>
-                  <span className="text-stone-900">{formatPrice(subtotal())}</span>
+                  <span className="text-ink-950">{formatPrice(subtotal())}</span>
                 </div>
-                <div className="flex justify-between text-stone-500">
+                <div className="flex justify-between text-ink-500">
                   <span>Delivery Fee</span>
-                  <span className="text-stone-900">
+                  <span className="text-ink-950">
                     {deliveryPrice === 0 ? "Free" : formatPrice(deliveryPrice)}
                   </span>
                 </div>
-                <div className="flex justify-between font-medium text-stone-900 pt-4 border-t border-stone-100 items-baseline">
+                <div className="flex justify-between font-medium text-ink-950 pt-4 border-t border-ink-100 items-baseline">
                   <span>Total Amount</span>
-                  <span className="font-serif text-xl text-gold-600 font-semibold">{formatPrice(total)}</span>
+                  <span className="font-serif text-xl text-gold-500 font-semibold">{formatPrice(total)}</span>
                 </div>
               </div>
 
               {/* Secure checkout info */}
-              <div className="border-t border-stone-100 pt-4 flex gap-2 items-center text-[0.65rem] tracking-wider uppercase font-sans text-stone-400">
-                <ShieldCheck size={14} className="text-stone-400" />
+              <div className="border-t border-ink-100 pt-4 flex gap-2 items-center text-[0.65rem] tracking-wider uppercase font-sans text-ink-400">
+                <ShieldCheck size={14} className="text-ink-400" />
                 <span>100% Secure Transaction</span>
               </div>
             </div>

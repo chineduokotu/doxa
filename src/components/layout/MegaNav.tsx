@@ -5,22 +5,24 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { categories } from "@/lib/data/categories";
 import { ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface MegaNavProps {
   activeSlug: string | null;
-  onClose: () => void;
+  onClose:    () => void;
+  solidBg?:   boolean;
 }
 
 const subLinks: Record<string, string[]> = {
   "living-room": ["Sofas & Sectionals", "Coffee Tables", "TV Units", "Armchairs", "Ottoman & Poufs"],
   "dining-room": ["Dining Sets", "Dining Tables", "Dining Chairs", "Bar Stools", "Buffets"],
-  "royal-sets": ["Platinum Collection", "Gold Edition", "Silver Line", "Bespoke Orders"],
-  bedroom: ["Beds & Frames", "Wardrobes", "Dressers", "Nightstands", "Bedroom Sets"],
-  outdoor: ["Outdoor Sofas", "Garden Tables", "Sun Loungers", "Pergola Sets"],
-  decor: ["Rugs & Carpets", "Lighting", "Wall Art", "Vases & Ornaments", "Throws & Cushions"],
+  "royal-sets":  ["Platinum Collection", "Gold Edition", "Silver Line", "Bespoke Orders"],
+  bedroom:       ["Beds & Frames", "Wardrobes", "Dressers", "Nightstands", "Bedroom Sets"],
+  outdoor:       ["Outdoor Sofas", "Garden Tables", "Sun Loungers", "Pergola Sets"],
+  decor:         ["Rugs & Carpets", "Lighting", "Wall Art", "Vases & Ornaments", "Throws & Cushions"],
 };
 
-export function MegaNav({ activeSlug, onClose }: MegaNavProps) {
+export function MegaNav({ activeSlug, onClose, solidBg = false }: MegaNavProps) {
   const active = categories.find((c) => c.slug === activeSlug);
 
   return (
@@ -28,67 +30,82 @@ export function MegaNav({ activeSlug, onClose }: MegaNavProps) {
       {activeSlug && active && (
         <motion.div
           key={activeSlug}
-          initial={{ opacity: 0, y: -4, scaleY: 0.97 }}
-          animate={{ opacity: 1, y: 0, scaleY: 1 }}
-          exit={{ opacity: 0, y: -4, scaleY: 0.97 }}
-          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          style={{ transformOrigin: "top" }}
-          className="absolute top-full left-0 right-0 bg-stone-950/98 backdrop-blur-sm border-t border-stone-800 shadow-2xl"
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -6 }}
+          transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+          className={cn(
+            "absolute top-full left-0 right-0 backdrop-blur-sm border-t shadow-2xl transition-all duration-300",
+            solidBg
+              ? "bg-white/97 border-[#e8e4de]"
+              : "bg-[#0a0908]/97 border-white/5"
+          )}
         >
-          <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-3 gap-12">
+          <div className="max-w-screen-xl mx-auto px-8 py-10 grid grid-cols-3 gap-12">
+
             {/* Sub-links */}
             <div className="col-span-2">
-              <p className="text-[0.6rem] text-gold-500 tracking-widest uppercase font-sans mb-5">
+              <p className="font-sans text-[9.5px] text-[#ecb881] tracking-[0.2em] uppercase mb-6">
                 {active.label}
               </p>
-              <ul className="grid grid-cols-2 gap-y-3 gap-x-8">
+
+              <ul className="grid grid-cols-2 gap-y-3.5 gap-x-8">
                 {(subLinks[activeSlug] || []).map((sub) => (
                   <li key={sub}>
                     <Link
                       href={`/shop/${activeSlug}`}
                       onClick={onClose}
-                      className="group flex items-center gap-2 text-stone-300 hover:text-white transition-colors duration-200"
+                      className={cn(
+                        "group flex items-center gap-2 transition-colors duration-200",
+                        solidBg ? "text-[#6b6560] hover:text-[#0c0c0c]" : "text-white/40 hover:text-white"
+                      )}
                     >
-                      <span className="font-serif text-base font-light group-hover:text-gold-400 transition-colors">
+                      <span className={cn(
+                        "font-serif text-[1.05rem] font-light transition-colors",
+                        solidBg ? "group-hover:text-[#0c0c0c]" : "group-hover:text-white"
+                      )}>
                         {sub}
                       </span>
                       <ArrowRight
-                        size={12}
-                        className="text-gold-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                        size={11}
+                        strokeWidth={1.5}
+                        className="text-[#ecb881] opacity-0 group-hover:opacity-100 transition-opacity"
                       />
                     </Link>
                   </li>
                 ))}
               </ul>
+
               <Link
                 href={`/shop/${activeSlug}`}
                 onClick={onClose}
-                className="mt-8 inline-flex items-center gap-2 text-[0.65rem] tracking-widest uppercase font-sans text-gold-400 hover:text-gold-300 transition-colors"
+                className="mt-8 inline-flex items-center gap-2 font-sans text-[9.5px] tracking-[0.18em] uppercase text-[#ecb881] hover:text-[#dfa162] transition-colors duration-200"
               >
                 View All {active.label}
-                <ArrowRight size={12} />
+                <ArrowRight size={11} strokeWidth={1.5} />
               </Link>
             </div>
 
             {/* Featured image */}
-            <div className="relative overflow-hidden aspect-[4/3]">
+            <div className="relative overflow-hidden" style={{ aspectRatio: "4/3" }}>
               <Image
                 src={active.image}
                 alt={active.label}
                 fill
-                className="object-cover transition-transform duration-700 hover:scale-105"
-                sizes="350px"
+                className="object-cover transition-transform duration-700 hover:scale-[1.04]"
+                sizes="320px"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-              <div className="absolute bottom-4 left-4">
-                <p className="text-white font-serif text-lg font-light">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+              <div className="absolute bottom-4 left-5">
+                <p className="font-serif text-white text-lg font-light leading-tight">
                   {active.label}
                 </p>
-                <p className="text-stone-300 text-xs font-sans mt-1">
+                <p className="font-sans text-white/45 text-[11px] mt-1 leading-relaxed">
                   {active.description}
                 </p>
               </div>
             </div>
+
           </div>
         </motion.div>
       )}

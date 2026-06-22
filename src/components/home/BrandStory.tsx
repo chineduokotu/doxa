@@ -3,21 +3,30 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/Button";
+
+const stats = [
+  { value: "500+", label: "Pieces Delivered"   },
+  { value: "8+",   label: "Years of Excellence" },
+  { value: "100%", label: "Premium Quality"     },
+];
 
 export function BrandStory() {
   return (
-    <section className="py-20 lg:py-32 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Image side */}
+    <section className="py-24 lg:py-36 overflow-hidden bg-white">
+      <div className="max-w-screen-xl mx-auto px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+          {/* ── Image side ───────────────────────────────── */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -32 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
             className="relative order-2 lg:order-1"
           >
+            {/* Gold accent line */}
+            <div className="absolute top-12 -left-4 w-[2px] h-16 bg-[#ecb881] hidden lg:block" />
+
             {/* Main image */}
             <div className="relative aspect-[4/5] overflow-hidden">
               <Image
@@ -28,83 +37,73 @@ export function BrandStory() {
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
-            {/* Floating accent image */}
-            <div className="absolute -bottom-8 -right-6 w-48 h-48 lg:w-64 lg:h-64 overflow-hidden border-4 border-ivory shadow-2xl hidden sm:block">
+
+            {/* Floating inset accent */}
+            <div className="absolute -bottom-6 -right-5 w-44 h-44 lg:w-60 lg:h-60 overflow-hidden border-[3px] border-white shadow-2xl hidden sm:block">
               <Image
                 src="/images/dox8.jpeg"
-                alt="Gold coffee table detail"
+                alt="Detail — gold coffee table"
                 fill
                 className="object-cover"
-                sizes="256px"
+                sizes="240px"
               />
             </div>
-            {/* Gold accent line */}
-            <div className="absolute top-8 -left-4 w-1 h-24 bg-gold-500 hidden lg:block" />
           </motion.div>
 
-          {/* Text side */}
+          {/* ── Text side ────────────────────────────────── */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 32 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             className="order-1 lg:order-2 pb-16 sm:pb-0"
           >
-            <p className="text-gold-500 text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-4">
+            <p className="font-sans text-[10px] text-[#ecb881] tracking-[0.22em] uppercase mb-4">
               Our Philosophy
             </p>
-            <h2 className="font-serif text-4xl lg:text-5xl xl:text-6xl text-stone-900 font-light leading-[1.1] mb-8">
-              Furniture that tells
-              <br />
-              <em className="not-italic text-stone-500">your story.</em>
+
+            {/* Gold rule */}
+            <div className="w-9 h-[1px] bg-[#ecb881] mb-7" />
+
+            <h2 className="display-lg text-[#0c0c0c] mb-8">
+              Furniture that{" "}
+              <span className="text-[#888888] italic">tells your story.</span>
             </h2>
-            <div className="space-y-4 text-stone-600 font-sans text-sm leading-relaxed">
+
+            <div className="space-y-5 text-[#555555] font-sans text-[0.875rem] leading-[1.85]">
               <p>
-                Doxa Home was founded on a simple belief: every Nigerian home
-                deserves furniture that is as refined as the people who live in
-                it. Based on Airport Road, Benin City, we source and curate
-                premium pieces that blend international design with the warmth
-                of Nigerian living.
+                Doxa Home was founded on a simple belief: every Nigerian home deserves
+                furniture as refined as the people who live in it. Based on Airport Road,
+                Benin City, we source and curate premium pieces that blend international
+                design with the warmth of Nigerian living.
               </p>
               <p>
-                Each piece in our collection is selected for its craft,
-                durability, and the way it transforms a room. From expansive
-                marble dining tables to hand-upholstered sectionals, we
-                champion quality over quantity — always.
+                Each piece is selected for its craft, durability, and the way it
+                transforms a room. From expansive marble dining tables to hand-upholstered
+                sectionals — we champion quality over quantity, always.
               </p>
             </div>
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
-              <Link href="/about">
-                <Button variant="solid" size="lg">
-                  Our Story
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button variant="outline" size="lg">
-                  Visit Showroom
-                </Button>
-              </Link>
+              <Link href="/about"   className="btn-primary">Our Story</Link>
+              <Link href="/contact" className="btn-outline">Visit Showroom</Link>
             </div>
 
             {/* Stats */}
-            <div className="mt-12 grid grid-cols-3 gap-6 pt-10 border-t border-stone-200">
-              {[
-                { value: "500+", label: "Pieces Delivered" },
-                { value: "8+", label: "Years of Excellence" },
-                { value: "100%", label: "Premium Quality" },
-              ].map((stat) => (
+            <div className="mt-14 pt-10 border-t border-[#e5e5e5] grid grid-cols-3 gap-8">
+              {stats.map((stat) => (
                 <div key={stat.label}>
-                  <p className="font-serif text-2xl lg:text-3xl text-stone-900 font-light">
+                  <p className="font-serif text-[2rem] text-[#0c0c0c] font-light leading-none mb-2">
                     {stat.value}
                   </p>
-                  <p className="text-[0.65rem] text-stone-400 font-sans tracking-wide mt-1 uppercase">
+                  <p className="font-sans text-[9.5px] text-[#888888] tracking-[0.14em] uppercase leading-snug">
                     {stat.label}
                   </p>
                 </div>
               ))}
             </div>
           </motion.div>
+
         </div>
       </div>
     </section>

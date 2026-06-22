@@ -72,19 +72,19 @@ export default async function ProductPage({ params }: PageProps) {
       <div className="min-h-screen bg-ivory pt-24 lg:pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-6">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-[0.65rem] font-sans text-stone-400 tracking-widest uppercase mb-10">
-            <Link href="/" className="hover:text-stone-700 transition-colors">Home</Link>
+          <nav className="flex items-center gap-2 text-[0.65rem] font-sans text-ink-400 tracking-widest uppercase mb-10">
+            <Link href="/" className="hover:text-ink-700 transition-colors">Home</Link>
             <ChevronRight size={10} />
-            <Link href="/shop" className="hover:text-stone-700 transition-colors">Shop</Link>
+            <Link href="/shop" className="hover:text-ink-700 transition-colors">Shop</Link>
             <ChevronRight size={10} />
             <Link
               href={`/shop/${product.category}`}
-              className="hover:text-stone-700 transition-colors"
+              className="hover:text-ink-700 transition-colors"
             >
               {product.category.replace("-", " ")}
             </Link>
             <ChevronRight size={10} />
-            <span className="text-stone-700">{product.shortName}</span>
+            <span className="text-ink-700">{product.shortName}</span>
           </nav>
 
           {/* Product layout */}
@@ -120,24 +120,24 @@ export default async function ProductPage({ params }: PageProps) {
               </p>
 
               {/* Name */}
-              <h1 className="font-serif text-3xl lg:text-4xl xl:text-5xl text-stone-900 font-light leading-tight">
+              <h1 className="font-serif text-3xl lg:text-4xl xl:text-5xl text-ink-950 font-light leading-tight">
                 {product.name}
               </h1>
 
               {/* Price */}
               <div className="flex items-baseline gap-4">
-                <span className="font-sans text-2xl font-medium text-stone-900">
+                <span className="font-sans text-2xl font-medium text-ink-950">
                   {formatPrice(product.price)}
                 </span>
                 {product.originalPrice && (
-                  <span className="font-sans text-base text-stone-400 line-through">
+                  <span className="font-sans text-base text-ink-400 line-through">
                     {formatPrice(product.originalPrice)}
                   </span>
                 )}
               </div>
 
               {/* Description */}
-              <p className="font-sans text-stone-600 text-sm leading-relaxed border-t border-stone-200 pt-6">
+              <p className="font-sans text-ink-600 text-sm leading-relaxed border-t border-ink-200 pt-6">
                 {product.description}
               </p>
 
@@ -146,7 +146,7 @@ export default async function ProductPage({ params }: PageProps) {
                 {product.details.map((detail) => (
                   <li
                     key={detail}
-                    className="flex items-start gap-2.5 text-sm font-sans text-stone-600"
+                    className="flex items-start gap-2.5 text-sm font-sans text-ink-600"
                   >
                     <Check
                       size={14}
@@ -158,35 +158,35 @@ export default async function ProductPage({ params }: PageProps) {
               </ul>
 
               {/* Specs */}
-              <div className="grid grid-cols-2 gap-4 py-5 border-t border-b border-stone-200">
+              <div className="grid grid-cols-2 gap-4 py-5 border-t border-b border-ink-200">
                 <div>
-                  <p className="text-[0.6rem] tracking-widest uppercase font-sans text-stone-400 mb-1">
+                  <p className="text-[0.6rem] tracking-widest uppercase font-sans text-ink-400 mb-1">
                     Material
                   </p>
-                  <p className="text-sm font-sans text-stone-700">
+                  <p className="text-sm font-sans text-ink-700">
                     {product.material}
                   </p>
                 </div>
                 <div>
-                  <p className="text-[0.6rem] tracking-widest uppercase font-sans text-stone-400 mb-1">
+                  <p className="text-[0.6rem] tracking-widest uppercase font-sans text-ink-400 mb-1">
                     Finish
                   </p>
-                  <p className="text-sm font-sans text-stone-700">
+                  <p className="text-sm font-sans text-ink-700">
                     {product.finish}
                   </p>
                 </div>
                 {product.dimensions && (
                   <div>
-                    <p className="text-[0.6rem] tracking-widest uppercase font-sans text-stone-400 mb-1">
+                    <p className="text-[0.6rem] tracking-widest uppercase font-sans text-ink-400 mb-1">
                       Dimensions
                     </p>
-                    <p className="text-sm font-sans text-stone-700">
+                    <p className="text-sm font-sans text-ink-700">
                       {product.dimensions}
                     </p>
                   </div>
                 )}
                 <div>
-                  <p className="text-[0.6rem] tracking-widest uppercase font-sans text-stone-400 mb-1">
+                  <p className="text-[0.6rem] tracking-widest uppercase font-sans text-ink-400 mb-1">
                     Availability
                   </p>
                   <p
@@ -205,14 +205,14 @@ export default async function ProductPage({ params }: PageProps) {
               <AddToCartButton product={product} />
 
               {/* Trust signals */}
-              <div className="flex flex-wrap items-center gap-4 pt-2 text-stone-400 text-[0.65rem] font-sans tracking-wide">
+              <div className="flex flex-wrap items-center gap-4 pt-2 text-ink-400 text-[0.65rem] font-sans tracking-wide">
                 <span>✓ Free delivery within Benin City</span>
                 <span>✓ Secure Paystack checkout</span>
                 <span>✓ Quality guaranteed</span>
               </div>
 
               {/* Contact */}
-              <p className="text-stone-400 text-xs font-sans border-t border-stone-200 pt-4">
+              <p className="text-ink-400 text-xs font-sans border-t border-ink-200 pt-4">
                 Questions?{" "}
                 <Link
                   href="/contact"
@@ -233,7 +233,7 @@ export default async function ProductPage({ params }: PageProps) {
                   <p className="text-gold-500 text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2">
                     You May Also Like
                   </p>
-                  <h2 className="font-serif text-3xl text-stone-900 font-light">
+                  <h2 className="font-serif text-3xl text-ink-950 font-light">
                     Related Pieces
                   </h2>
                 </div>

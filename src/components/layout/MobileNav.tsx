@@ -2,28 +2,29 @@
 
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronDown, ShoppingBag } from "lucide-react";
+import { X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { useCartStore } from "@/lib/store/cart";
+import { ArrowRight } from "lucide-react";
 
 interface NavLink {
   label: string;
-  slug: string;
+  slug:  string;
 }
 
 interface MobileNavProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen:   boolean;
+  onClose:  () => void;
   navLinks: NavLink[];
 }
 
 const subLinks: Record<string, string[]> = {
   "living-room": ["Sofas & Sectionals", "Coffee Tables", "Armchairs"],
   "dining-room": ["Dining Sets", "Dining Tables", "Dining Chairs"],
-  "royal-sets": ["Platinum Collection", "Gold Edition", "Bespoke Orders"],
-  bedroom: ["Beds & Frames", "Wardrobes", "Dressers"],
-  outdoor: ["Outdoor Sofas", "Garden Tables", "Sun Loungers"],
-  decor: ["Rugs & Carpets", "Lighting", "Wall Art"],
+  "royal-sets":  ["Platinum Collection", "Gold Edition", "Bespoke Orders"],
+  bedroom:       ["Beds & Frames", "Wardrobes", "Dressers"],
+  outdoor:       ["Outdoor Sofas", "Garden Tables", "Sun Loungers"],
+  decor:         ["Rugs & Carpets", "Lighting", "Wall Art"],
 };
 
 export function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps) {
@@ -36,79 +37,79 @@ export function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps) {
         <>
           {/* Backdrop */}
           <motion.div
-            key="backdrop"
+            key="mobile-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.25 }}
             onClick={onClose}
-            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-black/55 backdrop-blur-[4px]"
           />
 
           {/* Drawer */}
           <motion.div
-            key="drawer"
+            key="mobile-drawer"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed top-0 right-0 bottom-0 z-50 w-[min(85vw,360px)] bg-stone-950 flex flex-col overflow-hidden"
+            transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed top-0 right-0 bottom-0 z-50 w-[min(88vw,360px)] bg-white flex flex-col overflow-hidden border-l border-[#e8e4de]"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-5 border-b border-stone-800">
-              <span className="font-serif text-xl text-white tracking-widest">
-                DOXA<span className="text-gold-500">.</span>HOME
+            <div className="flex items-center justify-between px-6 py-5 border-b border-[#e8e4de]">
+              <span className="font-serif text-[1.25rem] text-[#0c0c0c] tracking-[0.18em] font-light">
+                DOXA<span className="text-[#dc320c]">.</span>HOME
               </span>
               <button
                 onClick={onClose}
                 aria-label="Close menu"
-                className="text-stone-400 hover:text-white transition-colors p-1"
+                className="w-8 h-8 flex items-center justify-center text-[#a09a94] hover:text-[#0c0c0c] transition-colors"
               >
-                <X size={20} />
+                <X size={18} strokeWidth={1.5} />
               </button>
             </div>
 
             {/* Nav links */}
-            <nav className="flex-1 overflow-y-auto px-6 py-6">
-              <p className="text-[0.6rem] tracking-widest text-stone-500 uppercase font-sans mb-5">
+            <nav className="flex-1 overflow-y-auto px-6 py-6" aria-label="Mobile navigation">
+              <p className="font-sans text-[9px] tracking-[0.2em] text-[#a09a94] uppercase mb-6">
                 Collections
               </p>
-              <ul className="space-y-1">
+
+              <ul className="space-y-0.5">
                 {navLinks.map((link) => (
                   <li key={link.slug}>
                     <button
-                      onClick={() =>
-                        setExpanded(
-                          expanded === link.slug ? null : link.slug
-                        )
-                      }
-                      className="w-full flex items-center justify-between py-3 border-b border-stone-800/50 text-left"
+                      onClick={() => setExpanded(expanded === link.slug ? null : link.slug)}
+                      className="w-full flex items-center justify-between py-3.5 border-b border-[#f0ede8] text-left"
                     >
-                      <span className="font-serif text-lg text-stone-200 font-light">
+                      <span className="font-serif text-[1.05rem] text-[#1a1816]/70 hover:text-[#1a1816] font-light transition-colors">
                         {link.label}
                       </span>
                       <ChevronDown
-                        size={16}
-                        className={`text-stone-500 transition-transform duration-200 ${
+                        size={14}
+                        strokeWidth={1.5}
+                        className={`text-[#a09a94] transition-transform duration-200 ${
                           expanded === link.slug ? "rotate-180" : ""
                         }`}
                       />
                     </button>
+
                     <AnimatePresence>
                       {expanded === link.slug && (
                         <motion.ul
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.25 }}
+                          transition={{ duration: 0.22 }}
                           className="overflow-hidden"
                         >
+                          <li className="h-2" />
                           {(subLinks[link.slug] || []).map((sub) => (
                             <li key={sub}>
                               <Link
                                 href={`/shop/${link.slug}`}
                                 onClick={onClose}
-                                className="block py-2 pl-4 text-sm font-sans text-stone-400 hover:text-gold-400 transition-colors"
+                                className="block py-2 pl-4 font-sans text-[13px] text-[#6b6560] hover:text-[#0c0c0c] transition-colors"
                               >
                                 {sub}
                               </Link>
@@ -118,11 +119,12 @@ export function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps) {
                             <Link
                               href={`/shop/${link.slug}`}
                               onClick={onClose}
-                              className="block py-2 pl-4 text-xs font-sans text-gold-500 hover:text-gold-400 tracking-widest uppercase transition-colors"
+                              className="flex items-center gap-1.5 py-2 pl-4 font-sans text-[9.5px] text-[#ecb881] hover:text-[#dfa162] tracking-[0.16em] uppercase transition-colors"
                             >
-                              View All →
+                              View All <ArrowRight size={10} strokeWidth={1.5} />
                             </Link>
                           </li>
+                          <li className="h-2" />
                         </motion.ul>
                       )}
                     </AnimatePresence>
@@ -131,17 +133,17 @@ export function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps) {
               </ul>
 
               {/* Static links */}
-              <div className="mt-8 pt-6 border-t border-stone-800 space-y-4">
+              <div className="mt-8 pt-6 border-t border-[#e8e4de] space-y-5">
                 {[
-                  { label: "All Products", href: "/shop" },
-                  { label: "Our Story", href: "/about" },
-                  { label: "Contact", href: "/contact" },
+                  { label: "All Products", href: "/shop"    },
+                  { label: "Our Story",    href: "/about"   },
+                  { label: "Contact",      href: "/contact" },
                 ].map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
                     onClick={onClose}
-                    className="block text-[0.7rem] tracking-widest uppercase font-sans text-stone-400 hover:text-white transition-colors"
+                    className="block font-sans text-[10px] tracking-[0.18em] uppercase text-[#6b6560] hover:text-[#0c0c0c] transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -150,21 +152,19 @@ export function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps) {
             </nav>
 
             {/* Footer */}
-            <div className="px-6 py-5 border-t border-stone-800">
+            <div className="px-6 py-5 border-t border-[#e8e4de]">
               <Link
-                href="/cart"
+                href="/shop"
                 onClick={onClose}
-                className="flex items-center justify-between w-full py-3 px-4 bg-stone-800 hover:bg-stone-700 text-white transition-colors"
+                className="flex items-center justify-between w-full py-3.5 px-4 bg-[#f9f9f9] hover:bg-[#f2f2f2] text-[#0c0c0c] border border-[#e5e5e5] transition-colors"
               >
-                <span className="text-sm font-sans">View Cart</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-gold-400 text-xs font-sans">
-                    {itemCount} items
-                  </span>
-                  <ShoppingBag size={16} />
+                <span className="font-sans text-[12px] text-[#6b6560]">Browse All Pieces</span>
+                <div className="flex items-center gap-2 font-sans text-[9.5px] text-[#ecb881]">
+                  {itemCount > 0 && <span>{itemCount} in bag ·</span>}
+                  <ArrowRight size={12} strokeWidth={1.5} />
                 </div>
               </Link>
-              <p className="text-stone-500 text-[0.6rem] text-center mt-4 font-sans">
+              <p className="font-sans text-[#a09a94] text-[10px] text-center mt-4 tracking-wide">
                 Airport Road, Benin City · +234 000 000 0000
               </p>
             </div>

@@ -8,7 +8,7 @@ export function Skeleton({ className }: SkeletonProps) {
   return (
     <div
       className={cn(
-        "skeleton-shimmer rounded-sm bg-stone-200",
+        "skeleton-shimmer rounded-sm bg-ink-200",
         className
       )}
     />

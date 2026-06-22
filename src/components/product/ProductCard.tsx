@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { Heart, ShoppingBag, Eye } from "lucide-react";
+import { Heart, ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
 import { useCartStore } from "@/lib/store/cart";
 import { useWishlistStore } from "@/lib/store/wishlist";
@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/Badge";
 import type { Product } from "@/lib/data/products";
 
 interface ProductCardProps {
-  product: Product;
+  product:  Product;
   priority?: boolean;
 }
 
@@ -20,9 +20,9 @@ type AddState = "idle" | "adding" | "added";
 
 export function ProductCard({ product, priority = false }: ProductCardProps) {
   const [addState, setAddState] = useState<AddState>("idle");
-  const addItem = useCartStore((s) => s.addItem);
+  const addItem                  = useCartStore((s) => s.addItem);
   const { toggleItem, isWishlisted } = useWishlistStore();
-  const wishlisted = isWishlisted(product.id);
+  const wishlisted               = isWishlisted(product.id);
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -43,31 +43,24 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      className="group"
     >
-      <Link
-        href={`/product/${product.slug}`}
-        className="group block"
-        aria-label={`View ${product.name}`}
-      >
-        {/* Image container */}
-        <div className="relative overflow-hidden bg-stone-100 mb-4">
-          <div
-            className="relative"
-            style={{ aspectRatio: "3/4" }}
-          >
-            <Image
-              src={product.images[0]}
-              alt={product.name}
-              fill
-              priority={priority}
-              className="object-cover transition-transform duration-500 ease-luxury group-hover:scale-105"
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            />
-          </div>
+      <Link href={`/product/${product.slug}`} aria-label={`View ${product.name}`} className="block">
+
+        {/* ── Image container ───────────────────────────── */}
+        <div className="relative overflow-hidden bg-[#f0ede8] mb-4" style={{ aspectRatio: "3/4" }}>
+          <Image
+            src={product.images[0]}
+            alt={product.name}
+            fill
+            priority={priority}
+            className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:scale-[1.04]"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          />
 
           {/* Badge */}
           {product.badge && (
@@ -86,63 +79,38 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
             </div>
           )}
 
-          {/* Hover action buttons */}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+          {/* Wishlist button — top right */}
+          <button
+            onClick={handleWishlist}
+            aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
+            className={`absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/90 backdrop-blur-sm shadow-sm transition-all duration-200 opacity-100 md:opacity-0 md:group-hover:opacity-100 ${
+              wishlisted ? "text-[#ecb881]" : "text-[#6b6560] hover:text-[#0c0c0c]"
+            }`}
+          >
+            <Heart size={13} fill={wishlisted ? "currentColor" : "none"} strokeWidth={1.5} />
+          </button>
 
-          {/* Quick actions */}
-          <div className="absolute right-3 top-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
-            {/* Wishlist */}
-            <button
-              onClick={handleWishlist}
-              aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
-              className={`w-9 h-9 flex items-center justify-center bg-white shadow-md transition-colors duration-200 ${
-                wishlisted
-                  ? "text-gold-500"
-                  : "text-stone-600 hover:text-stone-900"
-              }`}
-            >
-              <Heart
-                size={15}
-                fill={wishlisted ? "currentColor" : "none"}
-              />
-            </button>
-
-            {/* Quick view */}
-            <div
-              aria-label="Quick view"
-              className="w-9 h-9 flex items-center justify-center bg-white shadow-md text-stone-600 hover:text-stone-900 transition-colors"
-            >
-              <Eye size={15} />
-            </div>
-          </div>
-
-          {/* Add to cart — appears on hover, bottom */}
-          <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-luxury">
+          {/* Add to bag — slides up from bottom on hover (hidden overlay by default on desktop, visible on mobile) */}
+          <div className="absolute bottom-0 left-0 right-0 translate-y-0 md:translate-y-full md:group-hover:translate-y-0 transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)]">
             <button
               onClick={handleAddToCart}
               disabled={addState === "adding"}
-              className={`w-full py-3 flex items-center justify-center gap-2 text-[0.65rem] tracking-widest uppercase font-sans transition-all duration-200 ${
+              className={`w-full py-3 flex md:py-3.5 flex items-center justify-center gap-2 font-sans text-[9px] md:text-[9.5px] font-semibold tracking-[0.16em] uppercase transition-all duration-200 ${
                 addState === "added"
-                  ? "bg-gold-500 text-white"
-                  : "bg-stone-900 hover:bg-stone-700 text-white"
+                  ? "bg-[#ecb881] text-[#0c0c0c]"
+                  : "bg-[#0c0c0c] hover:bg-[#222222] text-white"
               }`}
             >
               {addState === "added" ? (
                 <>
-                  <svg className="w-3 h-3" viewBox="0 0 12 12" fill="none">
-                    <path
-                      d="M2 6l3 3 5-5"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  Added to Bag
+                  Added
                 </>
               ) : (
                 <>
-                  <ShoppingBag size={13} />
+                  <ShoppingBag size={12} strokeWidth={1.5} />
                   Add to Bag
                 </>
               )}
@@ -150,20 +118,20 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           </div>
         </div>
 
-        {/* Product info */}
+        {/* ── Product info ───────────────────────────────── */}
         <div className="space-y-1.5">
-          <p className="text-[0.6rem] text-stone-400 tracking-widest uppercase font-sans">
+          <p className="font-sans text-[9.5px] text-[#a09a94] tracking-[0.14em] uppercase">
             {product.category.replace("-", " ")}
           </p>
-          <h3 className="font-serif text-base lg:text-lg text-stone-900 font-light leading-snug group-hover:text-stone-700 transition-colors">
+          <h3 className="font-serif text-[1.05rem] lg:text-[1.15rem] text-[#1a1816] font-light leading-snug group-hover:text-[#3d3d3d] transition-colors duration-200">
             {product.shortName}
           </h3>
-          <div className="flex items-center gap-3">
-            <span className="font-sans text-sm font-medium text-stone-900">
+          <div className="flex items-center gap-3 pt-0.5">
+            <span className="font-sans text-[0.825rem] font-medium text-[#1a1816]">
               {formatPrice(product.price)}
             </span>
             {product.originalPrice && (
-              <span className="font-sans text-xs text-stone-400 line-through">
+              <span className="font-sans text-xs text-[#a09a94] line-through">
                 {formatPrice(product.originalPrice)}
               </span>
             )}

@@ -37,12 +37,12 @@ export default async function CategoryPage({ params }: PageProps) {
     <div className="min-h-screen bg-ivory pt-28 lg:pt-36 pb-20">
       <div className="max-w-7xl mx-auto px-6">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-[0.65rem] font-sans text-stone-400 tracking-widest uppercase mb-8">
-          <Link href="/" className="hover:text-stone-700 transition-colors">Home</Link>
+        <nav className="flex items-center gap-2 text-[0.65rem] font-sans text-ink-400 tracking-widest uppercase mb-8">
+          <Link href="/" className="hover:text-ink-700 transition-colors">Home</Link>
           <ChevronRight size={10} />
-          <Link href="/shop" className="hover:text-stone-700 transition-colors">Shop</Link>
+          <Link href="/shop" className="hover:text-ink-700 transition-colors">Shop</Link>
           <ChevronRight size={10} />
-          <span className="text-stone-700">{cat.label}</span>
+          <span className="text-ink-700">{cat.label}</span>
         </nav>
 
         {/* Page header */}
@@ -50,10 +50,10 @@ export default async function CategoryPage({ params }: PageProps) {
           <p className="text-gold-500 text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2">
             Collection
           </p>
-          <h1 className="font-serif text-4xl lg:text-5xl text-stone-900 font-light mb-3">
+          <h1 className="font-serif text-4xl lg:text-5xl text-ink-950 font-light mb-3">
             {cat.label}
           </h1>
-          <p className="text-stone-500 font-sans text-sm max-w-lg">
+          <p className="text-ink-500 font-sans text-sm max-w-lg">
             {cat.description}
           </p>
         </div>
@@ -61,10 +61,10 @@ export default async function CategoryPage({ params }: PageProps) {
         {/* Products */}
         {!hasProducts ? (
           <div className="py-24 text-center">
-            <p className="font-serif text-3xl text-stone-400 font-light mb-3">
+            <p className="font-serif text-3xl text-ink-400 font-light mb-3">
               Coming Soon
             </p>
-            <p className="text-stone-400 font-sans text-sm mb-8 max-w-md mx-auto">
+            <p className="text-ink-400 font-sans text-sm mb-8 max-w-md mx-auto">
               We&apos;re curating exceptional {cat.label.toLowerCase()} pieces for
               our collection. Be the first to know when they arrive.
             </p>

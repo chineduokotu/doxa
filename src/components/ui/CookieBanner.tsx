@@ -37,7 +37,7 @@ export function CookieBanner() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed bottom-4 left-4 right-4 z-40 border border-white/10 bg-stone-900 text-stone-100 shadow-2xl sm:left-auto sm:bottom-6 sm:right-6 sm:w-[360px]"
+          className="fixed bottom-4 left-4 right-4 z-40 border border-white/10 bg-ink-950 text-ink-100 shadow-2xl sm:left-auto sm:bottom-6 sm:right-6 sm:w-[360px]"
           role="dialog"
           aria-label="Cookie consent"
         >
@@ -48,13 +48,13 @@ export function CookieBanner() {
               </p>
               <button
                 onClick={handleDismiss}
-                className="text-stone-400 hover:text-stone-100 transition-colors mt-0.5 shrink-0"
+                className="text-ink-400 hover:text-ink-100 transition-colors mt-0.5 shrink-0"
                 aria-label="Close cookie banner"
               >
                 <X size={16} />
               </button>
             </div>
-            <p className="text-stone-400 text-xs leading-relaxed mb-4 font-sans">
+            <p className="text-ink-400 text-xs leading-relaxed mb-4 font-sans">
               By continuing to browse Doxa Home, you consent to our use of
               cookies for analytics and personalisation.
             </p>
@@ -72,7 +72,7 @@ export function CookieBanner() {
                 variant="outline"
                 size="sm"
                 fullWidth
-                className="border-stone-600 text-stone-300 hover:bg-stone-700 hover:text-white"
+                className="border-ink-600 text-ink-300 hover:bg-ink-700 hover:text-white"
               >
                 Decline
               </Button>
