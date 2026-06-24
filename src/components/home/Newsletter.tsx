@@ -19,7 +19,7 @@ export function Newsletter() {
   };
 
   return (
-    <section className="py-24 lg:py-32 bg-[#f9f9f9] border-t border-[#e5e5e5] relative overflow-hidden">
+    <section className="py-24 lg:py-32 bg-[#050714] border-t border-[#172744] relative overflow-hidden">
       {/* Subtle noise / grain texture via repeating gradient */}
       <div className="absolute inset-0 opacity-[0.015] pointer-events-none"
            style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
@@ -33,7 +33,7 @@ export function Newsletter() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.65 }}
           >
-            <p className="font-sans text-[10px] text-[#ecb881] tracking-[0.24em] uppercase mb-4">
+            <p className="font-sans text-[10px] text-[#dc320c] tracking-[0.24em] uppercase mb-4">
               The Inner Circle
             </p>
 
@@ -42,7 +42,7 @@ export function Newsletter() {
               <span className="text-[#888888] italic font-light">Always.</span>
             </h2>
 
-            <p className="font-sans text-[#555555] text-sm leading-[1.85] mb-10 max-w-md mx-auto">
+            <p className="font-sans text-[#9aa4cc] text-sm leading-[1.85] mb-10 max-w-md mx-auto">
               Join our curated list and be first to know about new arrivals,
               exclusive collections, and private showroom events in Benin City.
             </p>
@@ -55,8 +55,8 @@ export function Newsletter() {
                 className="py-8"
               >
                 {/* Checkmark circle */}
-                <div className="w-12 h-12 rounded-full border border-[#ecb881]/40 bg-[#ecb881]/10 flex items-center justify-center mx-auto mb-5">
-                  <svg className="w-5 h-5 text-[#ecb881]" viewBox="0 0 20 20" fill="none">
+                <div className="w-12 h-12 rounded-full border border-[#dc320c]/40 bg-[#dc320c]/10 flex items-center justify-center mx-auto mb-5">
+                  <svg className="w-5 h-5 text-[#dc320c]" viewBox="0 0 20 20" fill="none">
                     <path d="M4 10l4 4 8-8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
@@ -70,7 +70,7 @@ export function Newsletter() {
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="flex w-full max-w-md mx-auto overflow-hidden bg-white border border-[#e5e5e5] focus-within:border-[#ecb881] transition-colors duration-200"
+                className="flex w-full max-w-md mx-auto overflow-hidden bg-[#111b33] border border-[#172744] focus-within:border-[#dc320c] transition-colors duration-200"
               >
                 <input
                   type="email"
@@ -79,7 +79,7 @@ export function Newsletter() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email address"
                   required
-                  className="min-w-0 flex-1 bg-transparent text-[#0c0c0c] text-sm font-sans px-5 py-4 placeholder:text-[#888888] focus:outline-none"
+                  className="min-w-0 flex-1 bg-transparent text-[#f6f8ff] text-sm font-sans px-5 py-4 placeholder:text-[#7a8ab9] focus:outline-none"
                 />
                 <button
                   type="submit"
@@ -96,7 +96,7 @@ export function Newsletter() {
               </form>
             )}
 
-            <p className="font-sans text-[#888888] text-[11px] mt-5">
+            <p className="font-sans text-[#7a8ab9] text-[11px] mt-5">
               No spam, ever. Unsubscribe at any time.
             </p>
           </motion.div>

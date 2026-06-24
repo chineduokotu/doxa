@@ -13,11 +13,11 @@ export default async function CheckoutSuccessPage({ searchParams }: PageProps) {
     <div className="min-h-screen bg-ivory pt-28 flex items-center justify-center px-6">
       <div className="max-w-md w-full text-center">
         {/* Icon */}
-        <div className="w-20 h-20 bg-[#fcf8f2] border border-gold-500/20 flex items-center justify-center mx-auto mb-8">
-          <CheckCircle size={36} className="text-gold-500" />
+        <div className="w-20 h-20 bg-white border border-[#dc320c]/20 flex items-center justify-center mx-auto mb-8">
+          <CheckCircle size={36} className="text-[#dc320c]" />
         </div>
 
-        <p className="text-gold-500 text-[0.65rem] tracking-[0.3em] uppercase font-sans mb-3">
+        <p className="text-[#dc320c] text-[0.65rem] tracking-[0.3em] uppercase font-sans mb-3">
           Order Confirmed
         </p>
         <h1 className="font-serif text-4xl text-ink-950 font-light mb-4">

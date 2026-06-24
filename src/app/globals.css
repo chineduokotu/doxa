@@ -12,31 +12,31 @@
   --font-serif: "Cormorant Garamond", Georgia, serif;
   --font-sans:  "Inter", system-ui, sans-serif;
 
-  /* Brand Palette — restrained, editorial */
-  --color-ink-50:  #f9f9f9;
-  --color-ink-100: #f2f2f2;
-  --color-ink-200: #e5e5e5;
-  --color-ink-300: #cccccc;
-  --color-ink-400: #999999;
-  --color-ink-500: #777777;
-  --color-ink-600: #555555;
-  --color-ink-700: #444444;
-  --color-ink-800: #333333;
-  --color-ink-900: #222222;
-  --color-ink-950: #0c0c0c;
+  /* Red accent palette */
+  --color-ink-50:  #f6f8ff;
+  --color-ink-100: #dfe9ff;
+  --color-ink-200: #bdccff;
+  --color-ink-300: #93a2cf;
+  --color-ink-400: #45527f;
+  --color-ink-500: #243558;
+  --color-ink-600: #172744;
+  --color-ink-700: #111b33;
+  --color-ink-800: #0a0f1c;
+  --color-ink-900: #050714;
+  --color-ink-950: #02040b;
 
-  /* Gold/Peach Accent */
-  --color-gold-400: #f2ceaa;
-  --color-gold-500: #ecb881;
-  --color-gold-600: #dfa162;
+  /* Red accent palette */
+  --color-gold-400: #ff4c4c;
+  --color-gold-500: #dc320c;
+  --color-gold-600: #a81e0a;
 
-  /* Red/Orange highlights */
-  --color-sale:    #dc320c;
+  /* Secondary red accent */
+  --color-sale:    #b71c1c;
 
   /* Neutrals */
-  --color-ivory:   #f9f9f9;
-  --color-cream:   #f2f2f2;
-  --color-sand:    #ecb881;
+  --color-ivory:   #0a0f1c;
+  --color-cream:   #111b33;
+  --color-sand:    #172744;
   --color-warm-50: #ffffff;
 
   /* Easing */
@@ -55,16 +55,17 @@
   --radius-md:     4px;
 
   /* Refined color aliases */
-  --c-bg:          #f9f9f9;
-  --c-surface:     #ffffff;
-  --c-border:      #e5e5e5;
-  --c-border-muted: #f2f2f2;
-  --c-text:        #0c0c0c;
-  --c-text-muted:  #555555;
-  --c-text-subtle: #888888;
-  --c-ink:         #0c0c0c;
-  --c-gold:        #ecb881;
-  --c-gold-light:  #ecb881;
+  --c-bg:          #050714;
+  --c-surface:     #111b33;
+  --c-border:      #172744;
+  --c-border-muted: #0d142d;
+  --c-text:        #f6f8ff;
+  --c-text-muted:  #9aa4cc;
+  --c-text-subtle: #6d79a4;
+  --c-ink:         #f6f8ff;
+  --c-gold:        #dc320c;
+  --c-gold-light:  #ff4c4c;
+  --c-sale:        #b71c1c;
 }
 
 /* ─── Reset ────────────────────────────────────────────────── */
@@ -98,7 +99,7 @@ body {
 
 /* ─── Selection ────────────────────────────────────────────── */
 ::selection {
-  background-color: rgba(184, 146, 42, 0.15);
+  background-color: rgba(66, 216, 255, 0.18);
   color: var(--c-text);
 }
 
@@ -186,7 +187,7 @@ body {
 .form-control:hover  { border-color: var(--c-text-subtle); }
 .form-control:focus  {
   border-color: var(--c-gold);
-  box-shadow:   0 0 0 3px rgba(184, 146, 42, 0.08);
+  box-shadow:   0 0 0 3px rgba(220, 50, 12, 0.08);
   outline:      none;
 }
 textarea.form-control { min-height: 8rem; resize: vertical; }
@@ -247,7 +248,7 @@ textarea.form-control { min-height: 8rem; resize: vertical; }
   left:       0;
   width:      0;
   height:     1px;
-  background: var(--c-gold-light, #c9a85c);
+  background: var(--c-gold-light);
   transition: width 280ms var(--ease-luxury);
 }
 .nav-link:hover        { color: #ffffff; }
@@ -288,18 +289,20 @@ textarea.form-control { min-height: 8rem; resize: vertical; }
   gap:              0.5rem;
   min-height:       48px;
   padding:          0 2rem;
-  background:       var(--c-ink);
-  color:            #fff;
+  background:       var(--c-gold);
+  color:            #ffffff;
   font-family:      var(--font-inter), sans-serif;
   font-size:        0.625rem;
   font-weight:      600;
   letter-spacing:   0.18em;
   text-transform:   uppercase;
   border:           1px solid transparent;
-  transition:       background 220ms ease, color 220ms ease, border-color 220ms ease;
+  transition:       background 220ms ease, color 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  box-shadow:       0 18px 44px rgba(220, 50, 12, 0.18);
 }
 .btn-primary:hover {
-  background: #2a2a2a;
+  background: #a81e0a;
+  border-color: rgba(220, 50, 12, 0.4);
 }
 
 .btn-outline {
@@ -310,18 +313,32 @@ textarea.form-control { min-height: 8rem; resize: vertical; }
   min-height:       48px;
   padding:          0 2rem;
   background:       transparent;
-  color:            var(--c-ink);
+  color:            var(--c-gold);
   font-family:      var(--font-inter), sans-serif;
   font-size:        0.625rem;
   font-weight:      600;
   letter-spacing:   0.18em;
   text-transform:   uppercase;
-  border:           1px solid var(--c-ink);
-  transition:       background 220ms ease, color 220ms ease;
+  border:           1px solid var(--c-gold);
+  transition:       background 220ms ease, color 220ms ease, border-color 220ms ease;
 }
 .btn-outline:hover {
-  background: var(--c-ink);
-  color:      #fff;
+  background: rgba(220, 50, 12, 0.12);
+  color:      #ffffff;
+}
+
+.glass-panel {
+  background: rgba(17, 27, 51, 0.92);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.38);
+}
+
+.section-rule {
+  width: 56px;
+  height: 1px;
+  background: var(--c-gold);
+  margin: 1rem 0 1.75rem;
 }
 
 /* ─── Ease utility ─────────────────────────────────────────── */

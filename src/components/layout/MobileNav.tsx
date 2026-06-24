@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronDown } from "lucide-react";
 import { useState } from "react";
@@ -57,9 +58,16 @@ export function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps) {
           >
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-[#e8e4de]">
-              <span className="font-serif text-[1.25rem] text-[#0c0c0c] tracking-[0.18em] font-light">
-                DOXA<span className="text-[#dc320c]">.</span>HOME
-              </span>
+              <Link href="/" aria-label="Doxa Home" className="shrink-0">
+                <Image
+                  src="/images/logo.png"
+                  alt="Doxa Home"
+                  width={140}
+                  height={44}
+                  priority
+                  className="h-auto w-[120px]"
+                />
+              </Link>
               <button
                 onClick={onClose}
                 aria-label="Close menu"
@@ -119,7 +127,7 @@ export function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps) {
                             <Link
                               href={`/shop/${link.slug}`}
                               onClick={onClose}
-                              className="flex items-center gap-1.5 py-2 pl-4 font-sans text-[9.5px] text-[#ecb881] hover:text-[#dfa162] tracking-[0.16em] uppercase transition-colors"
+                              className="flex items-center gap-1.5 py-2 pl-4 font-sans text-[9.5px] text-[#dc320c] hover:text-[#a81e0a] tracking-[0.16em] uppercase transition-colors"
                             >
                               View All <ArrowRight size={10} strokeWidth={1.5} />
                             </Link>
@@ -159,7 +167,7 @@ export function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps) {
                 className="flex items-center justify-between w-full py-3.5 px-4 bg-[#f9f9f9] hover:bg-[#f2f2f2] text-[#0c0c0c] border border-[#e5e5e5] transition-colors"
               >
                 <span className="font-sans text-[12px] text-[#6b6560]">Browse All Pieces</span>
-                <div className="flex items-center gap-2 font-sans text-[9.5px] text-[#ecb881]">
+                <div className="flex items-center gap-2 font-sans text-[9.5px] text-[#dc320c]">
                   {itemCount > 0 && <span>{itemCount} in bag ·</span>}
                   <ArrowRight size={12} strokeWidth={1.5} />
                 </div>

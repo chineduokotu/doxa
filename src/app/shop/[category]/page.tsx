@@ -47,7 +47,7 @@ export default async function CategoryPage({ params }: PageProps) {
 
         {/* Page header */}
         <div className="mb-12">
-          <p className="text-gold-500 text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2">
+          <p className="text-[#dc320c] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2">
             Collection
           </p>
           <h1 className="font-serif text-4xl lg:text-5xl text-ink-950 font-light mb-3">
@@ -70,7 +70,7 @@ export default async function CategoryPage({ params }: PageProps) {
             </p>
             <Link
               href="/shop"
-              className="text-[0.65rem] tracking-widest uppercase font-sans text-gold-500 hover:text-gold-600 transition-colors"
+              className="text-[0.65rem] tracking-widest uppercase font-sans text-[#dc320c] hover:text-[#a81e0a] transition-colors"
             >
               Browse All Collections →
             </Link>

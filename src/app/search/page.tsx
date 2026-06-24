@@ -39,7 +39,7 @@ function SearchResults() {
             </p>
             <Link
               href="/shop"
-              className="text-[0.65rem] tracking-widest uppercase font-sans text-gold-500 hover:text-gold-600 transition-colors"
+              className="text-[0.65rem] tracking-widest uppercase font-sans text-[#dc320c] hover:text-[#a81e0a] transition-colors"
             >
               Browse All Products →
             </Link>
@@ -62,7 +62,7 @@ export default function SearchPage() {
     <div className="min-h-screen bg-ivory pt-24 sm:pt-28 lg:pt-36 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="mb-8 sm:mb-12">
-          <p className="text-gold-500 text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2 sm:mb-3">
+          <p className="text-[#dc320c] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2 sm:mb-3">
             Search
           </p>
           <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-ink-950 font-light leading-tight mb-5 sm:mb-8">

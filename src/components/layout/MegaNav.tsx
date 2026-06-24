@@ -45,7 +45,7 @@ export function MegaNav({ activeSlug, onClose, solidBg = false }: MegaNavProps) 
 
             {/* Sub-links */}
             <div className="col-span-2">
-              <p className="font-sans text-[9.5px] text-[#ecb881] tracking-[0.2em] uppercase mb-6">
+              <p className="font-sans text-[9.5px] text-[#dc320c] tracking-[0.2em] uppercase mb-6">
                 {active.label}
               </p>
 
@@ -69,7 +69,7 @@ export function MegaNav({ activeSlug, onClose, solidBg = false }: MegaNavProps) 
                       <ArrowRight
                         size={11}
                         strokeWidth={1.5}
-                        className="text-[#ecb881] opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="text-[#dc320c] opacity-0 group-hover:opacity-100 transition-opacity"
                       />
                     </Link>
                   </li>
@@ -79,7 +79,7 @@ export function MegaNav({ activeSlug, onClose, solidBg = false }: MegaNavProps) 
               <Link
                 href={`/shop/${activeSlug}`}
                 onClick={onClose}
-                className="mt-8 inline-flex items-center gap-2 font-sans text-[9.5px] tracking-[0.18em] uppercase text-[#ecb881] hover:text-[#dfa162] transition-colors duration-200"
+                className="mt-8 inline-flex items-center gap-2 font-sans text-[9.5px] tracking-[0.18em] uppercase text-[#dc320c] hover:text-[#a81e0a] transition-colors duration-200"
               >
                 View All {active.label}
                 <ArrowRight size={11} strokeWidth={1.5} />

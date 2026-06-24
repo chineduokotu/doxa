@@ -116,7 +116,7 @@ export function Hero() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.22, duration: 0.5 }}
-                className="font-sans text-[10px] text-[#ecb881] tracking-[0.28em] uppercase mb-6 font-bold"
+                className="font-sans text-[10px] text-[#dc320c] tracking-[0.28em] uppercase mb-6 font-bold"
               >
                 Doxa Home — {slide.eyebrow}
               </motion.p>
@@ -145,7 +145,7 @@ export function Hero() {
               >
                 <Link
                   href={slide.ctaHref}
-                  className="btn-primary"
+                  className="inline-flex items-center gap-3 rounded-full bg-[#dc320c] px-6 py-3 text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-white shadow-[0_16px_40px_rgba(220,50,12,0.18)] transition-colors duration-200 hover:bg-[#a81e0a]"
                 >
                   {slide.cta}
                   <ArrowRight size={13} strokeWidth={1.5} />
@@ -173,7 +173,7 @@ export function Hero() {
               aria-label={`Go to slide ${i + 1}`}
               className={`block rounded-full transition-all duration-400 ${
                 i === current
-                  ? "w-7 h-[3px] bg-[#ecb881]"
+                  ? "w-7 h-[3px] bg-[#dc320c]"
                   : "w-3 h-[3px] bg-white/25 hover:bg-white/50"
               }`}
             />

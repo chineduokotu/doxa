@@ -115,7 +115,7 @@ export default async function ProductPage({ params }: PageProps) {
               )}
 
               {/* Category */}
-              <p className="text-gold-500 text-[0.65rem] tracking-[0.25em] uppercase font-sans">
+              <p className="text-[#dc320c] text-[0.65rem] tracking-[0.25em] uppercase font-sans">
                 {product.category.replace("-", " ")}
               </p>
 
@@ -150,7 +150,7 @@ export default async function ProductPage({ params }: PageProps) {
                   >
                     <Check
                       size={14}
-                      className="text-gold-500 mt-0.5 shrink-0"
+                      className="text-[#dc320c] mt-0.5 shrink-0"
                     />
                     {detail}
                   </li>
@@ -216,7 +216,7 @@ export default async function ProductPage({ params }: PageProps) {
                 Questions?{" "}
                 <Link
                   href="/contact"
-                  className="text-gold-500 hover:text-gold-600 transition-colors underline underline-offset-2"
+                  className="text-[#dc320c] hover:text-[#a81e0a] transition-colors underline underline-offset-2"
                 >
                   Contact our team
                 </Link>{" "}
@@ -230,7 +230,7 @@ export default async function ProductPage({ params }: PageProps) {
             <div className="mt-24">
               <div className="mb-10 flex items-center justify-between">
                 <div>
-                  <p className="text-gold-500 text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2">
+                  <p className="text-[#dc320c] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2">
                     You May Also Like
                   </p>
                   <h2 className="font-serif text-3xl text-ink-950 font-light">

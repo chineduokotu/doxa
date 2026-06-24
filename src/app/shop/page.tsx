@@ -46,7 +46,7 @@ export default function ShopPage() {
       <div className="max-w-7xl mx-auto px-6 pb-20">
         {/* Page header */}
         <div className="mb-10">
-          <p className="text-gold-500 text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2">
+          <p className="text-[#dc320c] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2">
             Browse
           </p>
           <h1 className="font-serif text-4xl lg:text-5xl text-ink-950 font-light">
@@ -162,7 +162,7 @@ export default function ShopPage() {
                 setSelectedCategory("all");
                 setPriceMax(3000000);
               }}
-              className="mt-6 text-[0.65rem] tracking-widest uppercase font-sans text-gold-500 hover:text-gold-600 transition-colors"
+              className="mt-6 text-[0.65rem] tracking-widest uppercase font-sans text-[#dc320c] hover:text-[#a81e0a] transition-colors"
             >
               Clear Filters
             </button>

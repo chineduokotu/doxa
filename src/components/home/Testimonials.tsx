@@ -44,7 +44,7 @@ export function Testimonials() {
   const t = testimonials[current];
 
   return (
-    <section className="py-24 lg:py-36 bg-[#f9f9f9] text-[#0c0c0c] border-t border-b border-[#e5e5e5] overflow-hidden">
+    <section className="py-24 lg:py-36 bg-[#050714] text-[#f6f8ff] border-t border-b border-[#172744] overflow-hidden">
       <div className="max-w-screen-xl mx-auto px-8">
 
         {/* ── Header ───────────────────────────────────────── */}
@@ -55,10 +55,10 @@ export function Testimonials() {
           transition={{ duration: 0.55 }}
           className="text-center mb-16"
         >
-          <p className="font-sans text-[10px] text-[#ecb881] tracking-[0.24em] uppercase mb-4">
+          <p className="font-sans text-[10px] text-[#dc320c] tracking-[0.24em] uppercase mb-4">
             Client Stories
           </p>
-          <h2 className="display-md text-[#0c0c0c]">
+          <h2 className="display-md text-[#f6f8ff]">
             Trusted by Discerning Homes
           </h2>
         </motion.div>
@@ -78,20 +78,20 @@ export function Testimonials() {
                 {/* Stars */}
                 <div className="flex items-center justify-center gap-1 mb-8">
                   {Array.from({ length: t.rating }).map((_, i) => (
-                    <Star key={i} size={12} className="text-[#ecb881] fill-[#ecb881]" />
+                    <Star key={i} size={12} className="text-[#dc320c] fill-[#dc320c]" />
                   ))}
                 </div>
 
                 {/* Quote */}
-                <blockquote className="font-serif text-xl lg:text-2xl text-[#3d3d3d] font-light leading-[1.7] italic mb-8 max-w-2xl mx-auto">
+                <blockquote className="font-serif text-xl lg:text-2xl text-[#d0dbff] font-light leading-[1.7] italic mb-8 max-w-2xl mx-auto">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
 
                 {/* Attribution */}
                 <div className="flex flex-col items-center gap-1">
-                  <div className="w-8 h-[1px] bg-[#ecb881]/60 mb-4" />
-                  <p className="font-sans text-sm text-[#0c0c0c] font-medium">{t.name}</p>
-                  <p className="font-sans text-[11px] text-[#555555] tracking-[0.1em] uppercase">{t.role}</p>
+                  <div className="w-8 h-[1px] bg-[#dc320c]/60 mb-4" />
+                  <p className="font-sans text-sm text-[#f6f8ff] font-medium">{t.name}</p>
+                  <p className="font-sans text-[11px] text-[#9aa4cc] tracking-[0.1em] uppercase">{t.role}</p>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -102,7 +102,7 @@ export function Testimonials() {
             <button
               onClick={prev}
               aria-label="Previous testimonial"
-              className="w-10 h-10 border border-[#e5e5e5] text-[#555555] hover:border-[#ecb881]/50 hover:text-[#ecb881] flex items-center justify-center transition-all duration-200"
+              className="w-10 h-10 border border-[#172744] text-[#cfd9ff] hover:border-[#dc320c]/50 hover:text-[#dc320c] flex items-center justify-center transition-all duration-200"
             >
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                 <path d="M8 10L4 6l4-4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -117,7 +117,7 @@ export function Testimonials() {
                   aria-label={`Go to testimonial ${i + 1}`}
                   className={`block rounded-full transition-all duration-300 ${
                     i === current
-                      ? "w-7 h-[2px] bg-[#ecb881]"
+                      ? "w-7 h-[2px] bg-[#dc320c]"
                       : "w-3 h-[2px] bg-[#e5e5e5] hover:bg-[#888888]"
                   }`}
                 />
@@ -127,7 +127,7 @@ export function Testimonials() {
             <button
               onClick={next}
               aria-label="Next testimonial"
-              className="w-10 h-10 border border-[#e5e5e5] text-[#555555] hover:border-[#ecb881]/50 hover:text-[#ecb881] flex items-center justify-center transition-all duration-200"
+              className="w-10 h-10 border border-[#172744] text-[#cfd9ff] hover:border-[#dc320c]/50 hover:text-[#dc320c] flex items-center justify-center transition-all duration-200"
             >
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                 <path d="M4 2l4 4-4 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>

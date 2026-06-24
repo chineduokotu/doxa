@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import { ShoppingBag, Heart, Search, Menu, X } from "lucide-react";
@@ -98,12 +99,17 @@ export function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className={cn(
-              "shrink-0 font-serif text-[1.55rem] font-light tracking-[0.18em] transition-colors duration-300 select-none",
-              solidBg ? "text-[#0c0c0c] hover:text-[#0c0c0c]/80" : "text-white hover:text-white/80"
-            )}
+            aria-label="Doxa Home"
+            className="shrink-0 transition-colors duration-300 select-none"
           >
-            DOXA<span className="text-[#dc320c]">.</span>HOME
+            <Image
+              src="/images/logo.png"
+              alt="Doxa Home"
+              width={140}
+              height={44}
+              priority
+              className="h-auto w-[110px] sm:w-[140px]"
+            />
           </Link>
 
           {/* Desktop nav links — centered */}
@@ -146,7 +152,7 @@ export function Header() {
             >
               <Heart size={22} strokeWidth={1.5} />
               {mounted && wishlistCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-[14px] h-[14px] rounded-full bg-[#ecb881] text-[#0c0c0c] text-[9px] flex items-center justify-center font-sans font-semibold leading-none">
+                <span className="absolute top-1.5 right-1.5 w-[14px] h-[14px] rounded-full bg-[#dc320c] text-white text-[9px] flex items-center justify-center font-sans font-semibold leading-none">
                   {wishlistCount}
                 </span>
               )}

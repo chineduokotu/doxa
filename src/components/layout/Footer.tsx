@@ -50,7 +50,7 @@ export function Footer() {
                 { Icon: Mail,  text: "hello@doxahome.ng", href: "mailto:hello@doxahome.ng"   },
               ].map(({ Icon, text, href }) => (
                 <div key={text} className="flex items-start gap-2.5 text-[#555555]">
-                  <Icon size={12} className="mt-[3px] shrink-0 text-[#ecb881]" />
+                  <Icon size={12} className="mt-[3px] shrink-0 text-[#dc320c]" />
                   {href ? (
                     <a href={href} className="font-sans text-[12px] hover:text-[#0c0c0c] transition-colors">
                       {text}
@@ -84,7 +84,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="text-[#888888] hover:text-[#ecb881] transition-colors duration-200"
+                  className="text-[#888888] hover:text-[#dc320c] transition-colors duration-200"
                 >
                   {icon}
                 </a>
@@ -126,7 +126,7 @@ export function Footer() {
               </p>
             </div>
 
-            <form className="flex overflow-hidden border border-[#e5e5e5] focus-within:border-[#ecb881] transition-colors duration-200 w-full sm:w-auto bg-white">
+            <form className="flex overflow-hidden border border-[#e5e5e5] focus-within:border-[#dc320c] transition-colors duration-200 w-full sm:w-auto bg-white">
               <input
                 type="email"
                 placeholder="Email address"
@@ -134,7 +134,7 @@ export function Footer() {
               />
               <button
                 type="submit"
-                className="shrink-0 bg-[#ecb881] hover:bg-[#dfa162] text-[#0c0c0c] px-4 py-3 text-[9.5px] font-sans font-semibold tracking-[0.16em] uppercase transition-colors duration-200"
+                className="shrink-0 bg-[#dc320c] hover:bg-[#a81e0a] text-white px-4 py-3 text-[9.5px] font-sans font-semibold tracking-[0.16em] uppercase transition-colors duration-200"
               >
                 Subscribe
               </button>

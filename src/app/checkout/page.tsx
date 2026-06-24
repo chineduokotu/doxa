@@ -143,7 +143,7 @@ export default function CheckoutPage() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 border-b border-ink-200/50 pb-8">
           <div>
-            <p className="text-gold-500 text-[0.65rem] tracking-[0.2em] uppercase font-sans mb-2 font-medium">
+            <p className="text-[#dc320c] text-[0.65rem] tracking-[0.2em] uppercase font-sans mb-2 font-medium">
               Secure Checkout
             </p>
             <h1 className="font-serif text-3xl lg:text-4xl text-ink-950 font-light tracking-wide">
@@ -158,7 +158,7 @@ export default function CheckoutPage() {
               <div className="absolute left-6 right-6 top-[18px] h-[1px] bg-ink-200 -translate-y-1/2 z-0" />
               {/* Active Line Progress */}
               <div 
-                className="absolute left-6 top-[18px] h-[1px] bg-gold-500 -translate-y-1/2 z-0 transition-all duration-500" 
+                className="absolute left-6 top-[18px] h-[1px] bg-[#dc320c] -translate-y-1/2 z-0 transition-all duration-500" 
                 style={{
                   width: step === "address" ? "0%" : step === "delivery" ? "50%" : "100%"
                 }}
@@ -183,9 +183,9 @@ export default function CheckoutPage() {
                       className={cn(
                         "w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-500",
                         isActive 
-                          ? "bg-ink-950 border-ink-950 text-gold-500 shadow-md shadow-ink-950/10 scale-110"
+                          ? "bg-ink-950 border-ink-950 text-[#dc320c] shadow-md shadow-ink-950/10 scale-110"
                           : isCompleted
-                          ? "bg-gold-500 border-gold-500 text-white"
+                          ? "bg-[#dc320c] border-[#dc320c] text-white"
                           : "bg-white border-ink-200 text-ink-400"
                       )}
                     >
@@ -365,7 +365,7 @@ export default function CheckoutPage() {
                         className={cn(
                           "flex items-center gap-4 p-5 border cursor-pointer transition-all duration-300 hover:border-ink-400 select-none",
                           isSelected
-                            ? "border-gold-500 bg-gold-500/5 ring-1 ring-gold-500"
+                            ? "border-[#dc320c] bg-[#dc320c]/5 ring-1 ring-[#dc320c]"
                             : "border-ink-200 bg-white"
                         )}
                       >
@@ -381,11 +381,11 @@ export default function CheckoutPage() {
                           <div 
                             className={cn(
                               "w-4 h-4 rounded-full border flex items-center justify-center transition-colors duration-200",
-                              isSelected ? "border-gold-500 text-gold-500" : "border-ink-300"
+                              isSelected ? "border-[#dc320c] text-[#dc320c]" : "border-ink-300"
                             )}
                           >
                             {isSelected && (
-                              <div className="w-2 h-2 rounded-full bg-gold-500" />
+                              <div className="w-2 h-2 rounded-full bg-[#dc320c]" />
                             )}
                           </div>
                         </div>
@@ -434,12 +434,12 @@ export default function CheckoutPage() {
                   </p>
                 </div>
 
-                <div className="p-6 border border-gold-500/20 bg-gold-500/5 rounded-sm mb-6 flex gap-4 items-start">
-                  <ShieldCheck className="text-gold-500 shrink-0 mt-0.5" size={20} />
+                <div className="p-6 border border-[#dc320c]/20 bg-[#dc320c]/5 rounded-sm mb-6 flex gap-4 items-start">
+                  <ShieldCheck className="text-[#dc320c] shrink-0 mt-0.5" size={20} />
                   <div>
                     <p className="text-sm font-sans text-ink-700 leading-relaxed">
                       You will be securely redirected to <span className="font-semibold text-ink-950">Paystack</span> to complete your payment of{" "}
-                      <span className="font-semibold text-gold-500">{formatPrice(total)}</span>. We accept all major Nigerian cards, bank transfers, USSD, and bank apps.
+                      <span className="font-semibold text-[#dc320c]">{formatPrice(total)}</span>. We accept all major Nigerian cards, bank transfers, USSD, and bank apps.
                     </p>
                   </div>
                 </div>
@@ -527,7 +527,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className="flex justify-between font-medium text-ink-950 pt-4 border-t border-ink-100 items-baseline">
                   <span>Total Amount</span>
-                  <span className="font-serif text-xl text-gold-500 font-semibold">{formatPrice(total)}</span>
+                  <span className="font-serif text-xl text-[#dc320c] font-semibold">{formatPrice(total)}</span>
                 </div>
               </div>
 

@@ -10,7 +10,7 @@ export function FeaturedProducts() {
   const products = getFeaturedProducts(6);
 
   return (
-    <section className="py-24 lg:py-32 bg-[#faf8f4]">
+    <section className="py-28 lg:py-36 bg-[#050714]">
       <div className="max-w-screen-xl mx-auto px-8">
 
         {/* ── Section header ─────────────────────────────── */}
@@ -22,10 +22,11 @@ export function FeaturedProducts() {
           className="mb-14 flex flex-col sm:flex-row sm:items-end justify-between gap-4"
         >
           <div>
-            <p className="font-sans text-[10px] text-[#ecb881] tracking-[0.22em] uppercase mb-3">
+            <div className="section-rule" />
+            <p className="font-sans text-[10px] text-[#dc320c] tracking-[0.22em] uppercase mb-3">
               Curated Selection
             </p>
-            <h2 className="display-lg text-[#0c0c0c]">
+            <h2 className="display-lg text-[#f6f8ff]">
               Featured Pieces
             </h2>
           </div>
@@ -52,14 +53,16 @@ export function FeaturedProducts() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-16 pt-10 border-t border-[#e5e5e5] flex flex-col sm:flex-row sm:items-center justify-between gap-6"
+          className="mt-16 pt-10"
         >
-          <p className="font-serif text-[#888888] font-light text-lg text-center sm:text-left">
-            Discover our full range of premium pieces
-          </p>
-          <Link href="/shop" className="btn-primary w-full sm:w-auto">
-            Shop All <ArrowRight size={13} strokeWidth={1.5} />
-          </Link>
+          <div className="glass-panel flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-8">
+            <p className="font-serif text-[#cfd9ff] font-light text-lg text-center sm:text-left max-w-2xl">
+              Discover our full range of premium pieces, handcrafted for enduring spaces.
+            </p>
+            <Link href="/shop" className="btn-primary w-full sm:w-auto">
+              Shop All <ArrowRight size={13} strokeWidth={1.5} />
+            </Link>
+          </div>
         </motion.div>
       </div>
     </section>

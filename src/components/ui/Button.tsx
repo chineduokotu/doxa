@@ -31,7 +31,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           variant === "solid"   && "bg-[#0c0c0c] text-white hover:bg-[#222222] focus-visible:ring-[#0c0c0c]",
           variant === "outline" && "border border-[#0c0c0c] text-[#0c0c0c] hover:bg-[#0c0c0c] hover:text-white focus-visible:ring-[#0c0c0c]",
           variant === "ghost"   && "border border-white/35 text-white hover:bg-white hover:text-[#0c0c0c] focus-visible:ring-white",
-          variant === "gold"    && "bg-[#ecb881] text-[#0c0c0c] hover:bg-[#dfa162] focus-visible:ring-[#ecb881]",
+          variant === "gold"    && "bg-[#dc320c] text-white hover:bg-[#a81e0a] focus-visible:ring-[#dc320c]",
           // Width
           fullWidth && "w-full",
           className

@@ -12,7 +12,7 @@ const stats = [
 
 export function BrandStory() {
   return (
-    <section className="py-24 lg:py-36 overflow-hidden bg-white">
+    <section className="py-24 lg:py-36 overflow-hidden bg-[#050714]">
       <div className="max-w-screen-xl mx-auto px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
@@ -25,7 +25,7 @@ export function BrandStory() {
             className="relative order-2 lg:order-1"
           >
             {/* Gold accent line */}
-            <div className="absolute top-12 -left-4 w-[2px] h-16 bg-[#ecb881] hidden lg:block" />
+            <div className="absolute top-12 -left-4 w-[2px] h-16 bg-[#dc320c] hidden lg:block" />
 
             {/* Main image */}
             <div className="relative aspect-[4/5] overflow-hidden">
@@ -58,19 +58,19 @@ export function BrandStory() {
             transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             className="order-1 lg:order-2 pb-16 sm:pb-0"
           >
-            <p className="font-sans text-[10px] text-[#ecb881] tracking-[0.22em] uppercase mb-4">
+            <p className="font-sans text-[10px] text-[#dc320c] tracking-[0.22em] uppercase mb-4">
               Our Philosophy
             </p>
 
-            {/* Gold rule */}
-            <div className="w-9 h-[1px] bg-[#ecb881] mb-7" />
+            {/* Accent rule */}
+            <div className="w-9 h-[1px] bg-[#dc320c] mb-7" />
 
-            <h2 className="display-lg text-[#0c0c0c] mb-8">
+            <h2 className="display-lg text-[#f6f8ff] mb-8">
               Furniture that{" "}
-              <span className="text-[#888888] italic">tells your story.</span>
+              <span className="text-[#9aa4cc] italic">tells your story.</span>
             </h2>
 
-            <div className="space-y-5 text-[#555555] font-sans text-[0.875rem] leading-[1.85]">
+            <div className="space-y-5 text-[#9aa4cc] font-sans text-[0.875rem] leading-[1.85]">
               <p>
                 Doxa Home was founded on a simple belief: every Nigerian home deserves
                 furniture as refined as the people who live in it. Based on Airport Road,
@@ -90,13 +90,13 @@ export function BrandStory() {
             </div>
 
             {/* Stats */}
-            <div className="mt-14 pt-10 border-t border-[#e5e5e5] grid grid-cols-3 gap-8">
+            <div className="mt-14 pt-10 border-t border-[#172744] grid grid-cols-3 gap-8">
               {stats.map((stat) => (
                 <div key={stat.label}>
-                  <p className="font-serif text-[2rem] text-[#0c0c0c] font-light leading-none mb-2">
+                  <p className="font-serif text-[2rem] text-[#f6f8ff] font-light leading-none mb-2">
                     {stat.value}
                   </p>
-                  <p className="font-sans text-[9.5px] text-[#888888] tracking-[0.14em] uppercase leading-snug">
+                  <p className="font-sans text-[9.5px] text-[#9aa4cc] tracking-[0.14em] uppercase leading-snug">
                     {stat.label}
                   </p>
                 </div>

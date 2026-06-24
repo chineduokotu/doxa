@@ -39,7 +39,7 @@ export default function ContactPage() {
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="mb-16">
-          <p className="text-gold-500 text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-3">
+          <p className="text-[#dc320c] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-3">
             Get in Touch
           </p>
           <h1 className="font-serif text-5xl lg:text-6xl text-ink-950 font-light">
@@ -53,7 +53,7 @@ export default function ContactPage() {
             <div className="space-y-8 mb-10">
               <div id="showroom" className="flex items-start gap-4">
                 <div className="w-10 h-10 bg-ink-950 flex items-center justify-center shrink-0">
-                  <MapPin size={16} className="text-gold-400" />
+                  <MapPin size={16} className="text-[#ff4c4c]" />
                 </div>
                 <div>
                   <p className="font-serif text-lg text-ink-950 font-light mb-1">
@@ -71,7 +71,7 @@ export default function ContactPage() {
 
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 bg-ink-950 flex items-center justify-center shrink-0">
-                  <Phone size={16} className="text-gold-400" />
+                  <Phone size={16} className="text-[#ff4c4c]" />
                 </div>
                 <div>
                   <p className="font-serif text-lg text-ink-950 font-light mb-1">
@@ -79,7 +79,7 @@ export default function ContactPage() {
                   </p>
                   <a
                     href="tel:+2340000000000"
-                    className="text-ink-500 font-sans text-sm hover:text-gold-500 transition-colors"
+                    className="text-ink-500 font-sans text-sm hover:text-[#dc320c] transition-colors"
                   >
                     +234 000 000 0000
                   </a>
@@ -88,7 +88,7 @@ export default function ContactPage() {
 
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 bg-ink-950 flex items-center justify-center shrink-0">
-                  <Mail size={16} className="text-gold-400" />
+                  <Mail size={16} className="text-[#ff4c4c]" />
                 </div>
                 <div>
                   <p className="font-serif text-lg text-ink-950 font-light mb-1">
@@ -96,7 +96,7 @@ export default function ContactPage() {
                   </p>
                   <a
                     href="mailto:hello@doxahome.ng"
-                    className="text-ink-500 font-sans text-sm hover:text-gold-500 transition-colors"
+                    className="text-ink-500 font-sans text-sm hover:text-[#dc320c] transition-colors"
                   >
                     hello@doxahome.ng
                   </a>
@@ -105,7 +105,7 @@ export default function ContactPage() {
 
               <div id="delivery" className="flex items-start gap-4">
                 <div className="w-10 h-10 bg-ink-950 flex items-center justify-center shrink-0">
-                  <Clock size={16} className="text-gold-400" />
+                  <Clock size={16} className="text-[#ff4c4c]" />
                 </div>
                 <div>
                   <p className="font-serif text-lg text-ink-950 font-light mb-1">
@@ -129,7 +129,7 @@ export default function ContactPage() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-ink-400 hover:text-gold-500 transition-colors"
+                className="text-ink-400 hover:text-[#dc320c] transition-colors"
               >
                 <Globe size={18} />
               </a>
@@ -137,7 +137,7 @@ export default function ContactPage() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-ink-400 hover:text-gold-500 transition-colors"
+                className="text-ink-400 hover:text-[#dc320c] transition-colors"
               >
                 <Share2 size={18} />
               </a>
@@ -162,9 +162,9 @@ export default function ContactPage() {
           <div>
             {submitted ? (
               <div className="bg-white border border-ink-200/80 p-8 shadow-sm text-center py-16">
-                <div className="w-16 h-16 bg-[#fcf8f2] border border-gold-500/20 flex items-center justify-center mx-auto mb-6">
+                <div className="w-16 h-16 bg-white border border-[#dc320c]/20 flex items-center justify-center mx-auto mb-6">
                   <svg
-                    className="w-7 h-7 text-gold-500"
+                    className="w-7 h-7 text-[#dc320c]"
                     viewBox="0 0 24 24"
                     fill="none"
                   >
