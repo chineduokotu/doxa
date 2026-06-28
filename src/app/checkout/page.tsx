@@ -9,7 +9,7 @@ import Image from "next/image";
 import { useCartStore } from "@/lib/store/cart";
 import { formatPrice, generateOrderNumber, cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
-import { ChevronRight, ShieldCheck, MapPin, Truck, CreditCard } from "lucide-react";
+import { ChevronRight, ShieldCheck, MapPin, Truck, ClipboardList } from "lucide-react";
 
 const addressSchema = z.object({
   firstName: z.string().min(2, "First name is required"),
@@ -23,7 +23,7 @@ const addressSchema = z.object({
 
 type AddressForm = z.infer<typeof addressSchema>;
 
-type Step = "address" | "delivery" | "payment";
+type Step = "address" | "delivery" | "review";
 
 const subscribe = () => () => {};
 const getClientSnapshot = () => true;
@@ -34,18 +34,18 @@ const deliveryOptions = [
     id: "standard",
     label: "Standard Delivery",
     description: "3–5 business days",
-    price: 15000,
+    price: 0,
   },
   {
     id: "express",
     label: "Express Delivery",
     description: "1–2 business days",
-    price: 35000,
+    price: 0,
   },
   {
     id: "pickup",
     label: "Showroom Pickup",
-    description: "Airport Road, Benin City",
+    description: "108 Akpakpava Road, Benin City",
     price: 0,
   },
 ];
@@ -71,47 +71,47 @@ export default function CheckoutPage() {
   });
 
   const onAddressSubmit = () => setStep("delivery");
-  const onDeliveryNext = () => setStep("payment");
+  const onDeliveryNext = () => setStep("review");
 
-  const handlePaystackPayment = async () => {
+  const handleWhatsAppOrder = () => {
     setPaying(true);
-    // Paystack integration — swap in NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY in .env.local
-    const paystackKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "pk_test_placeholder";
+    const formValues = getValues();
+    const orderNumber = generateOrderNumber();
+    
+    // Construct items list text
+    const itemsText = items
+      .map((item, idx) => `• ${item.product.name} (Qty: ${item.quantity})`)
+      .join("\n");
+      
+    // Delivery option text
+    const deliveryLabel = deliveryOptions.find((d) => d.id === delivery)?.label ?? "Standard Delivery";
+    
+    const message = `Hello Doxa Homes, I would like to place an order:
 
-    try {
-      // Dynamic import of Paystack inline script
-      const { default: PaystackPop } = await import("@paystack/inline-js");
-      const popup = new PaystackPop();
-      popup.newTransaction({
-        key: paystackKey,
-        email: getValues("email"),
-        amount: total * 100, // Paystack expects kobo
-        currency: "NGN",
-        metadata: {
-          custom_fields: [
-            {
-              display_name: "Customer Name",
-              variable_name: "customer_name",
-              value: `${getValues("firstName")} ${getValues("lastName")}`,
-            },
-          ],
-        },
-        onSuccess: (transaction: { reference: string }) => {
-          const orderNumber = generateOrderNumber();
-          clearCart();
-          router.push(`/checkout/success?order=${orderNumber}&ref=${transaction.reference}`);
-        },
-        onCancel: () => {
-          setPaying(false);
-        },
-      });
-    } catch {
-      // Fallback if Paystack not available — simulate for demo
-      await new Promise((r) => setTimeout(r, 1500));
-      const orderNumber = generateOrderNumber();
-      clearCart();
-      router.push(`/checkout/success?order=${orderNumber}&ref=DEMO`);
-    }
+*Order Number:* ${orderNumber}
+
+*Customer Details:*
+• Name: ${formValues.firstName} ${formValues.lastName}
+• Phone: ${formValues.phone}
+• Email: ${formValues.email}
+• Shipping Address: ${formValues.address}, ${formValues.city}, ${formValues.state} State, Nigeria
+• Shipping Method: ${deliveryLabel}
+
+*Items:*
+${itemsText}
+
+Please confirm availability and delivery setup. Thank you!`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/2349060753966?text=${encodedMessage}`;
+    
+    clearCart();
+    
+    // Open WhatsApp
+    window.open(whatsappUrl, "_blank");
+    
+    // Redirect to success page
+    router.push(`/checkout/success?order=${orderNumber}`);
   };
 
   const isHydrated = useSyncExternalStore(
@@ -121,7 +121,7 @@ export default function CheckoutPage() {
   );
 
   useEffect(() => {
-    if (isHydrated && items.length === 0 && step !== "payment") {
+    if (isHydrated && items.length === 0 && step !== "review") {
       router.push("/shop");
     }
   }, [isHydrated, items.length, step, router]);
@@ -134,7 +134,7 @@ export default function CheckoutPage() {
     );
   }
 
-  if (items.length === 0 && step !== "payment") {
+  if (items.length === 0 && step !== "review") {
     return null;
   }
 
@@ -143,10 +143,10 @@ export default function CheckoutPage() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 border-b border-ink-200/50 pb-8">
           <div>
-            <p className="text-[#dc320c] text-[0.65rem] tracking-[0.2em] uppercase font-sans mb-2 font-medium">
+            <p className="text-[#D4AF37] text-[0.65rem] tracking-[0.2em] uppercase font-sans mb-2 font-medium">
               Secure Checkout
             </p>
-            <h1 className="font-serif text-3xl lg:text-4xl text-ink-950 font-light tracking-wide">
+            <h1 className="font-serif text-3xl lg:text-4xl text-ink-50 font-light tracking-wide">
               Complete Your Order
             </h1>
           </div>
@@ -158,22 +158,22 @@ export default function CheckoutPage() {
               <div className="absolute left-6 right-6 top-[18px] h-[1px] bg-ink-200 -translate-y-1/2 z-0" />
               {/* Active Line Progress */}
               <div 
-                className="absolute left-6 top-[18px] h-[1px] bg-[#dc320c] -translate-y-1/2 z-0 transition-all duration-500" 
+                className="absolute left-6 top-[18px] h-[1px] bg-[#D4AF37] -translate-y-1/2 z-0 transition-all duration-500" 
                 style={{
                   width: step === "address" ? "0%" : step === "delivery" ? "50%" : "100%"
                 }}
               />
 
-              {(["address", "delivery", "payment"] as Step[]).map((s, i) => {
+              {(["address", "delivery", "review"] as Step[]).map((s, i) => {
                 const isCompleted = 
                   (step === "delivery" && i === 0) || 
-                  (step === "payment" && (i === 0 || i === 1));
+                  (step === "review" && (i === 0 || i === 1));
                 const isActive = step === s;
                 
                 const stepIcons = {
                   address: MapPin,
                   delivery: Truck,
-                  payment: CreditCard,
+                  review: ClipboardList,
                 };
                 const Icon = stepIcons[s];
 
@@ -183,9 +183,9 @@ export default function CheckoutPage() {
                       className={cn(
                         "w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-500",
                         isActive 
-                          ? "bg-ink-950 border-ink-950 text-[#dc320c] shadow-md shadow-ink-950/10 scale-110"
+                          ? "bg-ink-950 border-ink-950 text-[#D4AF37] shadow-md shadow-ink-950/10 scale-110"
                           : isCompleted
-                          ? "bg-[#dc320c] border-[#dc320c] text-white"
+                          ? "bg-[#D4AF37] border-[#D4AF37] text-black"
                           : "bg-white border-ink-200 text-ink-400"
                       )}
                     >
@@ -194,7 +194,7 @@ export default function CheckoutPage() {
                     <span 
                       className={cn(
                         "text-[0.55rem] tracking-widest uppercase font-sans font-medium transition-colors duration-500",
-                        isActive ? "text-ink-950 font-semibold" : "text-ink-400"
+                        isActive ? "text-ink-50 font-semibold" : "text-ink-400"
                       )}
                     >
                       {s}
@@ -365,7 +365,7 @@ export default function CheckoutPage() {
                         className={cn(
                           "flex items-center gap-4 p-5 border cursor-pointer transition-all duration-300 hover:border-ink-400 select-none",
                           isSelected
-                            ? "border-[#dc320c] bg-[#dc320c]/5 ring-1 ring-[#dc320c]"
+                            ? "border-[#D4AF37] bg-[#D4AF37]/5 ring-1 ring-[#D4AF37]"
                             : "border-ink-200 bg-white"
                         )}
                       >
@@ -381,11 +381,11 @@ export default function CheckoutPage() {
                           <div 
                             className={cn(
                               "w-4 h-4 rounded-full border flex items-center justify-center transition-colors duration-200",
-                              isSelected ? "border-[#dc320c] text-[#dc320c]" : "border-ink-300"
+                              isSelected ? "border-[#D4AF37] text-[#D4AF37]" : "border-ink-300"
                             )}
                           >
                             {isSelected && (
-                              <div className="w-2 h-2 rounded-full bg-[#dc320c]" />
+                              <div className="w-2 h-2 rounded-full bg-[#D4AF37]" />
                             )}
                           </div>
                         </div>
@@ -398,10 +398,6 @@ export default function CheckoutPage() {
                             {option.description}
                           </p>
                         </div>
-
-                        <span className="font-serif text-base font-light text-ink-950 pl-4 border-l border-ink-100">
-                          {option.price === 0 ? "Free" : formatPrice(option.price)}
-                        </span>
                       </label>
                     );
                   })}
@@ -416,30 +412,29 @@ export default function CheckoutPage() {
                     Back
                   </Button>
                   <Button onClick={onDeliveryNext} variant="solid" size="lg" className="w-full px-8 sm:w-auto">
-                    Continue to Payment <ChevronRight size={14} />
+                    Continue to Review <ChevronRight size={14} />
                   </Button>
                 </div>
               </div>
             )}
 
-            {/* Step 3: Payment */}
-            {step === "payment" && (
+            {/* Step 3: Review */}
+            {step === "review" && (
               <div className="bg-white border border-ink-200/80 p-6 lg:p-10 shadow-sm space-y-6">
                 <div className="border-b border-ink-100 pb-4 mb-6">
                   <h2 className="font-serif text-2xl text-ink-950 font-light">
-                    Secure Payment
+                    Review Order
                   </h2>
                   <p className="text-ink-400 text-xs font-sans mt-1">
-                    Select your payment method below. Your transaction is encrypted and secured.
+                    Verify your delivery details and place your order directly via WhatsApp.
                   </p>
                 </div>
 
-                <div className="p-6 border border-[#dc320c]/20 bg-[#dc320c]/5 rounded-sm mb-6 flex gap-4 items-start">
-                  <ShieldCheck className="text-[#dc320c] shrink-0 mt-0.5" size={20} />
+                <div className="p-6 border border-[#D4AF37]/20 bg-[#D4AF37]/5 rounded-sm mb-6 flex gap-4 items-start">
+                  <ShieldCheck className="text-[#D4AF37] shrink-0 mt-0.5" size={20} />
                   <div>
                     <p className="text-sm font-sans text-ink-700 leading-relaxed">
-                      You will be securely redirected to <span className="font-semibold text-ink-950">Paystack</span> to complete your payment of{" "}
-                      <span className="font-semibold text-[#dc320c]">{formatPrice(total)}</span>. We accept all major Nigerian cards, bank transfers, USSD, and bank apps.
+                      Clicking the button below will open <span className="font-semibold text-ink-950">WhatsApp</span> with your pre-filled order details. Our sales representative will coordinate availability, custom pricing, and white-glove shipping options.
                     </p>
                   </div>
                 </div>
@@ -453,7 +448,7 @@ export default function CheckoutPage() {
                     Back
                   </Button>
                   <Button
-                    onClick={handlePaystackPayment}
+                    onClick={handleWhatsAppOrder}
                     variant="gold"
                     size="lg"
                     disabled={paying}
@@ -462,10 +457,10 @@ export default function CheckoutPage() {
                     {paying ? (
                       <>
                         <span className="w-4 h-4 border border-white/30 border-t-white rounded-full animate-spin" />
-                        Processing Securely...
+                        Opening WhatsApp...
                       </>
                     ) : (
-                      <>Pay {formatPrice(total)}</>
+                      <>Place Order on WhatsApp</>
                     )}
                   </Button>
                 </div>
@@ -505,36 +500,34 @@ export default function CheckoutPage() {
                       <p className="text-[0.65rem] tracking-wider uppercase font-sans text-ink-400 mt-1">
                         Qty: {item.quantity}
                       </p>
-                      <p className="font-sans text-xs text-ink-950 font-medium mt-1">
-                        {formatPrice(item.product.price * item.quantity)}
-                      </p>
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* Price Breakdown */}
+              {/* Order Details Breakdown */}
               <div className="border-t border-ink-100 pt-5 space-y-3 text-sm font-sans">
                 <div className="flex justify-between text-ink-500">
-                  <span>Subtotal</span>
-                  <span className="text-ink-950">{formatPrice(subtotal())}</span>
-                </div>
-                <div className="flex justify-between text-ink-500">
-                  <span>Delivery Fee</span>
-                  <span className="text-ink-950">
-                    {deliveryPrice === 0 ? "Free" : formatPrice(deliveryPrice)}
+                  <span>Shipping Option</span>
+                  <span className="text-ink-950 font-medium">
+                    {deliveryOptions.find((d) => d.id === delivery)?.label ?? "Standard"}
                   </span>
                 </div>
-                <div className="flex justify-between font-medium text-ink-950 pt-4 border-t border-ink-100 items-baseline">
-                  <span>Total Amount</span>
-                  <span className="font-serif text-xl text-[#dc320c] font-semibold">{formatPrice(total)}</span>
+                <div className="flex justify-between text-ink-500">
+                  <span>Total Items</span>
+                  <span className="text-ink-950 font-medium">
+                    {items.reduce((acc, item) => acc + item.quantity, 0)}
+                  </span>
+                </div>
+                <div className="border-t border-ink-100 pt-4 text-xs text-ink-400 leading-relaxed">
+                  Shipping fees and payment instructions will be finalized with our sales representative on WhatsApp.
                 </div>
               </div>
 
               {/* Secure checkout info */}
               <div className="border-t border-ink-100 pt-4 flex gap-2 items-center text-[0.65rem] tracking-wider uppercase font-sans text-ink-400">
                 <ShieldCheck size={14} className="text-ink-400" />
-                <span>100% Secure Transaction</span>
+                <span>Secure WhatsApp Dispatch</span>
               </div>
             </div>
           </div>

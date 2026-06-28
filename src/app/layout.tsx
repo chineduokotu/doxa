@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { CookieBanner } from "@/components/ui/CookieBanner";
+import { WhatsAppFloatingButton } from "@/components/ui/WhatsAppFloatingButton";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s | Doxa Home",
   },
   description:
-    "Premium furniture for discerning Nigerian homes. Shop luxury sofas, dining sets, royal collections and more from our showroom on Airport Road, Benin City.",
+    "Premium furniture for discerning Nigerian homes. Shop luxury sofas, dining sets, royal collections and more from our showroom at 108 Akpakpava Road, Benin City.",
   keywords: [
     "luxury furniture Nigeria",
     "premium furniture Benin City",
@@ -66,13 +67,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
-      <body className="antialiased">
+    <html lang="en" className={`${cormorant.variable} ${inter.variable}`} suppressHydrationWarning>
+      <body className="antialiased" suppressHydrationWarning>
         <Header />
         <main>{children}</main>
         <Footer />
         <CartDrawer />
         <CookieBanner />
+        <WhatsAppFloatingButton />
       </body>
     </html>
   );

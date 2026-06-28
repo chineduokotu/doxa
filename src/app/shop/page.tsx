@@ -1,21 +1,23 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ProductCard } from "@/components/product/ProductCard";
-import { getAllProducts } from "@/lib/data/products";
 import { categories } from "@/lib/data/categories";
+import { useProductsStore } from "@/lib/store/products";
 import { SlidersHorizontal, X } from "lucide-react";
 
-type SortOption = "default" | "price-asc" | "price-desc" | "newest";
+type SortOption = "default" | "newest";
 
 export default function ShopPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [sort, setSort] = useState<SortOption>("default");
-  const [priceMax, setPriceMax] = useState<number>(3000000);
-  const [filterOpen, setFilterOpen] = useState(false);
 
-  const allProducts = getAllProducts();
+  const { products: allProducts, loading, fetchProducts } = useProductsStore();
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   const filtered = useMemo(() => {
     let list = [...allProducts];
@@ -24,32 +26,24 @@ export default function ShopPage() {
       list = list.filter((p) => p.category === selectedCategory);
     }
 
-    list = list.filter((p) => p.price <= priceMax);
-
     switch (sort) {
-      case "price-asc":
-        list.sort((a, b) => a.price - b.price);
-        break;
-      case "price-desc":
-        list.sort((a, b) => b.price - a.price);
-        break;
       case "newest":
         list.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0));
         break;
     }
 
     return list;
-  }, [allProducts, selectedCategory, sort, priceMax]);
+  }, [allProducts, selectedCategory, sort]);
 
   return (
     <div className="min-h-screen bg-ivory pt-28 lg:pt-36">
       <div className="max-w-7xl mx-auto px-6 pb-20">
         {/* Page header */}
         <div className="mb-10">
-          <p className="text-[#dc320c] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2">
+          <p className="text-[#D4AF37] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2">
             Browse
           </p>
-          <h1 className="font-serif text-4xl lg:text-5xl text-ink-950 font-light">
+          <h1 className="font-serif text-4xl lg:text-5xl text-ink-50 font-light">
             All Collections
           </h1>
           <p className="text-ink-600 font-sans text-sm mt-2">
@@ -102,54 +96,20 @@ export default function ShopPage() {
             >
               <option value="default">Featured</option>
               <option value="newest">Newest</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
             </select>
-
-            {/* Price filter toggle */}
-            <button
-              onClick={() => setFilterOpen(!filterOpen)}
-              className="flex items-center gap-1.5 text-[0.65rem] tracking-widest uppercase font-sans text-ink-600 hover:text-ink-950 border border-ink-300 px-3 py-1.5 transition-colors"
-            >
-              <SlidersHorizontal size={12} />
-              Filter
-            </button>
           </div>
         </div>
 
-        {/* Price filter */}
-        {filterOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="mb-8 p-5 border border-ink-200 bg-ink-50"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <p className="text-[0.65rem] tracking-widest uppercase font-sans text-ink-600">
-                Max Price: <span className="text-ink-950">₦{(priceMax / 1000000).toFixed(1)}M</span>
-              </p>
-              <button
-                onClick={() => setFilterOpen(false)}
-                className="text-ink-400 hover:text-ink-700"
-              >
-                <X size={14} />
-              </button>
-            </div>
-            <input
-              type="range"
-              min={300000}
-              max={3000000}
-              step={100000}
-              value={priceMax}
-              onChange={(e) => setPriceMax(Number(e.target.value))}
-              className="w-full max-w-xs accent-ink-950 cursor-pointer"
-            />
-          </motion.div>
-        )}
+        {/* Price filter removed */}
 
         {/* Product grid */}
-        {filtered.length === 0 ? (
+        {loading ? (
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-8 animate-pulse">
+            {[...Array(8)].map((_, idx) => (
+              <div key={idx} className="bg-ink-100/50 aspect-[3/4] border border-ink-200/20" />
+            ))}
+          </div>
+        ) : filtered.length === 0 ? (
           <div className="py-24 text-center">
             <p className="font-serif text-2xl text-ink-400 font-light mb-3">
               No pieces found
@@ -160,9 +120,8 @@ export default function ShopPage() {
             <button
               onClick={() => {
                 setSelectedCategory("all");
-                setPriceMax(3000000);
               }}
-              className="mt-6 text-[0.65rem] tracking-widest uppercase font-sans text-[#dc320c] hover:text-[#a81e0a] transition-colors"
+              className="mt-6 text-[0.65rem] tracking-widest uppercase font-sans text-[#D4AF37] hover:text-[#AA7700] transition-colors"
             >
               Clear Filters
             </button>

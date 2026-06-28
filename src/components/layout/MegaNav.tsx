@@ -37,15 +37,15 @@ export function MegaNav({ activeSlug, onClose, solidBg = false }: MegaNavProps) 
           className={cn(
             "absolute top-full left-0 right-0 backdrop-blur-sm border-t shadow-2xl transition-all duration-300",
             solidBg
-              ? "bg-white/97 border-[#e8e4de]"
-              : "bg-[#0a0908]/97 border-white/5"
+              ? "bg-white/97 border-ink-200"
+              : "bg-black/97 border-white/5"
           )}
         >
           <div className="max-w-screen-xl mx-auto px-8 py-10 grid grid-cols-3 gap-12">
 
             {/* Sub-links */}
             <div className="col-span-2">
-              <p className="font-sans text-[9.5px] text-[#dc320c] tracking-[0.2em] uppercase mb-6">
+              <p className="font-sans text-[9.5px] text-[#D4AF37] tracking-[0.2em] uppercase mb-6">
                 {active.label}
               </p>
 
@@ -57,19 +57,19 @@ export function MegaNav({ activeSlug, onClose, solidBg = false }: MegaNavProps) 
                       onClick={onClose}
                       className={cn(
                         "group flex items-center gap-2 transition-colors duration-200",
-                        solidBg ? "text-[#6b6560] hover:text-[#0c0c0c]" : "text-white/40 hover:text-white"
+                        solidBg ? "text-ink-500 hover:text-ink-950" : "text-white/40 hover:text-white"
                       )}
                     >
                       <span className={cn(
                         "font-serif text-[1.05rem] font-light transition-colors",
-                        solidBg ? "group-hover:text-[#0c0c0c]" : "group-hover:text-white"
+                        solidBg ? "group-hover:text-ink-950" : "group-hover:text-white"
                       )}>
                         {sub}
                       </span>
                       <ArrowRight
                         size={11}
                         strokeWidth={1.5}
-                        className="text-[#dc320c] opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity"
                       />
                     </Link>
                   </li>
@@ -79,7 +79,7 @@ export function MegaNav({ activeSlug, onClose, solidBg = false }: MegaNavProps) 
               <Link
                 href={`/shop/${activeSlug}`}
                 onClick={onClose}
-                className="mt-8 inline-flex items-center gap-2 font-sans text-[9.5px] tracking-[0.18em] uppercase text-[#dc320c] hover:text-[#a81e0a] transition-colors duration-200"
+                className="mt-8 inline-flex items-center gap-2 font-sans text-[9.5px] tracking-[0.18em] uppercase text-[#D4AF37] hover:text-[#AA7700] transition-colors duration-200"
               >
                 View All {active.label}
                 <ArrowRight size={11} strokeWidth={1.5} />

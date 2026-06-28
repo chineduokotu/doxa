@@ -28,10 +28,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           size === "md" && "min-h-11 px-6  py-3   text-[9.5px]",
           size === "lg" && "min-h-12 px-8  py-3.5 text-[9.5px]",
           // Variants
-          variant === "solid"   && "bg-[#0c0c0c] text-white hover:bg-[#222222] focus-visible:ring-[#0c0c0c]",
-          variant === "outline" && "border border-[#0c0c0c] text-[#0c0c0c] hover:bg-[#0c0c0c] hover:text-white focus-visible:ring-[#0c0c0c]",
-          variant === "ghost"   && "border border-white/35 text-white hover:bg-white hover:text-[#0c0c0c] focus-visible:ring-white",
-          variant === "gold"    && "bg-[#dc320c] text-white hover:bg-[#a81e0a] focus-visible:ring-[#dc320c]",
+          variant === "solid"   && "bg-black text-white hover:bg-[#1a1a1a] focus-visible:ring-black",
+          variant === "outline" && "border border-white text-white hover:bg-white hover:text-black focus-visible:ring-white",
+          variant === "ghost"   && "border border-white/35 text-white hover:bg-white hover:text-black focus-visible:ring-white",
+          variant === "gold"    && "bg-[#D4AF37] text-black hover:bg-[#AA7700] focus-visible:ring-[#D4AF37]",
           // Width
           fullWidth && "w-full",
           className

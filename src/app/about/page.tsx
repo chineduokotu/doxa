@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button";
 export const metadata: Metadata = {
   title: "Our Story",
   description:
-    "The story of Doxa Home — premium furniture curated for Nigerian homes from our showroom on Airport Road, Benin City.",
+    "The story of Doxa Home — premium furniture curated for Nigerian homes from our showroom at 108 Akpakpava Road, Benin City.",
 };
 
 const values = [
@@ -40,7 +40,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30" />
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-7xl mx-auto px-6">
-            <p className="text-[#ff4c4c] text-[0.65rem] tracking-[0.3em] uppercase font-sans mb-4">
+            <p className="text-[#D4AF37] text-[0.65rem] tracking-[0.3em] uppercase font-sans mb-4">
               Est. in Benin City
             </p>
             <h1 className="font-serif text-5xl lg:text-7xl text-white font-light">
@@ -54,10 +54,10 @@ export default function AboutPage() {
       <div className="max-w-7xl mx-auto px-6 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-20">
           <div>
-            <p className="text-[#dc320c] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-4">
+            <p className="text-[#D4AF37] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-4">
               The Beginning
             </p>
-            <h2 className="font-serif text-4xl lg:text-5xl text-ink-950 font-light leading-tight mb-8">
+            <h2 className="font-serif text-4xl lg:text-5xl text-ink-50 font-light leading-tight mb-8">
               Built on a belief
               <br />
               <em className="not-italic text-ink-500">in beautiful living.</em>
@@ -70,7 +70,7 @@ export default function AboutPage() {
                 pieces that sacrificed craft for cost.
               </p>
               <p>
-                We changed that. Based on Airport Road, Benin City, we started
+                We changed that. Based at 108 Akpakpava Road, Benin City, we started
                 curating premium furniture — from walnut dining tables to marble-
                 and-gold coffee table centrepieces — and brought them directly
                 to discerning homes across Nigeria.
@@ -126,16 +126,16 @@ export default function AboutPage() {
 
         {/* Values */}
         <div className="py-16 border-t border-ink-200">
-          <p className="text-[#dc320c] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-3 text-center">
+          <p className="text-[#D4AF37] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-3 text-center">
             What We Stand For
           </p>
-          <h2 className="font-serif text-4xl text-ink-950 font-light text-center mb-12">
+          <h2 className="font-serif text-4xl text-ink-50 font-light text-center mb-12">
             Our Values
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {values.map((v) => (
               <div key={v.title} className="text-center">
-                <div className="w-8 h-0.5 bg-[#dc320c] mx-auto mb-5" />
+                <div className="w-8 h-0.5 bg-[#D4AF37] mx-auto mb-5" />
                 <h3 className="font-serif text-xl text-ink-950 font-light mb-3">
                   {v.title}
                 </h3>
@@ -149,12 +149,12 @@ export default function AboutPage() {
 
         {/* CTA */}
         <div className="text-center py-16 border-t border-ink-200">
-          <h2 className="font-serif text-3xl text-ink-950 font-light mb-4">
+          <h2 className="font-serif text-3xl text-ink-50 font-light mb-4">
             Visit Our Showroom
           </h2>
           <p className="text-ink-500 font-sans text-sm mb-8 max-w-md mx-auto">
-            Experience the collection in person at our showroom on Airport Road,
-            Benin City. Our team is on hand to help you find the perfect piece.
+            Experience the collection in person at our showroom at 108 Akpakpava Road,
+            Benin City, beside Keystone Bank. Our team is on hand to help you find the perfect piece.
           </p>
           <Link href="/contact">
             <Button variant="solid" size="lg">

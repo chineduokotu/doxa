@@ -1,16 +1,43 @@
 "use client";
 
-import { useMemo, useState, Suspense } from "react";
+import { useMemo, useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Search } from "lucide-react";
-import { searchProducts } from "@/lib/data/products";
+import { useProductsStore } from "@/lib/store/products";
 import { ProductCard } from "@/components/product/ProductCard";
 
 function SearchResults() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
-  const results = useMemo(() => searchProducts(query), [query]);
+  
+  const { products: allProducts, loading, fetchProducts } = useProductsStore();
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+  const results = useMemo(() => {
+    if (!query) return [];
+    const q = query.toLowerCase();
+    return allProducts.filter(
+      (p) =>
+        p.name.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q) ||
+        p.category.includes(q) ||
+        (p.material && p.material.toLowerCase().includes(q))
+    );
+  }, [allProducts, query]);
+
+  if (loading) {
+    return (
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-8 animate-pulse">
+        {[...Array(4)].map((_, idx) => (
+          <div key={idx} className="bg-ink-100/50 aspect-[3/4] border border-ink-200/20" />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -39,7 +66,7 @@ function SearchResults() {
             </p>
             <Link
               href="/shop"
-              className="text-[0.65rem] tracking-widest uppercase font-sans text-[#dc320c] hover:text-[#a81e0a] transition-colors"
+              className="text-[0.65rem] tracking-widest uppercase font-sans text-[#D4AF37] hover:text-[#AA7700] transition-colors"
             >
               Browse All Products →
             </Link>
@@ -62,10 +89,10 @@ export default function SearchPage() {
     <div className="min-h-screen bg-ivory pt-24 sm:pt-28 lg:pt-36 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="mb-8 sm:mb-12">
-          <p className="text-[#dc320c] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2 sm:mb-3">
+          <p className="text-[#D4AF37] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2 sm:mb-3">
             Search
           </p>
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-ink-950 font-light leading-tight mb-5 sm:mb-8">
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-ink-50 font-light leading-tight mb-5 sm:mb-8">
             Find Your Piece
           </h1>
 

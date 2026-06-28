@@ -8,10 +8,10 @@ export default function NotFound() {
         <p className="font-serif text-8xl lg:text-9xl text-ink-200 font-light mb-4">
           404
         </p>
-        <p className="text-[#dc320c] text-[0.65rem] tracking-[0.3em] uppercase font-sans mb-4">
+        <p className="text-[#D4AF37] text-[0.65rem] tracking-[0.3em] uppercase font-sans mb-4">
           Page Not Found
         </p>
-        <h1 className="font-serif text-3xl lg:text-4xl text-ink-950 font-light mb-4">
+        <h1 className="font-serif text-3xl lg:text-4xl text-ink-50 font-light mb-4">
           This page doesn&apos;t exist.
         </h1>
         <p className="text-ink-400 font-sans text-sm mb-8 max-w-md mx-auto">

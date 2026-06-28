@@ -4,7 +4,8 @@ export type Category =
   | "royal-sets"
   | "bedroom"
   | "outdoor"
-  | "decor";
+  | "decor"
+  | string;
 
 export interface CategoryMeta {
   slug: Category;

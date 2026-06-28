@@ -94,8 +94,8 @@ export function Hero() {
           </div>
 
           {/* Layered overlays — cinematic feel */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/45 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/20" />
         </motion.div>
       </AnimatePresence>
 
@@ -116,13 +116,16 @@ export function Hero() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.22, duration: 0.5 }}
-                className="font-sans text-[10px] text-[#dc320c] tracking-[0.28em] uppercase mb-6 font-bold"
+                className="font-sans text-[10px] text-[#D4AF37] tracking-[0.28em] uppercase mb-6 font-bold"
               >
                 Doxa Home — {slide.eyebrow}
               </motion.p>
 
               {/* Headline */}
-              <h1 className="display-xl text-white mb-6 whitespace-pre-line font-bold">
+              <h1 
+                className="display-xl text-white mb-6 whitespace-pre-line font-bold"
+                style={{ textShadow: "0 4px 24px rgba(0,0,0,0.65)" }}
+              >
                 {slide.headline}
               </h1>
 
@@ -131,7 +134,8 @@ export function Hero() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.38, duration: 0.5 }}
-                className="font-sans text-white/80 text-[0.95rem] font-medium mb-10 max-w-[440px] leading-[1.8]"
+                className="font-sans text-white text-[0.95rem] font-medium mb-10 max-w-[440px] leading-[1.8]"
+                style={{ textShadow: "0 2px 12px rgba(0,0,0,0.75)" }}
               >
                 {slide.subline}
               </motion.p>
@@ -141,20 +145,21 @@ export function Hero() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.5 }}
-                className="flex flex-wrap items-center gap-4"
+                className="flex flex-wrap items-center gap-5"
               >
                 <Link
                   href={slide.ctaHref}
-                  className="inline-flex items-center gap-3 rounded-full bg-[#dc320c] px-6 py-3 text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-white shadow-[0_16px_40px_rgba(220,50,12,0.18)] transition-colors duration-200 hover:bg-[#a81e0a]"
+                  className="inline-flex items-center gap-3 rounded-[2px] bg-[#D4AF37] px-7 py-3.5 text-[0.725rem] font-bold uppercase tracking-[0.18em] text-black shadow-[0_16px_36px_rgba(212,175,55,0.18)] transition-all duration-300 hover:bg-white hover:text-black hover:scale-[1.03] hover:shadow-[0_20px_48px_rgba(212,175,55,0.28)]"
                 >
                   {slide.cta}
                   <ArrowRight size={13} strokeWidth={1.5} />
                 </Link>
                 <Link
                   href="/shop"
-                  className="inline-flex items-center gap-2 font-sans text-[10px] font-semibold tracking-[0.16em] uppercase text-white/60 hover:text-white transition-colors duration-200"
+                  className="inline-flex items-center gap-2.5 font-sans text-[9.5px] font-bold tracking-[0.18em] uppercase text-white/70 hover:text-[#D4AF37] transition-all duration-200 group/link"
                 >
                   View All Collections
+                  <ArrowRight size={12} className="group-hover/link:translate-x-0.5 transition-transform duration-200 text-[#D4AF37]" />
                 </Link>
               </motion.div>
             </motion.div>
@@ -173,7 +178,7 @@ export function Hero() {
               aria-label={`Go to slide ${i + 1}`}
               className={`block rounded-full transition-all duration-400 ${
                 i === current
-                  ? "w-7 h-[3px] bg-[#dc320c]"
+                  ? "w-7 h-[3px] bg-[#D4AF37]"
                   : "w-3 h-[3px] bg-white/25 hover:bg-white/50"
               }`}
             />

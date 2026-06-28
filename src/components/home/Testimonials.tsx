@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 
 const testimonials = [
   {
@@ -44,8 +44,12 @@ export function Testimonials() {
   const t = testimonials[current];
 
   return (
-    <section className="py-24 lg:py-36 bg-[#050714] text-[#f6f8ff] border-t border-b border-[#172744] overflow-hidden">
-      <div className="max-w-screen-xl mx-auto px-8">
+    <section className="py-28 lg:py-36 bg-ivory text-ink-950 border-t border-b border-ink-200/60 overflow-hidden relative">
+      {/* Background soft textures or shapes */}
+      <div className="absolute top-0 left-1/4 w-[1px] h-full bg-gradient-to-b from-ink-200/30 via-transparent to-ink-200/30" />
+      <div className="absolute top-0 right-1/4 w-[1px] h-full bg-gradient-to-b from-ink-200/30 via-transparent to-ink-200/30" />
+
+      <div className="max-w-screen-xl mx-auto px-8 relative z-10">
 
         {/* ── Header ───────────────────────────────────────── */}
         <motion.div
@@ -53,85 +57,104 @@ export function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <p className="font-sans text-[10px] text-[#dc320c] tracking-[0.24em] uppercase mb-4">
+          <div className="w-12 h-[1px] bg-[#D4AF37] mx-auto mb-4" />
+          <p className="font-sans text-[10px] text-[#D4AF37] tracking-[0.24em] uppercase mb-4 font-bold">
             Client Stories
           </p>
-          <h2 className="display-md text-[#f6f8ff]">
+          <h2 className="display-lg text-ink-950">
             Trusted by Discerning Homes
           </h2>
         </motion.div>
 
         {/* ── Testimonial card ─────────────────────────────── */}
-        <div className="max-w-3xl mx-auto">
-          <div className="relative min-h-[240px] flex items-center justify-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={t.id}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="text-center w-full"
-              >
-                {/* Stars */}
-                <div className="flex items-center justify-center gap-1 mb-8">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <Star key={i} size={12} className="text-[#dc320c] fill-[#dc320c]" />
-                  ))}
-                </div>
+        <div className="max-w-4xl mx-auto">
+          <div className="relative min-h-[300px] flex items-center justify-center">
+            
+            {/* Elegant luxury frame card wrapper */}
+            <div className="absolute inset-0 bg-white border border-ink-200 shadow-[0_24px_50px_-12px_rgba(13,12,10,0.04)] rounded-[2px]" />
+            <div className="absolute top-2.5 left-2.5 right-2.5 bottom-2.5 border border-[#D4AF37]/15 rounded-[1px] pointer-events-none" />
 
-                {/* Quote */}
-                <blockquote className="font-serif text-xl lg:text-2xl text-[#d0dbff] font-light leading-[1.7] italic mb-8 max-w-2xl mx-auto">
-                  &ldquo;{t.quote}&rdquo;
-                </blockquote>
+            <div className="relative z-10 px-8 sm:px-16 py-12 w-full">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={t.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-center w-full flex flex-col items-center"
+                >
+                  {/* Large decorative quotation mark */}
+                  <span className="font-serif text-6xl text-[#D4AF37]/15 leading-none select-none h-6 mb-2">
+                    &ldquo;
+                  </span>
 
-                {/* Attribution */}
-                <div className="flex flex-col items-center gap-1">
-                  <div className="w-8 h-[1px] bg-[#dc320c]/60 mb-4" />
-                  <p className="font-sans text-sm text-[#f6f8ff] font-medium">{t.name}</p>
-                  <p className="font-sans text-[11px] text-[#9aa4cc] tracking-[0.1em] uppercase">{t.role}</p>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                  {/* Stars */}
+                  <div className="flex items-center justify-center gap-1.5 mb-6">
+                    {Array.from({ length: t.rating }).map((_, i) => (
+                      <Star key={i} size={11} className="text-[#D4AF37] fill-[#D4AF37]" />
+                    ))}
+                  </div>
+
+                  {/* Quote */}
+                  <blockquote className="font-serif text-lg sm:text-[1.35rem] text-ink-800 font-light leading-[1.8] italic mb-8 max-w-3xl">
+                    &ldquo;{t.quote}&rdquo;
+                  </blockquote>
+
+                  {/* Divider line */}
+                  <div className="w-6 h-[1px] bg-[#D4AF37]/50 mb-5" />
+
+                  {/* User profile identifier / monogram */}
+                  <div className="flex flex-col items-center gap-3 text-center">
+                    <div className="w-10 h-10 rounded-full border border-[#D4AF37]/60 flex items-center justify-center font-serif text-[0.8rem] text-[#D4AF37] font-medium tracking-wider uppercase bg-[#0d0c0a] shadow-md select-none">
+                      {t.name.substring(0, 2)}
+                    </div>
+                    <div>
+                      <p className="font-sans text-xs text-[#000000] font-bold tracking-wider uppercase">{t.name}</p>
+                      <p className="font-sans text-[10px] text-ink-400 tracking-[0.1em] uppercase mt-0.5">{t.role}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
 
           {/* ── Controls ───────────────────────────────────── */}
-          <div className="flex items-center justify-center gap-8 mt-12">
+          <div className="flex items-center justify-between mt-10 px-4">
+            {/* Left Button */}
             <button
               onClick={prev}
               aria-label="Previous testimonial"
-              className="w-10 h-10 border border-[#172744] text-[#cfd9ff] hover:border-[#dc320c]/50 hover:text-[#dc320c] flex items-center justify-center transition-all duration-200"
+              className="w-11 h-11 border border-ink-200 text-ink-400 hover:border-[#D4AF37]/40 hover:text-[#D4AF37] flex items-center justify-center transition-all duration-300 rounded-[2px] bg-white hover:bg-[#0d0c0a] group"
             >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M8 10L4 6l4-4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              <ChevronLeft size={16} strokeWidth={1.5} className="group-hover:-translate-x-0.5 transition-transform duration-200" />
             </button>
 
-            <div className="flex items-center gap-2.5">
+            {/* Pagination dots */}
+            <div className="flex items-center gap-3">
               {testimonials.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setCurrent(i)}
                   aria-label={`Go to testimonial ${i + 1}`}
-                  className={`block rounded-full transition-all duration-300 ${
+                  className={`block rounded-full transition-all duration-400 ${
                     i === current
-                      ? "w-7 h-[2px] bg-[#dc320c]"
-                      : "w-3 h-[2px] bg-[#e5e5e5] hover:bg-[#888888]"
+                      ? "w-8 h-[2px] bg-[#D4AF37]"
+                      : "w-2.5 h-[2px] bg-ink-200 hover:bg-ink-400"
                   }`}
                 />
               ))}
             </div>
 
+            {/* Right Button */}
             <button
               onClick={next}
               aria-label="Next testimonial"
-              className="w-10 h-10 border border-[#172744] text-[#cfd9ff] hover:border-[#dc320c]/50 hover:text-[#dc320c] flex items-center justify-center transition-all duration-200"
+              className="w-11 h-11 border border-ink-200 text-ink-400 hover:border-[#D4AF37]/40 hover:text-[#D4AF37] flex items-center justify-center transition-all duration-300 rounded-[2px] bg-white hover:bg-[#0d0c0a] group"
             >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M4 2l4 4-4 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              <ChevronRight size={16} strokeWidth={1.5} className="group-hover:translate-x-0.5 transition-transform duration-200" />
             </button>
           </div>
         </div>

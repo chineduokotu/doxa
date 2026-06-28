@@ -21,7 +21,7 @@ export function CategoryGrid() {
   const rest     = categories.filter((c) => !c.featured);
 
   return (
-    <section className="py-24 lg:py-32 bg-[#050714]">
+    <section className="py-24 lg:py-32 bg-ivory">
       <div className="max-w-screen-xl mx-auto px-8">
 
         {/* ── Section header ─────────────────────────────── */}
@@ -33,18 +33,18 @@ export function CategoryGrid() {
           className="mb-14 flex flex-col sm:flex-row sm:items-end justify-between gap-4"
         >
           <div>
-            <p className="font-sans text-[10px] text-[#dc320c] tracking-[0.22em] uppercase mb-3">
+            <p className="font-sans text-[10px] text-[#D4AF37] tracking-[0.22em] uppercase mb-3">
               Shop by Room
             </p>
-            <h2 className="display-lg text-[#f6f8ff]">
+            <h2 className="display-lg text-ink-950">
               Every Room,{" "}
-              <span className="text-[#888888] italic font-light">Perfected.</span>
+              <span className="text-ink-400 italic font-light">Perfected.</span>
             </h2>
           </div>
 
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 font-sans text-[10px] text-[#cfd9ff] hover:text-white tracking-[0.16em] uppercase transition-colors duration-200 group"
+            className="inline-flex items-center gap-2 font-sans text-[10px] text-[#8a8578] hover:text-white tracking-[0.16em] uppercase transition-colors duration-200 group"
           >
             View All Collections
             <ArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform duration-200" />
@@ -63,7 +63,7 @@ export function CategoryGrid() {
             <motion.div key={cat.slug} variants={itemVariants}>
               <Link
                 href={`/shop/${cat.slug}`}
-                className="group relative block overflow-hidden bg-[#111b33] aspect-[4/3] md:aspect-[3/4]"
+                className="group relative block overflow-hidden bg-[#1a1814] aspect-[4/3] md:aspect-[3/4]"
               >
                 {/* Image */}
                 <Image
@@ -80,7 +80,7 @@ export function CategoryGrid() {
                 {/* Card text */}
                 <div className="absolute bottom-0 left-0 right-0 p-7">
                   {/* Hover label */}
-                  <p className="font-sans text-[9px] text-[#dc320c] tracking-[0.22em] uppercase mb-2 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                  <p className="font-sans text-[9px] text-[#D4AF37] tracking-[0.22em] uppercase mb-2 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                     Explore Collection
                   </p>
 
@@ -92,7 +92,7 @@ export function CategoryGrid() {
                     {cat.description}
                   </p>
 
-                  <div className="mt-4 flex items-center gap-1.5 font-sans text-[9px] text-[#dc320c] tracking-[0.18em] uppercase opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-300">
+                  <div className="mt-4 flex items-center gap-1.5 font-sans text-[9px] text-[#D4AF37] tracking-[0.18em] uppercase opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-300">
                     Shop Now <ArrowRight size={9} />
                   </div>
                 </div>
@@ -113,7 +113,7 @@ export function CategoryGrid() {
             <motion.div key={cat.slug} variants={itemVariants}>
               <Link
                 href={`/shop/${cat.slug}`}
-                className="group relative block overflow-hidden bg-[#111b33]"
+                className="group relative block overflow-hidden bg-[#1a1814]"
                 style={{ aspectRatio: "16/9" }}
               >
                 <Image

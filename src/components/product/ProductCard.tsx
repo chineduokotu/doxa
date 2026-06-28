@@ -52,7 +52,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
       <Link href={`/product/${product.slug}`} aria-label={`View ${product.name}`} className="block">
 
         {/* ── Image container ───────────────────────────── */}
-        <div className="relative overflow-hidden bg-[#111b33] mb-4" style={{ aspectRatio: "3/4" }}>
+        <div className="relative overflow-hidden bg-ink-100 mb-4" style={{ aspectRatio: "3/4" }}>
           <Image
             src={product.images[0]}
             alt={product.name}
@@ -84,7 +84,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
             onClick={handleWishlist}
             aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
             className={`absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/90 backdrop-blur-sm shadow-sm transition-all duration-200 opacity-100 md:opacity-0 md:group-hover:opacity-100 ${
-              wishlisted ? "text-[#dc320c]" : "text-[#9aa4cc] hover:text-[#dc320c]"
+              wishlisted ? "text-[#D4AF37]" : "text-ink-400 hover:text-[#D4AF37]"
             }`}
           >
             <Heart size={13} fill={wishlisted ? "currentColor" : "none"} strokeWidth={1.5} />
@@ -97,8 +97,8 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
               disabled={addState === "adding"}
               className={`w-full py-3 flex md:py-3.5 flex items-center justify-center gap-2 font-sans text-[9px] md:text-[9.5px] font-semibold tracking-[0.16em] uppercase transition-all duration-200 ${
                 addState === "added"
-                  ? "bg-[#dc320c] text-[#050714]"
-                  : "bg-[#0c0c0c] hover:bg-[#222222] text-white"
+                  ? "bg-[#D4AF37] text-black"
+                  : "bg-ink-950 hover:bg-ink-700 text-white"
               }`}
             >
               {addState === "added" ? (
@@ -120,22 +120,12 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
         {/* ── Product info ───────────────────────────────── */}
         <div className="space-y-1.5">
-          <p className="font-sans text-[9.5px] text-[#9aa4cc] tracking-[0.14em] uppercase">
+          <p className="font-sans text-[9.5px] text-ink-400 tracking-[0.14em] uppercase">
             {product.category.replace("-", " ")}
           </p>
-          <h3 className="font-serif text-[1.05rem] lg:text-[1.15rem] text-[#f6f8ff] font-light leading-snug group-hover:text-[#dc320c] transition-colors duration-200">
+          <h3 className="font-serif text-[1.05rem] lg:text-[1.15rem] text-ink-950 font-light leading-snug group-hover:text-[#D4AF37] transition-colors duration-200">
             {product.shortName}
           </h3>
-          <div className="flex items-center gap-3 pt-0.5">
-            <span className="font-sans text-[0.825rem] font-medium text-[#f6f8ff]">
-              {formatPrice(product.price)}
-            </span>
-            {product.originalPrice && (
-              <span className="font-sans text-xs text-[#a09a94] line-through">
-                {formatPrice(product.originalPrice)}
-              </span>
-            )}
-          </div>
         </div>
       </Link>
     </motion.div>

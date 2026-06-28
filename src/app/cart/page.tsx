@@ -35,7 +35,7 @@ export default function CartPage() {
   return (
     <div className="min-h-screen bg-ivory pt-28 lg:pt-36 pb-20">
       <div className="max-w-5xl mx-auto px-6">
-        <h1 className="font-serif text-4xl lg:text-5xl text-ink-950 font-light mb-12">
+        <h1 className="font-serif text-4xl lg:text-5xl text-ink-50 font-light mb-12">
           Shopping Bag
         </h1>
 
@@ -93,9 +93,6 @@ export default function CartPage() {
                         </button>
                       </div>
                       <div className="flex items-center gap-4">
-                        <span className="font-sans text-sm font-medium text-ink-950">
-                          {formatPrice(item.product.price * item.quantity)}
-                        </span>
                         <button
                           onClick={() => removeItem(item.product.id)}
                           className="text-ink-300 hover:text-red-400 transition-colors"
@@ -116,23 +113,18 @@ export default function CartPage() {
               <h2 className="font-serif text-xl text-ink-950 font-light mb-6">
                 Order Summary
               </h2>
-              <div className="space-y-3 mb-6">
-                <div className="flex justify-between text-sm font-sans text-ink-600">
-                  <span>Subtotal</span>
-                  <span>{formatPrice(total)}</span>
-                </div>
-                <div className="flex justify-between text-sm font-sans text-ink-600">
-                  <span>Delivery</span>
-                  <span className="text-ink-400">Calculated at checkout</span>
-                </div>
+              <div className="space-y-4 mb-6">
+                <p className="font-sans text-xs text-ink-500 leading-relaxed">
+                  Your order is prepared. Proceed to enter your delivery address and finalize the request.
+                </p>
                 <div className="border-t border-ink-200 pt-3 flex justify-between font-sans font-medium text-ink-950">
-                  <span>Total</span>
-                  <span className="font-serif text-lg">{formatPrice(total)}</span>
+                  <span>Total Items</span>
+                  <span className="font-serif text-lg">{items.reduce((acc, item) => acc + item.quantity, 0)}</span>
                 </div>
               </div>
               <Link href="/checkout">
                 <Button variant="gold" size="lg" fullWidth>
-                  Checkout <ArrowRight size={14} />
+                  Proceed to Order details <ArrowRight size={14} />
                 </Button>
               </Link>
               <Link

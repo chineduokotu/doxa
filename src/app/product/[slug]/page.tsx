@@ -2,7 +2,12 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, Check } from "lucide-react";
-import { getProductBySlug, getRelatedProducts, getAllProducts } from "@/lib/data/products";
+import {
+  getAllProducts,
+  getRemoteProducts,
+  getRemoteProductByIdOrSlug,
+  getRemoteRelatedProducts,
+} from "@/lib/data/products";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { AddToCartButton } from "@/components/product/AddToCartButton";
 import { ProductCard } from "@/components/product/ProductCard";
@@ -14,13 +19,24 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  const products = getAllProducts();
-  return products.map((p) => ({ slug: p.slug }));
+  try {
+    const products = await getRemoteProducts();
+    const paths = [];
+    for (const p of products) {
+      paths.push({ slug: p.slug });
+      paths.push({ slug: p.id }); // Allow lookup by MongoDB ID directly
+    }
+    return paths;
+  } catch (e) {
+    console.error("Static params generation failed, falling back to local:", e);
+    const products = getAllProducts();
+    return products.map((p) => ({ slug: p.slug }));
+  }
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getRemoteProductByIdOrSlug(slug);
   if (!product) return {};
   return {
     title: product.name,
@@ -35,10 +51,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ProductPage({ params }: PageProps) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getRemoteProductByIdOrSlug(slug);
   if (!product) notFound();
 
-  const related = getRelatedProducts(slug, 4);
+  const related = await getRemoteRelatedProducts(product.category, product.id, 4);
 
   // JSON-LD structured data for SEO
   const jsonLd = {
@@ -47,18 +63,6 @@ export default async function ProductPage({ params }: PageProps) {
     name: product.name,
     description: product.description,
     image: product.images,
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "NGN",
-      price: product.price,
-      availability: product.inStock
-        ? "https://schema.org/InStock"
-        : "https://schema.org/OutOfStock",
-      seller: {
-        "@type": "Organization",
-        name: "Doxa Home",
-      },
-    },
   };
 
   return (
@@ -115,7 +119,7 @@ export default async function ProductPage({ params }: PageProps) {
               )}
 
               {/* Category */}
-              <p className="text-[#dc320c] text-[0.65rem] tracking-[0.25em] uppercase font-sans">
+              <p className="text-[#D4AF37] text-[0.65rem] tracking-[0.25em] uppercase font-sans">
                 {product.category.replace("-", " ")}
               </p>
 
@@ -123,18 +127,6 @@ export default async function ProductPage({ params }: PageProps) {
               <h1 className="font-serif text-3xl lg:text-4xl xl:text-5xl text-ink-950 font-light leading-tight">
                 {product.name}
               </h1>
-
-              {/* Price */}
-              <div className="flex items-baseline gap-4">
-                <span className="font-sans text-2xl font-medium text-ink-950">
-                  {formatPrice(product.price)}
-                </span>
-                {product.originalPrice && (
-                  <span className="font-sans text-base text-ink-400 line-through">
-                    {formatPrice(product.originalPrice)}
-                  </span>
-                )}
-              </div>
 
               {/* Description */}
               <p className="font-sans text-ink-600 text-sm leading-relaxed border-t border-ink-200 pt-6">
@@ -150,7 +142,7 @@ export default async function ProductPage({ params }: PageProps) {
                   >
                     <Check
                       size={14}
-                      className="text-[#dc320c] mt-0.5 shrink-0"
+                      className="text-[#D4AF37] mt-0.5 shrink-0"
                     />
                     {detail}
                   </li>
@@ -216,11 +208,11 @@ export default async function ProductPage({ params }: PageProps) {
                 Questions?{" "}
                 <Link
                   href="/contact"
-                  className="text-[#dc320c] hover:text-[#a81e0a] transition-colors underline underline-offset-2"
+                  className="text-[#D4AF37] hover:text-[#AA7700] transition-colors underline underline-offset-2"
                 >
                   Contact our team
                 </Link>{" "}
-                or visit our showroom on Airport Road, Benin City.
+                or visit our showroom at 108 Akpakpava Road, Benin City.
               </p>
             </div>
           </div>
@@ -230,10 +222,10 @@ export default async function ProductPage({ params }: PageProps) {
             <div className="mt-24">
               <div className="mb-10 flex items-center justify-between">
                 <div>
-                  <p className="text-[#dc320c] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2">
+                  <p className="text-[#D4AF37] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2">
                     You May Also Like
                   </p>
-                  <h2 className="font-serif text-3xl text-ink-950 font-light">
+                  <h2 className="font-serif text-3xl text-ink-50 font-light">
                     Related Pieces
                   </h2>
                 </div>

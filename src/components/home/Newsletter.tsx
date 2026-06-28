@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Mail, Sparkles } from "lucide-react";
 
 export function Newsletter() {
   const [email, setEmail]       = useState("");
@@ -13,91 +13,112 @@ export function Newsletter() {
     e.preventDefault();
     if (!email || loading) return;
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 800));
+    await new Promise((r) => setTimeout(r, 900));
     setLoading(false);
     setSubmitted(true);
   };
 
   return (
-    <section className="py-24 lg:py-32 bg-[#050714] border-t border-[#172744] relative overflow-hidden">
-      {/* Subtle noise / grain texture via repeating gradient */}
+    <section className="py-32 lg:py-40 bg-[#0d0c0a] text-white border-t border-white/5 relative overflow-hidden">
+      {/* Subtle radial golden glow behind content */}
+      <div 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-[0.03] pointer-events-none blur-[80px]" 
+        style={{ background: "radial-gradient(circle, #D4AF37 0%, transparent 70%)" }}
+      />
+
+      {/* Decorative vertical lines */}
+      <div className="absolute top-0 left-8 bottom-0 w-[1px] bg-white/5 hidden md:block" />
+      <div className="absolute top-0 right-8 bottom-0 w-[1px] bg-white/5 hidden md:block" />
+
+      {/* Repeating noise texture */}
       <div className="absolute inset-0 opacity-[0.015] pointer-events-none"
            style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
                     backgroundSize: "200px 200px" }} />
 
-      <div className="max-w-screen-xl mx-auto px-8 relative">
-        <div className="max-w-xl mx-auto text-center">
+      <div className="max-w-screen-xl mx-auto px-8 relative z-10">
+        <div className="max-w-2xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.65 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="font-sans text-[10px] text-[#dc320c] tracking-[0.24em] uppercase mb-4">
+            {/* Gold icon badge */}
+            <div className="w-10 h-10 rounded-full border border-[#D4AF37]/35 flex items-center justify-center mx-auto mb-6 bg-white/[0.02] shadow-[0_8px_20px_rgba(0,0,0,0.4)] text-[#D4AF37]">
+              <Mail size={15} strokeWidth={1.5} />
+            </div>
+
+            {/* Section label */}
+            <p className="font-sans text-[10px] text-[#D4AF37] tracking-[0.26em] uppercase mb-4 font-bold">
               The Inner Circle
             </p>
 
-            <h2 className="display-lg text-[#0c0c0c] mb-4">
-              First Access.{" "}
-              <span className="text-[#888888] italic font-light">Always.</span>
+            {/* Headline */}
+            <h2 className="display-lg text-white mb-5 font-light">
+              First Access. <span className="text-[#D4AF37] italic font-light">Always.</span>
             </h2>
 
-            <p className="font-sans text-[#9aa4cc] text-sm leading-[1.85] mb-10 max-w-md mx-auto">
-              Join our curated list and be first to know about new arrivals,
-              exclusive collections, and private showroom events in Benin City.
+            {/* Subline */}
+            <p className="font-sans text-[#a09a94] text-[0.875rem] leading-[1.85] mb-12 max-w-md mx-auto">
+              Join our curated list to receive exclusive product previews, private collection releases, and VIP invitations to our Benin City showroom events.
             </p>
 
-            {submitted ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.97 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4 }}
-                className="py-8"
-              >
-                {/* Checkmark circle */}
-                <div className="w-12 h-12 rounded-full border border-[#dc320c]/40 bg-[#dc320c]/10 flex items-center justify-center mx-auto mb-5">
-                  <svg className="w-5 h-5 text-[#dc320c]" viewBox="0 0 20 20" fill="none">
-                    <path d="M4 10l4 4 8-8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-                <p className="font-serif text-xl text-[#0c0c0c] font-light mb-2">
-                  You&apos;re in the circle.
-                </p>
-                <p className="font-sans text-[#555555] text-sm">
-                  Watch your inbox — something beautiful is coming.
-                </p>
-              </motion.div>
-            ) : (
-              <form
-                onSubmit={handleSubmit}
-                className="flex w-full max-w-md mx-auto overflow-hidden bg-[#111b33] border border-[#172744] focus-within:border-[#dc320c] transition-colors duration-200"
-              >
-                <input
-                  type="email"
-                  id="newsletter-email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Your email address"
-                  required
-                  className="min-w-0 flex-1 bg-transparent text-[#f6f8ff] text-sm font-sans px-5 py-4 placeholder:text-[#7a8ab9] focus:outline-none"
-                />
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="shrink-0 bg-[#0c0c0c] hover:bg-[#222222] text-white px-5 py-4 inline-flex items-center justify-center gap-2 font-sans text-[9.5px] font-semibold tracking-[0.18em] uppercase transition-colors duration-200 disabled:opacity-60"
+            <AnimatePresence mode="wait">
+              {submitted ? (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.45 }}
+                  className="py-6"
                 >
-                  {loading ? (
-                    <span className="w-4 h-4 border border-white/30 border-t-white rounded-full animate-spin" />
-                  ) : (
-                    <ArrowRight size={13} strokeWidth={1.5} />
-                  )}
-                  Join
-                </button>
-              </form>
-            )}
+                  {/* Success Monogram icon */}
+                  <div className="w-12 h-12 rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/10 flex items-center justify-center mx-auto mb-5 shadow-lg text-[#D4AF37]">
+                    <Sparkles size={18} strokeWidth={1.5} />
+                  </div>
+                  <h3 className="font-serif text-xl text-white font-light mb-2">
+                    Welcome to the Circle.
+                  </h3>
+                  <p className="font-sans text-[#8a8578] text-xs max-w-xs mx-auto leading-relaxed">
+                    You are now subscribed. Something truly beautiful is on its way to your inbox.
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="form"
+                  onSubmit={handleSubmit}
+                  className="flex flex-col sm:flex-row w-full max-w-md mx-auto overflow-hidden bg-white/[0.03] border border-white/10 focus-within:border-[#D4AF37] transition-all duration-300 rounded-[2px]"
+                >
+                  <input
+                    type="email"
+                    id="newsletter-email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email address"
+                    required
+                    className="min-w-0 flex-1 bg-transparent text-white text-sm font-sans px-5 py-4 placeholder:text-[#555045] focus:outline-none"
+                  />
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="shrink-0 bg-[#D4AF37] hover:bg-white text-black hover:text-black px-6 py-4 inline-flex items-center justify-center gap-2.5 font-sans text-[9.5px] font-bold tracking-[0.18em] uppercase transition-all duration-300 disabled:opacity-60 cursor-pointer"
+                  >
+                    {loading ? (
+                      <span className="w-4 h-4 border border-black/30 border-t-black rounded-full animate-spin" />
+                    ) : (
+                      <>
+                        Join
+                        <ArrowRight size={12} strokeWidth={2.5} />
+                      </>
+                    )}
+                  </button>
+                </motion.form>
+              )}
+            </AnimatePresence>
 
-            <p className="font-sans text-[#7a8ab9] text-[11px] mt-5">
-              No spam, ever. Unsubscribe at any time.
+            <p className="font-sans text-[#555045] text-[10px] tracking-wide mt-6">
+              Privately managed list. Unsubscribe at any time.
             </p>
           </motion.div>
         </div>

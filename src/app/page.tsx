@@ -9,7 +9,7 @@ import { Newsletter } from "@/components/home/Newsletter";
 export const metadata: Metadata = {
   title: "Doxa Home — Premium Furniture, Benin City",
   description:
-    "Shop premium luxury furniture in Nigeria. Sofas, dining sets, royal collections and more — Doxa Home, Airport Road, Benin City.",
+    "Shop premium luxury furniture in Nigeria. Sofas, dining sets, royal collections and more — Doxa Home, 108 Akpakpava Road, Benin City.",
 };
 
 export default function HomePage() {

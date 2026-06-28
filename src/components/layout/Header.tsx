@@ -51,7 +51,7 @@ export function Header() {
         className={cn(
           "fixed top-0 left-0 right-0 z-40 transition-all duration-500",
           solidBg
-            ? "bg-white border-b border-[#e8e4de] shadow-sm"
+            ? "bg-white border-b border-ink-200 shadow-sm"
             : "bg-transparent"
         )}
         onMouseLeave={() => setActiveNav(null)}
@@ -60,36 +60,46 @@ export function Header() {
         <div
           className={cn(
             "hidden lg:block transition-all duration-500",
-            solidBg ? "bg-[#f4f0e8] border-b border-[#e8e4de]" : "bg-black/25"
+            solidBg ? "bg-ink-100 border-b border-ink-200" : "bg-black/25"
           )}
         >
           <div className="max-w-screen-xl mx-auto px-8 flex items-center justify-between h-9">
             <p className={cn(
               "text-[10px] tracking-[0.18em] uppercase font-sans transition-colors duration-500",
-              solidBg ? "text-[#6b6560]" : "text-white/35"
+              solidBg ? "text-ink-400" : "text-white/35"
             )}>
-              Free delivery on orders over ₦500,000 — Airport Road, Benin City
+              Free delivery on orders over ₦500,000 — 108 Akpakpava Road, Benin City
             </p>
-            <div className={cn(
-              "flex items-center divide-x transition-colors duration-500",
-              solidBg ? "divide-[#e8e4de]" : "divide-white/10"
-            )}>
-              {[
-                { label: "Our Story",  href: "/about"   },
-                { label: "Contact",    href: "/contact"  },
-                { label: "Showroom",   href: "/contact#showroom" },
-              ].map(({ label, href }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className={cn(
-                    "px-4 text-[10px] tracking-[0.14em] uppercase transition-colors duration-200 font-sans",
-                    solidBg ? "text-[#6b6560] hover:text-[#1a1816]" : "text-white/40 hover:text-white/80"
-                  )}
-                >
-                  {label}
-                </Link>
-              ))}
+            <div className="flex items-center gap-10 transition-colors duration-500">
+              <Link
+                href="/about"
+                className={cn(
+                  "font-sans text-[10px] tracking-[0.18em] uppercase transition-colors duration-200 inline-block",
+                  solidBg ? "text-ink-400 hover:text-ink-950" : "text-white/40 hover:text-white/80"
+                )}
+              >
+                Our Story
+              </Link>
+              <span className={cn("w-[1px] h-3.5 transition-colors duration-500", solidBg ? "bg-ink-200" : "bg-white/10")} />
+              <Link
+                href="/contact"
+                className={cn(
+                  "font-sans text-[10px] tracking-[0.18em] uppercase transition-colors duration-200 inline-block",
+                  solidBg ? "text-ink-400 hover:text-ink-950" : "text-white/40 hover:text-white/80"
+                )}
+              >
+                Contact
+              </Link>
+              <span className={cn("w-[1px] h-3.5 transition-colors duration-500", solidBg ? "bg-ink-200" : "bg-white/10")} />
+              <Link
+                href="/contact#showroom"
+                className={cn(
+                  "font-sans text-[10px] tracking-[0.18em] uppercase transition-colors duration-200 inline-block",
+                  solidBg ? "text-ink-400 hover:text-ink-950" : "text-white/40 hover:text-white/80"
+                )}
+              >
+                Showroom
+              </Link>
             </div>
           </div>
         </div>
@@ -114,13 +124,32 @@ export function Header() {
 
           {/* Desktop nav links — centered */}
           <nav className="hidden lg:flex items-center gap-9" aria-label="Main navigation">
+            <Link
+              href="/"
+              className={cn(
+                "nav-link pb-1 transition-all duration-300",
+                solidBg ? "nav-link-dark text-ink-400" : "text-white/75"
+              )}
+            >
+              Home
+            </Link>
+            <Link
+              href="/gallery"
+              className={cn(
+                "nav-link pb-1 transition-all duration-300",
+                solidBg ? "nav-link-dark text-ink-400" : "text-white/75",
+                pathname === "/gallery" && (solidBg ? "text-[#D4AF37] active" : "text-white active")
+              )}
+            >
+              Gallery
+            </Link>
             {navLinks.map((link) => (
               <button
                 key={link.slug}
                 className={cn(
-                  "nav-link",
-                  solidBg ? "nav-link-dark text-[#6b6560]" : "text-white/75",
-                  activeNav === link.slug && (solidBg ? "text-[#0c0c0c]" : "text-white")
+                  "nav-link pb-1 transition-all duration-300",
+                  solidBg ? "nav-link-dark text-ink-400" : "text-white/75",
+                  activeNav === link.slug && (solidBg ? "text-[#D4AF37] active" : "text-white active")
                 )}
                 onMouseEnter={() => setActiveNav(link.slug)}
               >
@@ -136,7 +165,7 @@ export function Header() {
               aria-label="Search products"
               className={cn(
                 "w-10 h-10 flex items-center justify-center transition-colors duration-200",
-                solidBg ? "text-neutral-500 hover:text-[#0c0c0c]" : "text-white/50 hover:text-white"
+                solidBg ? "text-ink-400 hover:text-[#D4AF37]" : "text-white/50 hover:text-white"
               )}
             >
               <Search size={22} strokeWidth={1.5} />
@@ -147,12 +176,12 @@ export function Header() {
               aria-label="Wishlist"
               className={cn(
                 "relative w-10 h-10 items-center justify-center transition-colors duration-200 hidden sm:flex",
-                solidBg ? "text-neutral-500 hover:text-[#0c0c0c]" : "text-white/50 hover:text-white"
+                solidBg ? "text-ink-400 hover:text-[#D4AF37]" : "text-white/50 hover:text-white"
               )}
             >
               <Heart size={22} strokeWidth={1.5} />
               {mounted && wishlistCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-[14px] h-[14px] rounded-full bg-[#dc320c] text-white text-[9px] flex items-center justify-center font-sans font-semibold leading-none">
+                <span className="absolute top-1.5 right-1.5 w-[14px] h-[14px] rounded-full bg-[#D4AF37] text-black text-[9px] flex items-center justify-center font-sans font-semibold leading-none">
                   {wishlistCount}
                 </span>
               )}
@@ -163,12 +192,12 @@ export function Header() {
               aria-label={`Shopping bag — ${mounted ? itemCount : 0} items`}
               className={cn(
                 "relative w-10 h-10 flex items-center justify-center transition-colors duration-200",
-                solidBg ? "text-neutral-500 hover:text-[#0c0c0c]" : "text-white/50 hover:text-white"
+                solidBg ? "text-ink-400 hover:text-[#D4AF37]" : "text-white/50 hover:text-white"
               )}
             >
               <ShoppingBag size={22} strokeWidth={1.5} />
               {mounted && itemCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-[14px] h-[14px] rounded-full bg-[#dc320c] text-white text-[9px] flex items-center justify-center font-sans font-semibold leading-none">
+                <span className="absolute top-1.5 right-1.5 w-[14px] h-[14px] rounded-full bg-[#D4AF37] text-black text-[9px] flex items-center justify-center font-sans font-semibold leading-none">
                   {itemCount > 9 ? "9+" : itemCount}
                 </span>
               )}
@@ -180,7 +209,7 @@ export function Header() {
               aria-label="Open menu"
               className={cn(
                 "lg:hidden w-10 h-10 flex items-center justify-center transition-colors duration-200 ml-1",
-                solidBg ? "text-[#0c0c0c] hover:text-[#0c0c0c]" : "text-white/50 hover:text-white"
+                solidBg ? "text-ink-950 hover:text-[#D4AF37]" : "text-white/50 hover:text-white"
               )}
             >
               <Menu size={24} strokeWidth={1.5} />

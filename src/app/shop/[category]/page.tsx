@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getProductsByCategory } from "@/lib/data/products";
+import { getRemoteProducts } from "@/lib/data/products";
 import { getCategoryBySlug, categories } from "@/lib/data/categories";
 import { ProductCard } from "@/components/product/ProductCard";
 import Link from "next/link";
@@ -29,7 +29,8 @@ export default async function CategoryPage({ params }: PageProps) {
   const cat = getCategoryBySlug(category);
   if (!cat) notFound();
 
-  const products = getProductsByCategory(category);
+  const allProducts = await getRemoteProducts();
+  const products = allProducts.filter((p) => p.category === category);
 
   const hasProducts = products.length > 0;
 
@@ -47,10 +48,10 @@ export default async function CategoryPage({ params }: PageProps) {
 
         {/* Page header */}
         <div className="mb-12">
-          <p className="text-[#dc320c] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2">
+          <p className="text-[#D4AF37] text-[0.65rem] tracking-[0.25em] uppercase font-sans mb-2">
             Collection
           </p>
-          <h1 className="font-serif text-4xl lg:text-5xl text-ink-950 font-light mb-3">
+          <h1 className="font-serif text-4xl lg:text-5xl text-ink-50 font-light mb-3">
             {cat.label}
           </h1>
           <p className="text-ink-500 font-sans text-sm max-w-lg">
@@ -70,7 +71,7 @@ export default async function CategoryPage({ params }: PageProps) {
             </p>
             <Link
               href="/shop"
-              className="text-[0.65rem] tracking-widest uppercase font-sans text-[#dc320c] hover:text-[#a81e0a] transition-colors"
+              className="text-[0.65rem] tracking-widest uppercase font-sans text-[#D4AF37] hover:text-[#AA7700] transition-colors"
             >
               Browse All Collections →
             </Link>
